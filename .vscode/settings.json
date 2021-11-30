@@ -1,0 +1,28 @@
+{
+  "editor.detectIndentation": false,
+  "editor.tabSize": 4,
+  "editor.insertSpaces": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+  ]
+}
