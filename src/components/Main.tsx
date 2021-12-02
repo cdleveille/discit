@@ -10,14 +10,12 @@ import { ClientConfig } from "../helpers/clientconfig";
 import { IDisc } from "../types/abstract";
 
 const API_URL = ClientConfig.Public.NEXT_PUBLIC_API_URL;
-// const NUM_DISCS_TO_RENDER = 100;
+const NUM_DISCS_TO_RENDER_INCR = 100;
 
 const Main = () => {
-	// const [nextDiscToRenderIndex, setNextDiscToRenderIndex] = useState(0);
-	// eslint-disable-next-line no-unused-vars
 	const [discs, setDiscs] = useState([] as IDisc[]);
 	const [filteredDiscs, setFilteredDiscs] = useState([] as IDisc[]);
-	// const [renderedDiscs, setRenderedDiscs] = useState([] as IDisc[]);
+	const [renderedDiscs, setRenderedDiscs] = useState([] as IDisc[]);
 	const [detailEnabled, setDetailEnabled] = useState(true);
 	const [detailVisible, setDetailVisible] = useState(false);
 	const [activeDetailDisc, setActiveDetailDisc] = useState({} as IDisc);
@@ -25,33 +23,32 @@ const Main = () => {
 	const [showOverlay, setShowOverlay] = useState(false);
 	const [spinClass, setSpinClass] = useState("spin-in");
 	const [filterInputsDisabed, setFilterInputsDisabled] = useState(false);
+	const [numDiscsToRender, setNumDiscsToRender] = useState(NUM_DISCS_TO_RENDER_INCR);
 
 	useEffect(() => {
 		(async () => {
 			const discsFromServer = await fetchDiscsFromServer();
 			setDiscs(discsFromServer);
-			setFilteredDiscs(discsFromServer);
+			updateFilteredDiscs(discsFromServer);
+			updateRenderedDiscs(discsFromServer);
 		})();
 	}, []);
 
-	// useEffect(() => {
-	// 	(async () => {
-	// 		console.log(filteredDiscs);
-	// 		setRenderedDiscs([]);
-	// 		setNextDiscToRenderIndex(0);
-	// 		await renderMoreDiscs();
-	// 	})();
-	// }, [filteredDiscs]);
+	useEffect(() => {
+		updateRenderedDiscs(filteredDiscs);
+	}, [numDiscsToRender, filteredDiscs]);
 
-	// const renderMoreDiscs = async () => {
-	// 	if (renderedDiscs.length < filteredDiscs.length) {
-	// 		const endIndex = nextDiscToRenderIndex + NUM_DISCS_TO_RENDER;
-	// 		const newDiscsToRender = filteredDiscs.slice(nextDiscToRenderIndex, endIndex);
+	const updateFilteredDiscs = (newFilteredDiscs: IDisc[]) => {
+		setFilteredDiscs(newFilteredDiscs);
+	};
 
-	// 		setRenderedDiscs([...renderedDiscs, ...newDiscsToRender]);
-	// 		setNextDiscToRenderIndex(endIndex);
-	// 	}
-	// };
+	const updateNumDiscsToRender = () => {
+		setNumDiscsToRender(numDiscsToRender + NUM_DISCS_TO_RENDER_INCR);
+	};
+
+	const updateRenderedDiscs = (filteredDiscsToRender: IDisc[]) => {
+		setRenderedDiscs(filteredDiscsToRender.slice(0, numDiscsToRender));
+	};
 
 	const fetchDiscsFromServer = async (): Promise<IDisc[]> => {
 		const res: Response = await fetch(`${API_URL}/disc`);
@@ -82,16 +79,16 @@ const Main = () => {
 		}, 500);
 	};
 
-	const onNameInputChange = (value: string) => {
-		console.log(value);
+	const onNameInputChange = async (value: string) => {
+		setNumDiscsToRender(NUM_DISCS_TO_RENDER_INCR);
 		if (!value) {
-			setFilteredDiscs(discs);
+			updateFilteredDiscs(discs);
 		} else {
 			const newFilteredDiscs = discs.filter((disc) => {
 				return disc.name.toLowerCase().match(value.toLowerCase());
 			});
 
-			setFilteredDiscs(newFilteredDiscs);
+			updateFilteredDiscs(newFilteredDiscs);
 		}
 	};
 
@@ -102,7 +99,7 @@ const Main = () => {
 			<Header />
 			<Form data={discs} disabled={filterInputsDisabed} onNameInputChange={onNameInputChange} />
 			<DiscDetail data={activeDetailDisc} color={activeDetailDiscColor} visible={detailVisible} spinClass={spinClass} />
-			<DiscGrid data={filteredDiscs} showDiscDetail={showDiscDetail} />
+			<DiscGrid data={renderedDiscs} updateNumDiscsToRender={updateNumDiscsToRender} showDiscDetail={showDiscDetail} />
 		</div>
 	);
 };

@@ -6,20 +6,24 @@ import { IDisc } from "../types/abstract";
 
 interface IDiscGridProps {
 	data: IDisc[];
-	// renderMoreDiscs: () => void;
+	updateNumDiscsToRender: () => void;
 	showDiscDetail: (data: IDisc, color: string) => void;
 }
 
-export const DiscGrid: React.FC<IDiscGridProps> = ({ data, showDiscDetail }) => {
+export const DiscGrid: React.FC<IDiscGridProps> = ({ data, updateNumDiscsToRender, showDiscDetail }) => {
 	if (typeof window !== "undefined") {
 		window.onscroll = () => {
 			if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
-				// renderMoreDiscs();
+				updateNumDiscsToRender();
 			}
 		};
 	}
 
-	const discs = data.map((disc, i) => <DiscGridItem key={i} data={disc} newColor={getRandomDiscColor()} showDiscDetail={showDiscDetail} />);
+	const getDiscs = () => {
+		return data.map((disc, i) => <DiscGridItem key={i} data={disc} newColor={getRandomDiscColor()} showDiscDetail={showDiscDetail} />);
+	};
+
+	const discs = getDiscs();
 
 	return <div className="disc-grid-inner">{discs}</div>;
 };
