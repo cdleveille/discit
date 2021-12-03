@@ -5,22 +5,30 @@ import { IDisc } from "../types/abstract";
 interface IDiscDetailProps {
 	data: IDisc | null;
 	color: string;
+	backgroundColor: string;
 	visible: boolean;
 	spinClass: string;
 }
 
-export const DiscDetail: React.FC<IDiscDetailProps> = ({ data, color, visible, spinClass }) => {
+export const DiscDetail: React.FC<IDiscDetailProps> = ({ data, color, backgroundColor, visible, spinClass }) => {
 	const styles: CSSProperties = {
-		backgroundColor: color,
+		color: color,
+		backgroundColor: backgroundColor,
 		display: visible ? "block" : "none"
 	};
 
+	const borderStyles: CSSProperties = {
+		border: `6px solid ${color + "25"}`
+	};
+
 	return data ? (
-		<div className={`disc-detail ${spinClass}`} style={styles}>
-			<div className="disc-detail-inner-circle"></div>
+		<div className={`disc-detail ${spinClass}`} style={{ ...styles, ...borderStyles }}>
+			<div className="disc-detail-inner-circle" style={borderStyles}></div>
 			<div className="disc-detail-container">
-				<div className="disc-detail-name">{data.name}</div>
-				<div className="disc-detail-fields">
+				<div className="disc-detail-name" style={{ color }}>
+					{data.name}
+				</div>
+				<div className="disc-detail-fields" style={{ color }}>
 					<span>{data.brand}</span>
 					<br />
 					<span>{data.category}</span>

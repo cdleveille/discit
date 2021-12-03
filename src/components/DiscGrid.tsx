@@ -1,37 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import DiscGridItem from "./DiscGridItem";
-import { getRandomDiscColor } from "../helpers/util";
 import { IDisc } from "../types/abstract";
 
 interface IDiscGridProps {
 	data: IDisc[];
 	renderMoreDiscs: () => void;
-	showDiscDetail: (data: IDisc, color: string) => void;
+	showDiscDetail: (data: IDisc, color: string, backgroundColor: string) => void;
 	count: number;
 }
 
 const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDetail, count }) => {
+	useEffect(() => {
+		const discGrid = document.getElementById("disc-grid");
+		if (discGrid) {
+			if (discGrid.clientHeight < window.innerHeight - discGrid.offsetTop) {
+				renderMoreDiscs();
+			}
+		}
+	}, [data]);
+
 	if (typeof window !== "undefined") {
 		window.onscroll = () => {
-			if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+			if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) {
 				renderMoreDiscs();
 			}
 		};
 	}
-
-	const getDiscs = () => {
-		return data.map((disc, i) => <DiscGridItem key={i} data={disc} newColor={getRandomDiscColor()} showDiscDetail={showDiscDetail} />);
-	};
-
-	const discs = getDiscs();
 
 	return (
 		<>
 			<div className="disc-grid-count">
 				{count} disc{count === 1 ? "" : "s"}
 			</div>
-			<div className="disc-grid-inner">{discs}</div>
+			<div className="disc-grid" id="disc-grid">
+				{data.map((disc, i) => (
+					<DiscGridItem key={i} data={disc} showDiscDetail={showDiscDetail} />
+				))}
+			</div>
 		</>
 	);
 };

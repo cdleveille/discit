@@ -46,7 +46,9 @@ const Form: React.FC<IFormProps> = ({
 			discs
 				.map((option) => option.name)
 				.filter(uniqueValue)
-				.sort()
+				.sort((a, b) => {
+					return a.toLowerCase().localeCompare(b.toLowerCase());
+				})
 		);
 	}, [filteredDiscsByBrand, filteredDiscsByCategory, filteredDiscsByStability]);
 
@@ -57,7 +59,9 @@ const Form: React.FC<IFormProps> = ({
 			discs
 				.map((option) => option.brand)
 				.filter(uniqueValue)
-				.sort()
+				.sort((a, b) => {
+					return a.toLowerCase().localeCompare(b.toLowerCase());
+				})
 		);
 	}, [filteredDiscsByName, filteredDiscsByCategory, filteredDiscsByStability]);
 
@@ -68,7 +72,9 @@ const Form: React.FC<IFormProps> = ({
 			discs
 				.map((option) => option.category)
 				.filter(uniqueValue)
-				.sort()
+				.sort((a, b) => {
+					return a.toLowerCase().localeCompare(b.toLowerCase());
+				})
 		);
 	}, [filteredDiscsByName, filteredDiscsByBrand, filteredDiscsByStability]);
 
@@ -79,7 +85,9 @@ const Form: React.FC<IFormProps> = ({
 			discs
 				.map((option) => option.stability)
 				.filter(uniqueValue)
-				.sort()
+				.sort((a, b) => {
+					return a.toLowerCase().localeCompare(b.toLowerCase());
+				})
 		);
 	}, [filteredDiscsByName, filteredDiscsByBrand, filteredDiscsByCategory]);
 
