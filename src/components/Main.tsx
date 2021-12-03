@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Background from "./Background";
 import DiscDetail from "./DiscDetail";
@@ -6,54 +6,92 @@ import DiscGrid from "./DiscGrid";
 import Form from "./Form";
 import Header from "./Header";
 import Overlay from "./Overlay";
-import { ClientConfig } from "../helpers/clientconfig";
+
+import Config from "../helpers/config";
+import { stringIncludesString, stringArrayIncludesString, getArrayIntersection } from "../helpers/util";
 import { IDisc } from "../types/abstract";
+import { NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
 
-const API_URL = ClientConfig.Public.NEXT_PUBLIC_API_URL;
-const NUM_DISCS_TO_RENDER_INCR = 100;
+const Main: React.FC = () => {
+	const [allDiscs, setAllDiscs] = useState<IDisc[]>([]);
+	const [filteredDiscs, setFilteredDiscs] = useState<IDisc[]>([]);
+	const [filteredDiscsByName, setFilteredDiscsByName] = useState<IDisc[]>([]);
+	const [filteredDiscsByBrand, setFilteredDiscsByBrand] = useState<IDisc[]>([]);
+	const [filteredDiscsByCategory, setFilteredDiscsByCategory] = useState<IDisc[]>([]);
+	const [filteredDiscsByStability, setFilteredDiscsByStability] = useState<IDisc[]>([]);
+	const [renderedDiscs, setRenderedDiscs] = useState<IDisc[]>([]);
+	const [numDiscsToRender, setNumDiscsToRender] = useState(NUM_DISCS_TO_RENDER_INCR);
 
-const Main = () => {
-	const [discs, setDiscs] = useState([] as IDisc[]);
-	const [filteredDiscs, setFilteredDiscs] = useState([] as IDisc[]);
-	const [renderedDiscs, setRenderedDiscs] = useState([] as IDisc[]);
 	const [detailEnabled, setDetailEnabled] = useState(true);
 	const [detailVisible, setDetailVisible] = useState(false);
-	const [activeDetailDisc, setActiveDetailDisc] = useState({} as IDisc);
-	const [activeDetailDiscColor, setActiveDetailDiscColor] = useState("#ffc000");
-	const [showOverlay, setShowOverlay] = useState(false);
+	const [activeDetailDisc, setActiveDetailDisc] = useState<IDisc | null>(null);
+	const [activeDetailDiscColor, setActiveDetailDiscColor] = useState("");
 	const [spinClass, setSpinClass] = useState("spin-in");
+	const [showOverlay, setShowOverlay] = useState(false);
+
+	const [nameFilterValue, setNameFilterValue] = useState("");
+	const [brandFilterValue, setBrandFilterValue] = useState<string[]>([]);
+	const [categoryFilterValue, setCategoryFilterValue] = useState<string[]>([]);
+	const [stabilityFilterValue, setStabilityFilterValue] = useState<string[]>([]);
 	const [filterInputsDisabed, setFilterInputsDisabled] = useState(false);
-	const [numDiscsToRender, setNumDiscsToRender] = useState(NUM_DISCS_TO_RENDER_INCR);
 
 	useEffect(() => {
 		(async () => {
-			const discsFromServer = await fetchDiscsFromServer();
-			setDiscs(discsFromServer);
-			updateFilteredDiscs(discsFromServer);
-			updateRenderedDiscs(discsFromServer);
+			const allDiscsFromServer = await fetchAllDiscsFromServer();
+			setAllDiscs(allDiscsFromServer);
+			resetFilteredDiscs(allDiscsFromServer);
 		})();
 	}, []);
 
 	useEffect(() => {
-		updateRenderedDiscs(filteredDiscs);
-	}, [numDiscsToRender, filteredDiscs]);
+		setRenderedDiscs(filteredDiscs.slice(0, numDiscsToRender));
+	}, [filteredDiscs, numDiscsToRender]);
 
-	const updateFilteredDiscs = (newFilteredDiscs: IDisc[]) => {
-		setFilteredDiscs(newFilteredDiscs);
-	};
+	useEffect(() => {
+		setNumDiscsToRender(NUM_DISCS_TO_RENDER_INCR);
 
-	const updateNumDiscsToRender = () => {
-		setNumDiscsToRender(numDiscsToRender + NUM_DISCS_TO_RENDER_INCR);
-	};
+		if (!nameFilterValue && brandFilterValue.length === 0 && categoryFilterValue.length === 0 && stabilityFilterValue.length === 0) {
+			resetFilteredDiscs(allDiscs);
+		} else {
+			const newFilteredDiscsByName = allDiscs.filter((disc) => {
+				return nameFilterValue ? stringIncludesString(disc.name, nameFilterValue) : true;
+			});
 
-	const updateRenderedDiscs = (filteredDiscsToRender: IDisc[]) => {
-		setRenderedDiscs(filteredDiscsToRender.slice(0, numDiscsToRender));
-	};
+			const newFilteredDiscsByBrand = allDiscs.filter((disc) => {
+				return brandFilterValue.length > 0 ? stringArrayIncludesString(brandFilterValue, disc.brand, true) : true;
+			});
 
-	const fetchDiscsFromServer = async (): Promise<IDisc[]> => {
-		const res: Response = await fetch(`${API_URL}/disc`);
+			const newFilteredDiscsByCategory = allDiscs.filter((disc) => {
+				return categoryFilterValue.length > 0 ? stringArrayIncludesString(categoryFilterValue, disc.category, true) : true;
+			});
+
+			const newFilteredDiscsByStability = allDiscs.filter((disc) => {
+				return stabilityFilterValue.length > 0 ? stringArrayIncludesString(stabilityFilterValue, disc.stability, true) : true;
+			});
+
+			const newFilteredDiscs = getArrayIntersection(
+				newFilteredDiscsByName,
+				newFilteredDiscsByBrand,
+				newFilteredDiscsByCategory,
+				newFilteredDiscsByStability
+			);
+
+			setFilteredDiscs(newFilteredDiscs);
+			setFilteredDiscsByName(newFilteredDiscsByName);
+			setFilteredDiscsByBrand(newFilteredDiscsByBrand);
+			setFilteredDiscsByCategory(newFilteredDiscsByCategory);
+			setFilteredDiscsByStability(newFilteredDiscsByStability);
+		}
+	}, [nameFilterValue, brandFilterValue, categoryFilterValue, stabilityFilterValue]);
+
+	const fetchAllDiscsFromServer = async (): Promise<IDisc[]> => {
+		const res: Response = await fetch(`${Config.Public.API_URL}/disc`);
 		const data: IDisc[] = await res.json();
 		return data;
+	};
+
+	const incrementNumDiscsToRender = () => {
+		if (numDiscsToRender < filteredDiscs.length) setNumDiscsToRender(numDiscsToRender + NUM_DISCS_TO_RENDER_INCR);
 	};
 
 	const showDiscDetail = (data: IDisc, color: string) => {
@@ -79,17 +117,12 @@ const Main = () => {
 		}, 500);
 	};
 
-	const onNameInputChange = async (value: string) => {
-		setNumDiscsToRender(NUM_DISCS_TO_RENDER_INCR);
-		if (!value) {
-			updateFilteredDiscs(discs);
-		} else {
-			const newFilteredDiscs = discs.filter((disc) => {
-				return disc.name.toLowerCase().match(value.toLowerCase());
-			});
-
-			updateFilteredDiscs(newFilteredDiscs);
-		}
+	const resetFilteredDiscs = (discs: IDisc[]) => {
+		setFilteredDiscs(discs);
+		setFilteredDiscsByName(discs);
+		setFilteredDiscsByBrand(discs);
+		setFilteredDiscsByCategory(discs);
+		setFilteredDiscsByStability(discs);
 	};
 
 	return (
@@ -97,9 +130,19 @@ const Main = () => {
 			<Background onClick={hideDiscDetail} />
 			<Overlay visible={showOverlay} />
 			<Header />
-			<Form data={discs} disabled={filterInputsDisabed} onNameInputChange={onNameInputChange} />
+			<Form
+				filteredDiscsByName={filteredDiscsByName}
+				filteredDiscsByBrand={filteredDiscsByBrand}
+				filteredDiscsByCategory={filteredDiscsByCategory}
+				filteredDiscsByStability={filteredDiscsByStability}
+				disabled={filterInputsDisabed}
+				setNameFilterValue={setNameFilterValue}
+				setBrandFilterValue={setBrandFilterValue}
+				setCategoryFilterValue={setCategoryFilterValue}
+				setStabilityFilterValue={setStabilityFilterValue}
+			/>
 			<DiscDetail data={activeDetailDisc} color={activeDetailDiscColor} visible={detailVisible} spinClass={spinClass} />
-			<DiscGrid data={renderedDiscs} updateNumDiscsToRender={updateNumDiscsToRender} showDiscDetail={showDiscDetail} />
+			<DiscGrid data={renderedDiscs} renderMoreDiscs={incrementNumDiscsToRender} showDiscDetail={showDiscDetail} count={filteredDiscs.length} />
 		</div>
 	);
 };

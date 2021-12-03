@@ -7,9 +7,7 @@ body {
 	padding: 0;
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-	font-size: 1rem;
 	user-select: none;
-	background-color: #fff1e7;
 }
 
 a:link,
@@ -27,8 +25,6 @@ a:visited {
 .input {
 	margin: 0.5rem;
 	width: 20rem;
-	min-width: 20rem;
-	max-width: 20rem;
 }
 
 .background {
@@ -37,8 +33,6 @@ a:visited {
 	right: 0;
 	top: 0;
 	bottom: 0;
-	width: 100%;
-	height: 100%;
 	z-index: 0;
 }
 
@@ -48,8 +42,6 @@ a:visited {
 	right: 0;
 	top: 0;
 	bottom: 0;
-	width: 100%;
-	height: 100%;
 	pointer-events: none;
 	background-color: black;
 	z-index: 5;
@@ -57,7 +49,9 @@ a:visited {
 }
 
 .header {
-	font-size: 2.5rem;
+	margin-top: 0.25rem;
+	margin: 1rem;
+	font-size: 3.5rem;
 	font-weight: 600;
 	color: inherit;
 	text-align: center;
@@ -144,6 +138,13 @@ a:visited {
 	border-radius: 10px;
 }
 
+.disc-grid-count {
+	text-align: center;
+	margin: 1rem;
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+
 .disc-grid-inner {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, 12rem);
@@ -169,20 +170,20 @@ a:visited {
 	place-items: center;
 	animation: spin-in ease-out 0.5s;
 	z-index: 1;
-	transition: 0.1s;
+	transition: 0.25s;
 }
 
 .disc:hover {
 	cursor: pointer;
 	width: 11.5rem;
 	height: 11.5rem;
-	transition: 0.1s;
+	transition: 0.25s;
 }
 
 .disc:hover .disc-inner-circle {
 	width: 8.5rem;
 	height: 8.5rem;
-	transition: 0.1s;
+	transition: 0.25s;
 }
 
 .disc-fields:hover {
@@ -195,7 +196,7 @@ a:visited {
 	position: absolute;
 	border-radius: 50%;
 	border: 3px solid rgba(85, 85, 85, 0.25);
-	transition: 0.1s;
+	transition: 0.25s;
 }
 
 .disc-text {
@@ -245,7 +246,6 @@ a:visited {
 	100% {
 		opacity: 1;
 		transform: rotate(0deg);
-		display: block;
 	}
 }
 
@@ -257,7 +257,6 @@ a:visited {
 	100% {
 		opacity: 0;
 		transform: rotate(-720deg);
-		display: none;
 	}
 }
 

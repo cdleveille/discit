@@ -20,10 +20,6 @@
     "react"
   ],
   "rules": {
-    "indent": [
-      "warn",
-      "tab"
-    ],
     "quotes": [
       "warn",
       "double"

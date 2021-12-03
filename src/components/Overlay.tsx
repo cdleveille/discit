@@ -6,7 +6,7 @@ interface IOverlayProps {
 
 export const Overlay: React.FC<IOverlayProps> = ({ visible }) => {
 	const styles: CSSProperties = {
-		opacity: visible ? "40%" : "0%"
+		opacity: visible ? "50%" : "0%"
 	};
 
 	return <div className="overlay" style={styles}></div>;

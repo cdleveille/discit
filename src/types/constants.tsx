@@ -21,3 +21,5 @@ export const DiscColors: string[] = [
 	"#ffba00",
 	"#cfb53b"
 ];
+
+export const NUM_DISCS_TO_RENDER_INCR = 50;

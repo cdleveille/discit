@@ -5,55 +5,83 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import React, { useState, useEffect, SyntheticEvent } from "react";
 
-import { uniqueValue } from "../helpers/util";
+import { getArrayIntersection, uniqueValue } from "../helpers/util";
 import { IDisc } from "../types/abstract";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 interface IFormProps {
-	data: IDisc[];
+	filteredDiscsByName: IDisc[];
+	filteredDiscsByBrand: IDisc[];
+	filteredDiscsByCategory: IDisc[];
+	filteredDiscsByStability: IDisc[];
 	disabled: boolean;
-	onNameInputChange: (value: string) => void;
+	setNameFilterValue: (value: string) => void;
+	setBrandFilterValue: (value: string[]) => void;
+	setCategoryFilterValue: (value: string[]) => void;
+	setStabilityFilterValue: (value: string[]) => void;
 }
 
-export const Form: React.FC<IFormProps> = ({ data, disabled, onNameInputChange }) => {
+const Form: React.FC<IFormProps> = ({
+	filteredDiscsByName,
+	filteredDiscsByBrand,
+	filteredDiscsByCategory,
+	filteredDiscsByStability,
+	disabled,
+	setNameFilterValue,
+	setBrandFilterValue,
+	setCategoryFilterValue,
+	setStabilityFilterValue
+}) => {
 	const [names, setNames] = useState([] as string[]);
 	const [brands, setBrands] = useState([] as string[]);
 	const [categories, setCategories] = useState([] as string[]);
 	const [stabilities, setStabilities] = useState([] as string[]);
 
 	useEffect(() => {
-		if (data.length === 0) return;
+		const discs = getArrayIntersection(filteredDiscsByBrand, filteredDiscsByCategory, filteredDiscsByStability);
 
 		setNames(
-			data
+			discs
 				.map((option) => option.name)
 				.filter(uniqueValue)
 				.sort()
 		);
+	}, [filteredDiscsByBrand, filteredDiscsByCategory, filteredDiscsByStability]);
+
+	useEffect(() => {
+		const discs = getArrayIntersection(filteredDiscsByName, filteredDiscsByCategory, filteredDiscsByStability);
 
 		setBrands(
-			data
+			discs
 				.map((option) => option.brand)
 				.filter(uniqueValue)
 				.sort()
 		);
+	}, [filteredDiscsByName, filteredDiscsByCategory, filteredDiscsByStability]);
+
+	useEffect(() => {
+		const discs = getArrayIntersection(filteredDiscsByName, filteredDiscsByBrand, filteredDiscsByStability);
 
 		setCategories(
-			data
+			discs
 				.map((option) => option.category)
 				.filter(uniqueValue)
 				.sort()
 		);
+	}, [filteredDiscsByName, filteredDiscsByBrand, filteredDiscsByStability]);
+
+	useEffect(() => {
+		const discs = getArrayIntersection(filteredDiscsByName, filteredDiscsByBrand, filteredDiscsByCategory);
 
 		setStabilities(
-			data
+			discs
 				.map((option) => option.stability)
 				.filter(uniqueValue)
 				.sort()
 		);
-	}, [data]);
+	}, [filteredDiscsByName, filteredDiscsByBrand, filteredDiscsByCategory]);
 
 	return (
 		<div className="form">
@@ -63,12 +91,11 @@ export const Form: React.FC<IFormProps> = ({ data, disabled, onNameInputChange }
 				freeSolo
 				options={names}
 				renderInput={(params) => <TextField {...params} label="name" placeholder="name" />}
-				onInputChange={(e: SyntheticEvent, value: string) => onNameInputChange(value)}
+				onInputChange={(_e: SyntheticEvent, value: string) => setNameFilterValue(value)}
 			/>
 			<Autocomplete
 				disabled={disabled}
 				className="input"
-				freeSolo
 				multiple
 				options={brands}
 				disableCloseOnSelect
@@ -80,11 +107,11 @@ export const Form: React.FC<IFormProps> = ({ data, disabled, onNameInputChange }
 					</li>
 				)}
 				renderInput={(params) => <TextField {...params} label="brand" placeholder="brand" />}
+				onChange={(_e: SyntheticEvent, value: string[]) => setBrandFilterValue(value)}
 			/>
 			<Autocomplete
 				disabled={disabled}
 				className="input"
-				freeSolo
 				multiple
 				options={categories}
 				disableCloseOnSelect
@@ -96,11 +123,11 @@ export const Form: React.FC<IFormProps> = ({ data, disabled, onNameInputChange }
 					</li>
 				)}
 				renderInput={(params) => <TextField {...params} label="category" placeholder="category" />}
+				onChange={(_e: SyntheticEvent, value: string[]) => setCategoryFilterValue(value)}
 			/>
 			<Autocomplete
 				disabled={disabled}
 				className="input"
-				freeSolo
 				multiple
 				options={stabilities}
 				disableCloseOnSelect
@@ -112,6 +139,7 @@ export const Form: React.FC<IFormProps> = ({ data, disabled, onNameInputChange }
 					</li>
 				)}
 				renderInput={(params) => <TextField {...params} label="stability" placeholder="stability" />}
+				onChange={(_e: SyntheticEvent, value: string[]) => setStabilityFilterValue(value)}
 			/>
 		</div>
 	);

@@ -3,7 +3,7 @@ import React, { CSSProperties } from "react";
 import { IDisc } from "../types/abstract";
 
 interface IDiscDetailProps {
-	data: IDisc;
+	data: IDisc | null;
 	color: string;
 	visible: boolean;
 	spinClass: string;
