@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import Background from "./Background";
 import DiscDetail from "./DiscDetail";
 import DiscGrid from "./DiscGrid";
 import Form from "./Form";
@@ -129,8 +128,7 @@ const Main: React.FC = () => {
 
 	return (
 		<div className="main">
-			<Background onClick={hideDiscDetail} />
-			<Overlay visible={showOverlay} />
+			<Overlay visible={showOverlay} onClick={hideDiscDetail} />
 			<Header />
 			<Form
 				filteredDiscsByName={filteredDiscsByName}
