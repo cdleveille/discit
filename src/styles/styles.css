@@ -127,10 +127,17 @@ a:visited {
 }
 
 .disc-grid-count {
-	text-align: center;
-	margin: 1rem;
 	font-size: 1.25rem;
 	font-weight: 600;
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.disc-grid-count:hover {
+	cursor: pointer;
 }
 
 .disc-grid {

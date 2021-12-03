@@ -8,9 +8,10 @@ interface IDiscGridProps {
 	renderMoreDiscs: () => void;
 	showDiscDetail: (data: IDisc, color: string, backgroundColor: string) => void;
 	count: number;
+	toggleSortOrder: () => void;
 }
 
-const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDetail, count }) => {
+const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDetail, count, toggleSortOrder }) => {
 	useEffect(() => {
 		const discGrid = document.getElementById("disc-grid");
 		if (discGrid) {
@@ -33,7 +34,7 @@ const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDet
 
 	return (
 		<>
-			<div className="disc-grid-count">
+			<div className="disc-grid-count" onClick={() => toggleSortOrder()}>
 				{count} disc{count === 1 ? "" : "s"}
 			</div>
 			<div className="disc-grid" id="disc-grid">

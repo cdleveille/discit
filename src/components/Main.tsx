@@ -34,23 +34,48 @@ const Main: React.FC = () => {
 	const [categoryFilterValue, setCategoryFilterValue] = useState<string[]>([]);
 	const [stabilityFilterValue, setStabilityFilterValue] = useState<string[]>([]);
 	const [filterInputsDisabed, setFilterInputsDisabled] = useState(false);
+	const [sortAtoZ, setSortAtoZ] = useState(true);
 
 	useEffect(() => {
 		(async () => {
 			let allDiscsFromServer = await fetchAllDiscsFromServer();
+			allDiscsFromServer = sortDiscs(allDiscsFromServer);
 			setAllDiscs(allDiscsFromServer);
 			resetFilteredDiscs(allDiscsFromServer);
 		})();
 	}, []);
 
 	useEffect(() => {
+		const sortedDiscs = sortDiscs(allDiscs);
+		setAllDiscs(sortedDiscs);
+		console.log(sortedDiscs[0]);
+		applyFilters(true);
+	}, [sortAtoZ]);
+
+	useEffect(() => {
 		setRenderedDiscs(filteredDiscs.slice(0, numDiscsToRender));
 	}, [filteredDiscs, numDiscsToRender]);
 
 	useEffect(() => {
+		applyFilters();
+	}, [nameFilterValue, brandFilterValue, categoryFilterValue, stabilityFilterValue]);
+
+	const fetchAllDiscsFromServer = async (): Promise<IDisc[]> => {
+		const res: Response = await fetch(`${Config.Public.API_URL}/disc`);
+		const data: IDisc[] = await res.json();
+		return data;
+	};
+
+	const applyFilters = (applySort?: boolean) => {
 		setNumDiscsToRender(NUM_DISCS_TO_RENDER_INCR);
 
-		if (!nameFilterValue && brandFilterValue.length === 0 && categoryFilterValue.length === 0 && stabilityFilterValue.length === 0) {
+		if (
+			!nameFilterValue &&
+			brandFilterValue.length === 0 &&
+			categoryFilterValue.length === 0 &&
+			stabilityFilterValue.length === 0 &&
+			!applySort
+		) {
 			resetFilteredDiscs(allDiscs);
 		} else {
 			const newFilteredDiscsByName = allDiscs.filter((disc) => {
@@ -82,12 +107,6 @@ const Main: React.FC = () => {
 			setFilteredDiscsByCategory(newFilteredDiscsByCategory);
 			setFilteredDiscsByStability(newFilteredDiscsByStability);
 		}
-	}, [nameFilterValue, brandFilterValue, categoryFilterValue, stabilityFilterValue]);
-
-	const fetchAllDiscsFromServer = async (): Promise<IDisc[]> => {
-		const res: Response = await fetch(`${Config.Public.API_URL}/disc`);
-		const data: IDisc[] = await res.json();
-		return data;
 	};
 
 	const incrementNumDiscsToRender = () => {
@@ -126,6 +145,18 @@ const Main: React.FC = () => {
 		setFilteredDiscsByStability(discs);
 	};
 
+	const toggleSortOrder = () => {
+		setSortAtoZ(!sortAtoZ);
+	};
+
+	const sortDiscs = (discs: IDisc[]): IDisc[] => {
+		const sortOrder = sortAtoZ ? 1 : -1;
+
+		return discs.sort((a, b) => {
+			return sortOrder * a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+		});
+	};
+
 	return (
 		<div className="main">
 			<Overlay visible={showOverlay} onClick={hideDiscDetail} />
@@ -148,7 +179,13 @@ const Main: React.FC = () => {
 				visible={detailVisible}
 				spinClass={spinClass}
 			/>
-			<DiscGrid data={renderedDiscs} renderMoreDiscs={incrementNumDiscsToRender} showDiscDetail={showDiscDetail} count={filteredDiscs.length} />
+			<DiscGrid
+				data={renderedDiscs}
+				renderMoreDiscs={incrementNumDiscsToRender}
+				showDiscDetail={showDiscDetail}
+				count={filteredDiscs.length}
+				toggleSortOrder={toggleSortOrder}
+			/>
 		</div>
 	);
 };
