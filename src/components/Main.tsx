@@ -26,6 +26,7 @@ const Main: React.FC = () => {
 	const [detailVisible, setDetailVisible] = useState(false);
 	const [activeDetailDisc, setActiveDetailDisc] = useState<IDisc | null>(null);
 	const [activeDetailDiscColor, setActiveDetailDiscColor] = useState("");
+	const [activeDetailDiscBackgroundColor, setActiveDetailDiscBackgroundColor] = useState("");
 	const [spinClass, setSpinClass] = useState("spin-in");
 	const [showOverlay, setShowOverlay] = useState(false);
 
@@ -37,7 +38,7 @@ const Main: React.FC = () => {
 
 	useEffect(() => {
 		(async () => {
-			const allDiscsFromServer = await fetchAllDiscsFromServer();
+			let allDiscsFromServer = await fetchAllDiscsFromServer();
 			setAllDiscs(allDiscsFromServer);
 			resetFilteredDiscs(allDiscsFromServer);
 		})();
@@ -94,11 +95,12 @@ const Main: React.FC = () => {
 		if (numDiscsToRender < filteredDiscs.length) setNumDiscsToRender(numDiscsToRender + NUM_DISCS_TO_RENDER_INCR);
 	};
 
-	const showDiscDetail = (data: IDisc, color: string) => {
+	const showDiscDetail = (data: IDisc, color: string, backgroundColor: string) => {
 		if (!detailEnabled) return;
 		setShowOverlay(true);
 		setActiveDetailDisc(data);
 		setActiveDetailDiscColor(color);
+		setActiveDetailDiscBackgroundColor(backgroundColor);
 		setDetailVisible(true);
 		setSpinClass("spin-in");
 		setFilterInputsDisabled(true);
@@ -141,7 +143,13 @@ const Main: React.FC = () => {
 				setCategoryFilterValue={setCategoryFilterValue}
 				setStabilityFilterValue={setStabilityFilterValue}
 			/>
-			<DiscDetail data={activeDetailDisc} color={activeDetailDiscColor} visible={detailVisible} spinClass={spinClass} />
+			<DiscDetail
+				data={activeDetailDisc}
+				color={activeDetailDiscColor}
+				backgroundColor={activeDetailDiscBackgroundColor}
+				visible={detailVisible}
+				spinClass={spinClass}
+			/>
 			<DiscGrid data={renderedDiscs} renderMoreDiscs={incrementNumDiscsToRender} showDiscDetail={showDiscDetail} count={filteredDiscs.length} />
 		</div>
 	);

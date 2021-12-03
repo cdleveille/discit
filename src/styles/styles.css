@@ -64,10 +64,11 @@ a:visited {
 }
 
 .main {
-	animation: fade-in ease 0.5s;
 	overflow: hidden;
 	justify-content: center;
 	z-index: 1;
+	animation: fade-in ease 0.5s;
+	transition: 0.5s;
 }
 
 .disc-detail {
@@ -81,7 +82,6 @@ a:visited {
 	height: 45rem;
 	border-radius: 50%;
 	z-index: 10;
-	border: 6px solid rgba(85, 85, 85, 0.25);
 	transition: 0.3s;
 }
 
@@ -96,7 +96,6 @@ a:visited {
 	height: 32rem;
 	position: absolute;
 	border-radius: 50%;
-	border: 6px solid rgba(85, 85, 85, 0.25);
 }
 
 .disc-detail-container {
@@ -145,14 +144,13 @@ a:visited {
 	font-weight: 600;
 }
 
-.disc-grid-inner {
+.disc-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, 12rem);
 	justify-content: center;
 }
 
 .disc-box {
-	/* border: 1px solid black; */
 	width: 12rem;
 	height: 12rem;
 	display: grid;

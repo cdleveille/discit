@@ -1,11 +1,11 @@
 import React from "react";
 
 interface IBackgroundProps {
-	onClick: (value: boolean) => void;
+	onClick: () => void;
 }
 
 export const Background: React.FC<IBackgroundProps> = ({ onClick }) => {
-	return <div className="background" onClick={() => onClick(false)}></div>;
+	return <div className="background" onClick={() => onClick()}></div>;
 };
 
 export default Background;

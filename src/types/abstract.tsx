@@ -13,4 +13,11 @@ export interface IDisc {
 	brand_slug: string;
 	category_slug: string;
 	stability_slug: string;
+	color?: string;
+	backgroundColor?: string;
+}
+
+export interface IDiscColor {
+	color: string;
+	backgroundColor: string;
 }
