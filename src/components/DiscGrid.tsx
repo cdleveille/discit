@@ -20,10 +20,13 @@ const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDet
 		}
 	}, [data]);
 
-	if (typeof window !== "undefined") {
+	if (typeof window !== "undefined" && typeof document !== "undefined") {
 		window.onscroll = () => {
-			if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) {
-				renderMoreDiscs();
+			const discGrid = document.getElementById("disc-grid");
+			if (discGrid) {
+				if (window.innerHeight + document.documentElement.scrollTop + 1 >= discGrid.offsetTop + discGrid.clientHeight) {
+					renderMoreDiscs();
+				}
 			}
 		};
 	}
