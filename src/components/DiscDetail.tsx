@@ -18,12 +18,11 @@ export const DiscDetail: React.FC<IDiscDetailProps> = ({ data, color, background
 	};
 
 	const borderStyles: CSSProperties = {
-		border: `6px solid ${color + "25"}`
+		border: `8px solid ${color + "35"}`
 	};
 
 	return data ? (
 		<div className={`disc-detail ${spinClass}`} style={{ ...styles, ...borderStyles }}>
-			<div className="disc-detail-inner-circle" style={borderStyles}></div>
 			<div className="disc-detail-container">
 				<div className="disc-detail-name" style={{ color }}>
 					{data.name}
