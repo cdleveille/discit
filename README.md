@@ -8,7 +8,7 @@ Check it out live on Vercel! [discit.vercel.app](https://discit.vercel.app/)
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [React](https://reactjs.org/)
-- [NextJS](https://nextjs.org/)
+- [Next.js](https://nextjs.org/)
 - [MUI](https://mui.com/)
 
 ## Local Setup

@@ -91,7 +91,7 @@ a:visited {
 }
 
 .disc-detail-name {
-	font-size: min(8vw, 3rem);
+	font-size: min(8vmin, 3rem);
 	font-weight: 600;
 	color: black;
 	font-weight: 700;
@@ -99,7 +99,7 @@ a:visited {
 
 .disc-detail-fields {
 	font-weight: 600;
-	font-size: min(4vw, 1.5rem);
+	font-size: min(4vmin, 1.5rem);
 }
 
 .disc-detail-img img {
