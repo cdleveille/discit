@@ -21,6 +21,7 @@ interface IFormProps {
 	setBrandFilterValue: (value: string[]) => void;
 	setCategoryFilterValue: (value: string[]) => void;
 	setStabilityFilterValue: (value: string[]) => void;
+	sortAtoZ: boolean;
 }
 
 const Form: React.FC<IFormProps> = ({
@@ -32,7 +33,8 @@ const Form: React.FC<IFormProps> = ({
 	setNameFilterValue,
 	setBrandFilterValue,
 	setCategoryFilterValue,
-	setStabilityFilterValue
+	setStabilityFilterValue,
+	sortAtoZ
 }) => {
 	const [names, setNames] = useState([] as string[]);
 	const [brands, setBrands] = useState([] as string[]);
@@ -47,7 +49,7 @@ const Form: React.FC<IFormProps> = ({
 				.map((option) => option.name)
 				.filter(uniqueValue)
 				.sort((a, b) => {
-					return a.toLowerCase().localeCompare(b.toLowerCase());
+					return (sortAtoZ ? 1 : -1) * a.toLowerCase().localeCompare(b.toLowerCase());
 				})
 		);
 	}, [filteredDiscsByBrand, filteredDiscsByCategory, filteredDiscsByStability]);
@@ -60,7 +62,7 @@ const Form: React.FC<IFormProps> = ({
 				.map((option) => option.brand)
 				.filter(uniqueValue)
 				.sort((a, b) => {
-					return a.toLowerCase().localeCompare(b.toLowerCase());
+					return (sortAtoZ ? 1 : -1) * a.toLowerCase().localeCompare(b.toLowerCase());
 				})
 		);
 	}, [filteredDiscsByName, filteredDiscsByCategory, filteredDiscsByStability]);
@@ -73,7 +75,7 @@ const Form: React.FC<IFormProps> = ({
 				.map((option) => option.category)
 				.filter(uniqueValue)
 				.sort((a, b) => {
-					return a.toLowerCase().localeCompare(b.toLowerCase());
+					return (sortAtoZ ? 1 : -1) * a.toLowerCase().localeCompare(b.toLowerCase());
 				})
 		);
 	}, [filteredDiscsByName, filteredDiscsByBrand, filteredDiscsByStability]);
@@ -86,7 +88,7 @@ const Form: React.FC<IFormProps> = ({
 				.map((option) => option.stability)
 				.filter(uniqueValue)
 				.sort((a, b) => {
-					return a.toLowerCase().localeCompare(b.toLowerCase());
+					return (sortAtoZ ? 1 : -1) * a.toLowerCase().localeCompare(b.toLowerCase());
 				})
 		);
 	}, [filteredDiscsByName, filteredDiscsByBrand, filteredDiscsByCategory]);
