@@ -41,7 +41,9 @@ export const DiscDetail: React.FC<IDiscDetailProps> = ({ data, color, background
 					</span>
 				</div>
 				<div className="disc-detail-img">
-					<img src={data.pic} />
+					<a href={data.link} target="_blank" rel="noreferrer">
+						<img src={data.pic} />
+					</a>
 				</div>
 			</div>
 		</div>

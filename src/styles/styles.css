@@ -62,68 +62,60 @@ a:visited {
 
 .disc-detail {
 	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	width: 45rem;
-	height: 45rem;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100vmin;
+	height: 100vmin;
+	max-width: 45rem;
+	max-height: 45rem;
 	border-radius: 50%;
 	z-index: 100;
 	transition: 0.3s;
+	justify-content: center;
+	align-items: center;
 }
 
 .disc-detail-inner-circle {
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	width: 32rem;
-	height: 32rem;
 	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 75%;
+	height: 75%;
 	border-radius: 50%;
 }
 
 .disc-detail-container {
 	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	width: 400px;
-	height: 31rem;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	text-align: center;
 	display: grid;
 	place-items: center;
 	justify-content: center;
+	width: 55%;
+	height: 85%;
 }
 
 .disc-detail-name {
-	margin-top: -0.5rem;
-	font-size: 2rem;
+	font-size: min(8vw, 3rem);
 	font-weight: 600;
 	color: black;
 	font-weight: 700;
 }
 
 .disc-detail-fields {
-	color: #444444;
 	font-weight: 600;
-	font-size: 1.2rem;
-}
-
-.disc-detail-img {
-	margin-top: 1rem;
+	font-size: min(4vw, 1.5rem);
 }
 
 .disc-detail-img img {
 	max-width: 400px;
 	max-height: 340px;
 	border-radius: 10px;
+	width: 100%;
 }
 
 .disc-grid-count {
@@ -132,8 +124,6 @@ a:visited {
 	width: fit-content;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 1rem;
-	margin-bottom: 1rem;
 }
 
 .disc-grid-count:hover {
@@ -165,6 +155,8 @@ a:visited {
 	animation: spin-in ease-out 0.5s;
 	z-index: 10;
 	transition: 0.25s;
+	justify-content: center;
+	align-items: center;
 }
 
 .disc:hover {
@@ -195,7 +187,6 @@ a:visited {
 
 .disc-text {
 	width: 8.5rem;
-	text-align: center;
 }
 
 .disc-name {
@@ -207,7 +198,6 @@ a:visited {
 }
 
 .disc-fields {
-	color: #444444;
 	font-weight: 600;
 	font-size: 1rem;
 	display: none;
@@ -224,12 +214,12 @@ a:visited {
 		"segoe ui symbol";
 }
 
-.spin-in {
-	animation: spin-in ease-out 0.5s;
+.spin-in-detail {
+	animation: spin-in-detail ease-out 0.5s;
 }
 
-.spin-out {
-	animation: spin-out ease-in 0.5s;
+.spin-out-detail {
+	animation: spin-out-detail ease-in 0.5s;
 }
 
 @keyframes spin-in {
@@ -251,6 +241,32 @@ a:visited {
 	100% {
 		opacity: 0;
 		transform: rotate(-720deg);
+	}
+}
+
+@keyframes spin-in-detail {
+	0% {
+		opacity: 0;
+		transform-origin: center;
+		transform: translate(-50%, -50%) rotate(-720deg);
+	}
+	100% {
+		opacity: 1;
+		transform-origin: center;
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+}
+
+@keyframes spin-out-detail {
+	0% {
+		opacity: 1;
+		transform-origin: center;
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+	100% {
+		opacity: 0;
+		transform-origin: center;
+		transform: translate(-50%, -50%) rotate(-720deg);
 	}
 }
 

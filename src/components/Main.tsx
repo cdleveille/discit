@@ -26,7 +26,7 @@ const Main: React.FC = () => {
 	const [activeDetailDisc, setActiveDetailDisc] = useState<IDisc | null>(null);
 	const [activeDetailDiscColor, setActiveDetailDiscColor] = useState("");
 	const [activeDetailDiscBackgroundColor, setActiveDetailDiscBackgroundColor] = useState("");
-	const [spinClass, setSpinClass] = useState("spin-in");
+	const [spinClass, setSpinClass] = useState("spin-in-detail");
 	const [showOverlay, setShowOverlay] = useState(false);
 
 	const [nameFilterValue, setNameFilterValue] = useState("");
@@ -48,7 +48,6 @@ const Main: React.FC = () => {
 	useEffect(() => {
 		const sortedDiscs = sortDiscs(allDiscs);
 		setAllDiscs(sortedDiscs);
-		console.log(sortedDiscs[0]);
 		applyFilters(true);
 	}, [sortAtoZ]);
 
@@ -120,7 +119,7 @@ const Main: React.FC = () => {
 		setActiveDetailDiscColor(color);
 		setActiveDetailDiscBackgroundColor(backgroundColor);
 		setDetailVisible(true);
-		setSpinClass("spin-in");
+		setSpinClass("spin-in-detail");
 		setFilterInputsDisabled(true);
 	};
 
@@ -128,7 +127,7 @@ const Main: React.FC = () => {
 		if (!showOverlay) return;
 		setDetailEnabled(false);
 		setShowOverlay(false);
-		setSpinClass("spin-out");
+		setSpinClass("spin-out-detail");
 		setFilterInputsDisabled(false);
 
 		setTimeout(() => {
@@ -150,10 +149,8 @@ const Main: React.FC = () => {
 	};
 
 	const sortDiscs = (discs: IDisc[]): IDisc[] => {
-		const sortOrder = sortAtoZ ? 1 : -1;
-
 		return discs.sort((a, b) => {
-			return sortOrder * a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+			return (sortAtoZ ? 1 : -1) * a.name.toLowerCase().localeCompare(b.name.toLowerCase());
 		});
 	};
 
@@ -171,6 +168,7 @@ const Main: React.FC = () => {
 				setBrandFilterValue={setBrandFilterValue}
 				setCategoryFilterValue={setCategoryFilterValue}
 				setStabilityFilterValue={setStabilityFilterValue}
+				sortAtoZ={sortAtoZ}
 			/>
 			<DiscDetail
 				data={activeDetailDisc}
