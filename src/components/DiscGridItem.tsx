@@ -21,17 +21,13 @@ export const DiscGridItem: React.FC<IDiscGridItemProps> = ({ data, showDiscDetai
 
 	const styles: CSSProperties = {
 		color: color,
-		backgroundColor: backgroundColor
-	};
-
-	const borderStyles: CSSProperties = {
-		border: `6px solid ${color + "25"}`
+		backgroundColor: backgroundColor,
+		border: `5px solid ${color + "35"}`
 	};
 
 	return data ? (
 		<div className="disc-box">
 			<div className="disc" style={styles} onClick={() => showDiscDetail(data, color, backgroundColor)}>
-				<div className="disc-inner-circle" style={borderStyles}></div>
 				<div className="disc-text" style={{ color }}>
 					<div className="disc-name" style={{ color }}>
 						{data.name}
