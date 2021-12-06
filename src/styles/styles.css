@@ -64,6 +64,8 @@ a:visited {
 	position: fixed;
 	top: 50%;
 	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	width: 100vmin;
 	height: 100vmin;
@@ -80,6 +82,8 @@ a:visited {
 	position: absolute;
 	top: 50%;
 	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	text-align: center;
 	display: grid;
@@ -196,29 +200,23 @@ a:visited {
 
 .spin-in-detail {
 	animation: spin-in-detail ease-out 0.5s;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform-origin: center;
-	transform: translate(-50%, -50%);
 }
 
 .spin-out-detail {
 	animation: spin-out-detail ease-in 0.5s;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform-origin: center;
-	transform: translate(-50%, -50%);
 }
 
 @keyframes spin-in {
 	0% {
 		opacity: 0;
+		-ms-transform: rotate(-720deg);
+		-webkit-transform: rotate(-720deg);
 		transform: rotate(-720deg);
 	}
 	100% {
 		opacity: 1;
+		-ms-transform: rotate(0deg);
+		-webkit-transform: rotate(0deg);
 		transform: rotate(0deg);
 	}
 }
@@ -226,48 +224,48 @@ a:visited {
 @keyframes spin-out {
 	0% {
 		opacity: 1;
+		-ms-transform: rotate(0deg);
+		-webkit-transform: rotate(0deg);
 		transform: rotate(0deg);
 	}
 	100% {
 		opacity: 0;
+		-ms-transform: rotate(-720deg);
+		-webkit-transform: rotate(-720deg);
 		transform: rotate(-720deg);
 	}
 }
 
 @keyframes spin-in-detail {
 	0% {
-		position: fixed;
-		top: 50%;
-		left: 50%;
 		opacity: 0;
 		transform-origin: center;
+		-ms-transform: translate(-50%, -50%) rotate(-720deg);
+		-webkit-transform: translate(-50%, -50%) rotate(-720deg);
 		transform: translate(-50%, -50%) rotate(-720deg);
 	}
 	100% {
-		position: fixed;
-		top: 50%;
-		left: 50%;
 		opacity: 1;
 		transform-origin: center;
+		-ms-transform: translate(-50%, -50%) rotate(0deg);
+		-webkit-transform: translate(-50%, -50%) rotate(0deg);
 		transform: translate(-50%, -50%) rotate(0deg);
 	}
 }
 
 @keyframes spin-out-detail {
 	0% {
-		position: fixed;
-		top: 50%;
-		left: 50%;
 		opacity: 1;
 		transform-origin: center;
+		-ms-transform: translate(-50%, -50%) rotate(0deg);
+		-webkit-transform: translate(-50%, -50%) rotate(0deg);
 		transform: translate(-50%, -50%) rotate(0deg);
 	}
 	100% {
-		position: fixed;
-		top: 50%;
-		left: 50%;
 		opacity: 0;
 		transform-origin: center;
+		-ms-transform: translate(-50%, -50%) rotate(-720deg);
+		-webkit-transform: translate(-50%, -50%) rotate(-720deg);
 		transform: translate(-50%, -50%) rotate(-720deg);
 	}
 }
