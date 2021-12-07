@@ -1,4 +1,3 @@
-import { Translate } from "@mui/icons-material";
 import React, { CSSProperties } from "react";
 
 import { IDisc } from "../types/abstract";
