@@ -29,10 +29,10 @@ a:visited {
 
 .overlay {
 	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
+	left: -100%;
+	top: -100%;
+	width: 300%;
+	height: 300%;
 	background-color: black;
 	transition: 0.5s;
 }
