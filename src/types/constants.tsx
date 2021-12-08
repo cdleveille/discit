@@ -38,3 +38,8 @@ export const DiscColorMap: Map<string, IDiscColor> = new Map([
 	["Wild Discs", { color: "#FF2814", backgroundColor: "#3EFF1D" }],
 	["Yikun", { color: "#006A6E", backgroundColor: "#FF7900" }]
 ]);
+
+export enum CSSClasses {
+	spinInDetail = "spin-in-detail",
+	spinOutDetail = "spin-out-detail"
+}

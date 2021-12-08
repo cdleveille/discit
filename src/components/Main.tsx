@@ -9,7 +9,7 @@ import Overlay from "./Overlay";
 import Config from "../helpers/config";
 import { stringIncludesString, stringArrayIncludesString, getArrayIntersection } from "../helpers/util";
 import { IDisc } from "../types/abstract";
-import { NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
+import { CSSClasses, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
 
 const Main: React.FC = () => {
 	const [allDiscs, setAllDiscs] = useState<IDisc[]>([]);
@@ -26,7 +26,7 @@ const Main: React.FC = () => {
 	const [activeDetailDisc, setActiveDetailDisc] = useState<IDisc | null>(null);
 	const [activeDetailDiscColor, setActiveDetailDiscColor] = useState("");
 	const [activeDetailDiscBackgroundColor, setActiveDetailDiscBackgroundColor] = useState("");
-	const [spinClass, setSpinClass] = useState("spin-in-detail");
+	const [spinClass, setSpinClass] = useState(CSSClasses.spinInDetail);
 	const [showOverlay, setShowOverlay] = useState(false);
 
 	const [nameFilterValue, setNameFilterValue] = useState("");
@@ -119,7 +119,7 @@ const Main: React.FC = () => {
 		setActiveDetailDiscColor(color);
 		setActiveDetailDiscBackgroundColor(backgroundColor);
 		setDetailVisible(true);
-		setSpinClass("spin-in-detail");
+		setSpinClass(CSSClasses.spinInDetail);
 		setFilterInputsDisabled(true);
 	};
 
@@ -127,7 +127,7 @@ const Main: React.FC = () => {
 		if (!showOverlay) return;
 		setDetailEnabled(false);
 		setShowOverlay(false);
-		setSpinClass("spin-out-detail");
+		setSpinClass(CSSClasses.spinOutDetail);
 		setFilterInputsDisabled(false);
 
 		setTimeout(() => {
