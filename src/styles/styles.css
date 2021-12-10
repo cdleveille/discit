@@ -52,6 +52,15 @@ a:visited {
 	color: inherit;
 }
 
+.header img {
+	position: absolute;
+	-ms-transform: translate(-45%, -20%);
+	-webkit-transform: translate(-45%, -20%);
+	transform: translate(-45%, -20%);
+	width: 8rem;
+	height: 8rem;
+}
+
 .main {
 	overflow: hidden;
 	justify-content: center;
