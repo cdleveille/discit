@@ -1,7 +1,6 @@
 import React, { CSSProperties } from "react";
 
 import { IDisc } from "../types/abstract";
-import { DiscColorMap } from "../types/constants";
 
 interface IDiscGridItemProps {
 	data: IDisc;
@@ -11,11 +10,10 @@ interface IDiscGridItemProps {
 export const DiscGridItem: React.FC<IDiscGridItemProps> = ({ data, showDiscDetail }) => {
 	let color = "#8F633C",
 		backgroundColor = "#C7FF56";
-	if (data) {
-		const colorLookup = DiscColorMap.get(data.brand);
-		if (colorLookup) {
-			color = colorLookup.color;
-			backgroundColor = colorLookup.backgroundColor;
+	if (data && data.color && data.background_color) {
+		if (data.color !== "#" && data.background_color !== "#") {
+			color = data.color;
+			backgroundColor = data.background_color;
 		}
 	}
 
