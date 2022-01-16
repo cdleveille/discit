@@ -1,6 +1,6 @@
 # DiscIt
 
-An interactive and responsive disc golf disc search engine.
+A responsive disc golf disc search engine.
 
 Check it out live on Vercel! [discit.vercel.app](https://discit.vercel.app/)
 
