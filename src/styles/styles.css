@@ -44,7 +44,7 @@ a:visited {
 	font-weight: 600;
 	color: inherit;
 	text-align: center;
-	z-index: 30;
+	z-index: 300;
 }
 
 .header a:link,
