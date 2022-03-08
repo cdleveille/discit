@@ -42,7 +42,7 @@ a:visited {
 	margin: 1rem;
 	font-size: 3.5rem;
 	font-weight: 600;
-	color: inherit;
+	color: black;
 	text-align: center;
 	z-index: 300;
 }
@@ -52,7 +52,7 @@ a:visited {
 	color: inherit;
 }
 
-.header img {
+.logo {
 	position: absolute;
 	-ms-transform: translate(-45%, -20%);
 	-webkit-transform: translate(-45%, -20%);
