@@ -1,12 +1,22 @@
 {
   "name": "DiscIt",
   "short_name": "DiscIt",
-  "theme_color": "#317EFB",
-  "background_color": "#FFFFFF",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "icons": [
+    {
+      "src": "/icon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
     {
       "src": "/icon-72x72.png",
       "sizes": "72x72",
@@ -28,13 +38,33 @@
       "type": "image/png"
     },
     {
+      "src": "/icon-150x150.png",
+      "sizes": "150x150",
+      "type": "image/png"
+    },
+    {
       "src": "/icon-152x152.png",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
+      "src": "/icon-180x180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
       "src": "/icon-192x192.png",
       "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
       "type": "image/png"
     },
     {
