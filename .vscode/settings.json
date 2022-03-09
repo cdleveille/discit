@@ -1,42 +1,74 @@
 {
-  "editor.detectIndentation": false,
-  "editor.insertSpaces": false,
-  "editor.tabSize": 4,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/node_modules": true
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features",
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features",
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
-  },
-  "eslint.validate": [
-    "javascript",
-    "typescript",
-  ],
-  "prettier.endOfLine": "crlf",
-  "prettier.printWidth": 150,
-  "prettier.tabWidth": 4,
-  "prettier.trailingComma": "none",
-  "prettier.useTabs": true,
-  "prettier.singleQuote": false,
-  "prettier.arrowParens": "always",
-  "prettier.bracketSpacing": true
+	"workbench.iconTheme": "material-icon-theme",
+	"editor.suggestSelection": "first",
+	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+	"explorer.confirmDragAndDrop": false,
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 4,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"diffEditor.ignoreTrimWhitespace": false,
+	"debug.onTaskErrors": "abort",
+	"debug.javascript.autoAttachFilter": "disabled",
+	"debug.openDebug": "openOnDebugBreak",
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/node_modules": true
+	},
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"[typescript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+	"[markdown]": {
+		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+	},
+	"eslint.validate": ["javascript", "typescript"],
+	"workbench.editor.wrapTabs": true,
+	"liveServer.settings.donotShowInfoMsg": true,
+	"workbench.editor.tabCloseButton": "right",
+	"editor.fontSize": 12,
+	"git.confirmSync": false,
+	"explorer.confirmDelete": false,
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"terminal.integrated.cursorBlinking": true,
+	"workbench.colorCustomizations": {
+		"terminalCursor.foreground": "#ffffff"
+	},
+	"editor.multiCursorModifier": "alt",
+	"editor.mouseWheelZoom": true,
+	"terminal.integrated.defaultProfile.windows": "Git Bash",
+	"editor.linkedEditing": true,
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features",
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features",
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	},
+	"explorer.compactFolders": false,
+	"terminal.integrated.defaultProfile.osx": "zsh",
+	"redhat.telemetry.enabled": true,
+	"workbench.startupEditor": "none",
+	"prettier.endOfLine": "crlf",
+	"prettier.printWidth": 150,
+	"prettier.tabWidth": 4,
+	"prettier.trailingComma": "none",
+	"prettier.useTabs": true,
+	"prettier.singleQuote": false,
+	"prettier.arrowParens": "always",
+	"prettier.bracketSpacing": true,
+	"git.ignoreRebaseWarning": true,
+	"bracket-pair-colorizer-2.depreciation-notice": false
 }

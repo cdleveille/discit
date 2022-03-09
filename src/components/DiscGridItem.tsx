@@ -8,14 +8,8 @@ interface IDiscGridItemProps {
 }
 
 export const DiscGridItem: React.FC<IDiscGridItemProps> = ({ data, showDiscDetail }) => {
-	let color = "#8F633C",
-		backgroundColor = "#C7FF56";
-	if (data && data.color && data.background_color) {
-		if (data.color !== "#" && data.background_color !== "#") {
-			color = data.color;
-			backgroundColor = data.background_color;
-		}
-	}
+	const color = data.color && data.color !== "#" ? data.color : "#8F633C";
+	const backgroundColor = data.background_color && data.background_color !== "#" ? data.background_color : "#C7FF56";
 
 	const styles: CSSProperties = {
 		color: color,

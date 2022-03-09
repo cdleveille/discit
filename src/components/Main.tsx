@@ -38,10 +38,10 @@ const Main: React.FC = () => {
 
 	useEffect(() => {
 		(async () => {
-			let allDiscsFromServer = await fetchAllDiscsFromServer();
-			allDiscsFromServer = sortDiscs(allDiscsFromServer);
-			setAllDiscs(allDiscsFromServer);
-			resetFilteredDiscs(allDiscsFromServer);
+			const allDiscsFromServer = await fetchAllDiscsFromServer();
+			const sortedDiscs = sortDiscs(allDiscsFromServer);
+			setAllDiscs(sortedDiscs);
+			resetFilteredDiscs(sortedDiscs);
 		})();
 	}, []);
 
