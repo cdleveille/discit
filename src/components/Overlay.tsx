@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React, { useEffect, useState } from "react";
 
 interface IOverlayProps {
 	visible: boolean;
@@ -6,13 +6,13 @@ interface IOverlayProps {
 }
 
 export const Overlay: React.FC<IOverlayProps> = ({ visible, onClick }) => {
-	const styles: CSSProperties = {
-		zIndex: visible ? 50 : 20,
-		opacity: visible ? "50%" : "0%",
-		pointerEvents: visible ? "all" : "none"
-	};
+	const [className, setClassName] = useState("overlay overlay-hidden");
 
-	return <div className="overlay" style={styles} onClick={() => onClick()}></div>;
+	useEffect(() => {
+		setClassName(visible ? "overlay overlay-visible" : "overlay overlay-hidden");
+	}, [visible]);
+
+	return <div className={className} onClick={() => onClick()}></div>;
 };
 
 export default Overlay;
