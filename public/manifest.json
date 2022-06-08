@@ -2,7 +2,7 @@
   "name": "DiscIt",
   "short_name": "DiscIt",
   "description": "A responsive disc golf disc search engine.",
-  "theme_color": "#ffffff",
+  "theme_color": "#808080",
   "background_color": "#ffffff",
   "display": "fullscreen",
   "scope": "/",
