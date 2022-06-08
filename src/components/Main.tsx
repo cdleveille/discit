@@ -5,6 +5,7 @@ import DiscGrid from "./DiscGrid";
 import Form from "./Form";
 import Header from "./Header";
 import Overlay from "./Overlay";
+import { ScrollToTop } from "./ScrollToTop";
 
 import Config from "../helpers/config";
 import { stringIncludesString, stringArrayIncludesString, getArrayIntersection } from "../helpers/util";
@@ -187,6 +188,7 @@ const Main: React.FC = () => {
 				toggleSortOrder={toggleSortOrder}
 				isLoading={isLoading}
 			/>
+			<ScrollToTop />
 		</div>
 	);
 };
