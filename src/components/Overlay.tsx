@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import useKeypress from "react-use-keypress";
+import { CSSClasses, Keys } from "../types/constants";
 
 interface IOverlayProps {
 	visible: boolean;
@@ -6,10 +8,15 @@ interface IOverlayProps {
 }
 
 export const Overlay: React.FC<IOverlayProps> = ({ visible, onClick }) => {
-	const [className, setClassName] = useState("overlay overlay-hidden");
+	const [className, setClassName] = useState<string>(CSSClasses.overlayHidden);
+
+	useKeypress(Keys.escape, (e) => {
+		e.preventDefault();
+		onClick();
+	});
 
 	useEffect(() => {
-		setClassName(visible ? "overlay overlay-visible" : "overlay overlay-hidden");
+		setClassName(visible ? CSSClasses.overlayVisible : CSSClasses.overlayHidden);
 	}, [visible]);
 
 	return <div className={className} onClick={() => onClick()}></div>;

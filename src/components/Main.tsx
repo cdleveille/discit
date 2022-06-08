@@ -125,7 +125,7 @@ const Main: React.FC = () => {
 		setFilterInputsDisabled(true);
 	};
 
-	const hideDiscDetail = async () => {
+	const hideDiscDetail = () => {
 		if (!showOverlay) return;
 		setDetailEnabled(false);
 		setShowOverlay(false);
@@ -135,7 +135,7 @@ const Main: React.FC = () => {
 		setTimeout(() => {
 			setDetailVisible(false);
 			setDetailEnabled(true);
-		}, 500);
+		}, 425);
 	};
 
 	const resetFilteredDiscs = (discs: IDisc[]) => {
