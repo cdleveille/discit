@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import DiscGridItem from "./DiscGridItem";
 import { IDisc } from "../types/abstract";
@@ -9,9 +10,10 @@ interface IDiscGridProps {
 	showDiscDetail: (data: IDisc, color: string, backgroundColor: string) => void;
 	count: number;
 	toggleSortOrder: () => void;
+	isLoading: boolean;
 }
 
-const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDetail, count, toggleSortOrder }) => {
+const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDetail, count, toggleSortOrder, isLoading }) => {
 	useEffect(() => {
 		const discGrid = document.getElementById("disc-grid");
 		if (discGrid) {
@@ -35,7 +37,13 @@ const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDet
 	return (
 		<>
 			<div className="disc-grid-count" onClick={() => toggleSortOrder()}>
-				{count} disc{count === 1 ? "" : "s"}
+				{isLoading ? (
+					<CircularProgress size={56} />
+				) : (
+					<>
+						{count} disc{count === 1 ? "" : "s"}
+					</>
+				)}
 			</div>
 			<div className="disc-grid" id="disc-grid">
 				{data.map((disc, i) => (

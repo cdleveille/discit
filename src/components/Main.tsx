@@ -12,6 +12,7 @@ import { IDisc } from "../types/abstract";
 import { CSSClasses, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
 
 const Main: React.FC = () => {
+	const [isLoading, setIsLoading] = useState(true);
 	const [allDiscs, setAllDiscs] = useState<IDisc[]>([]);
 	const [filteredDiscs, setFilteredDiscs] = useState<IDisc[]>([]);
 	const [filteredDiscsByName, setFilteredDiscsByName] = useState<IDisc[]>([]);
@@ -39,6 +40,7 @@ const Main: React.FC = () => {
 	useEffect(() => {
 		(async () => {
 			const allDiscsFromServer = await fetchAllDiscsFromServer();
+			setIsLoading(false);
 			const sortedDiscs = sortDiscs(allDiscsFromServer);
 			setAllDiscs(sortedDiscs);
 			resetFilteredDiscs(sortedDiscs);
@@ -183,6 +185,7 @@ const Main: React.FC = () => {
 				showDiscDetail={showDiscDetail}
 				count={filteredDiscs.length}
 				toggleSortOrder={toggleSortOrder}
+				isLoading={isLoading}
 			/>
 		</div>
 	);
