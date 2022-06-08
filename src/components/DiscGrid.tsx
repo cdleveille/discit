@@ -11,9 +11,10 @@ interface IDiscGridProps {
 	count: number;
 	toggleSortOrder: () => void;
 	isLoading: boolean;
+	setIsScollToTopVisible: (visible: boolean) => void;
 }
 
-const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDetail, count, toggleSortOrder, isLoading }) => {
+const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDetail, count, toggleSortOrder, isLoading, setIsScollToTopVisible }) => {
 	useEffect(() => {
 		const discGrid = document.getElementById("disc-grid");
 		if (discGrid) {
@@ -30,6 +31,11 @@ const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDet
 				if (window.innerHeight + document.documentElement.scrollTop + 1 >= discGrid.offsetTop + discGrid.clientHeight) {
 					renderMoreDiscs();
 				}
+			}
+			if (document.documentElement.scrollTop > 800) {
+				setIsScollToTopVisible(true);
+			} else {
+				setIsScollToTopVisible(false);
 			}
 		};
 	}

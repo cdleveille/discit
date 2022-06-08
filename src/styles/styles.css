@@ -228,9 +228,11 @@ a:visited {
 
 .scroll-to-top {
 	position: fixed;
-	bottom: 5px;
-	right: 5px;
-	opacity: 75%;
+	bottom: 0.5em;
+	right: 0.5em;
+	z-index: 80;
+	background-color: rgba(221, 221, 221, 0.6);
+	border-radius: 50%;
 }
 
 @keyframes spin-in {

@@ -30,6 +30,7 @@ const Main: React.FC = () => {
 	const [activeDetailDiscBackgroundColor, setActiveDetailDiscBackgroundColor] = useState("");
 	const [spinClass, setSpinClass] = useState(CSSClasses.spinInDetail);
 	const [showOverlay, setShowOverlay] = useState(false);
+	const [isScrollToTopVisible, setIsScollToTopVisible] = useState(false);
 
 	const [nameFilterValue, setNameFilterValue] = useState("");
 	const [brandFilterValue, setBrandFilterValue] = useState<string[]>([]);
@@ -187,8 +188,9 @@ const Main: React.FC = () => {
 				count={filteredDiscs.length}
 				toggleSortOrder={toggleSortOrder}
 				isLoading={isLoading}
+				setIsScollToTopVisible={setIsScollToTopVisible}
 			/>
-			<ScrollToTop />
+			<ScrollToTop visible={isScrollToTopVisible} />
 		</div>
 	);
 };
