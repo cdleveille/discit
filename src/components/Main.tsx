@@ -170,6 +170,7 @@ const Main = () => {
 	};
 
 	const menuAboutClickHandler = () => {
+		setShowMenu(false);
 		setShowAboutDialog(true);
 	};
 
@@ -181,9 +182,9 @@ const Main = () => {
 				<ClickAwayListener onClickAway={() => setShowMenu(false)}>
 					<div>
 						<MenuButton onClick={toggleMenu} />
+						{showMenu && <Menu aboutClickHandler={menuAboutClickHandler}></Menu>}
 					</div>
 				</ClickAwayListener>
-				{showMenu && <Menu aboutClickHandler={menuAboutClickHandler}></Menu>}
 			</div>
 			<AboutDialog open={showAboutDialog} onClose={() => setShowAboutDialog(false)} />
 			<Form
