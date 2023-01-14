@@ -7,7 +7,7 @@ interface IDiscGridItemProps {
 	showDiscDetail: (data: IDisc, color: string, backgroundColor: string) => void;
 }
 
-export const DiscGridItem: React.FC<IDiscGridItemProps> = ({ data, showDiscDetail }) => {
+export const DiscGridItem = ({ data, showDiscDetail }: IDiscGridItemProps) => {
 	const color = data.color && data.color !== "#" ? data.color : "#8F633C";
 	const backgroundColor = data.background_color && data.background_color !== "#" ? data.background_color : "#C7FF56";
 

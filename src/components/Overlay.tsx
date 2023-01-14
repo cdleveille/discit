@@ -7,7 +7,7 @@ interface IOverlayProps {
 	onClick: () => void;
 }
 
-export const Overlay: React.FC<IOverlayProps> = ({ visible, onClick }) => {
+export const Overlay = ({ visible, onClick }: IOverlayProps) => {
 	const [className, setClassName] = useState<string>(CSSClasses.overlayHidden);
 
 	useKeypress(Keys.escape, (e) => {

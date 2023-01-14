@@ -3,6 +3,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import DiscGridItem from "./DiscGridItem";
 import { IDisc } from "../types/abstract";
+import { SortButton } from "./SortButton";
 
 interface IDiscGridProps {
 	data: IDisc[];
@@ -14,7 +15,7 @@ interface IDiscGridProps {
 	setIsScollToTopVisible: (visible: boolean) => void;
 }
 
-const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDetail, count, toggleSortOrder, isLoading, setIsScollToTopVisible }) => {
+const DiscGrid = ({ data, renderMoreDiscs, showDiscDetail, count, toggleSortOrder, isLoading, setIsScollToTopVisible }: IDiscGridProps) => {
 	useEffect(() => {
 		const discGrid = document.getElementById("disc-grid");
 		if (discGrid) {
@@ -42,13 +43,15 @@ const DiscGrid: React.FC<IDiscGridProps> = ({ data, renderMoreDiscs, showDiscDet
 
 	return (
 		<>
-			<div className="disc-grid-count" onClick={() => toggleSortOrder()}>
+			<div className="disc-grid-count">
 				{isLoading ? (
 					<CircularProgress size={56} />
 				) : (
-					<>
+					<div className="disc-grid-count-inner">
 						{count} disc{count === 1 ? "" : "s"}
-					</>
+						<div className="spacer"></div>
+						<SortButton onClick={toggleSortOrder} />
+					</div>
 				)}
 			</div>
 			<div className="disc-grid" id="disc-grid">

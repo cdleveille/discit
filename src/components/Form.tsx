@@ -24,7 +24,7 @@ interface IFormProps {
 	sortAtoZ: boolean;
 }
 
-const Form: React.FC<IFormProps> = ({
+const Form = ({
 	filteredDiscsByName,
 	filteredDiscsByBrand,
 	filteredDiscsByCategory,
@@ -35,7 +35,7 @@ const Form: React.FC<IFormProps> = ({
 	setCategoryFilterValue,
 	setStabilityFilterValue,
 	sortAtoZ
-}) => {
+}: IFormProps) => {
 	const [names, setNames] = useState([] as string[]);
 	const [brands, setBrands] = useState([] as string[]);
 	const [categories, setCategories] = useState([] as string[]);

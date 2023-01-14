@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
+import ClickAwayListener from "@mui/base/ClickAwayListener";
 
+import { AboutDialog } from "./AboutDialog";
 import DiscDetail from "./DiscDetail";
 import DiscGrid from "./DiscGrid";
 import Form from "./Form";
 import Header from "./Header";
 import Overlay from "./Overlay";
 import { ScrollToTop } from "./ScrollToTop";
+import { MenuButton } from "./MenuButton";
+import { Menu } from "./Menu";
 
 import Config from "../helpers/config";
 import { stringIncludesString, stringArrayIncludesString, getArrayIntersection } from "../helpers/util";
 import { IDisc } from "../types/abstract";
 import { CSSClasses, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
 
-const Main: React.FC = () => {
+const Main = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [allDiscs, setAllDiscs] = useState<IDisc[]>([]);
 	const [filteredDiscs, setFilteredDiscs] = useState<IDisc[]>([]);
@@ -38,6 +42,9 @@ const Main: React.FC = () => {
 	const [stabilityFilterValue, setStabilityFilterValue] = useState<string[]>([]);
 	const [filterInputsDisabed, setFilterInputsDisabled] = useState(false);
 	const [sortAtoZ, setSortAtoZ] = useState(true);
+
+	const [showMenu, setShowMenu] = useState(false);
+	const [showAboutDialog, setShowAboutDialog] = useState(false);
 
 	useEffect(() => {
 		(async () => {
@@ -158,10 +165,27 @@ const Main: React.FC = () => {
 		});
 	};
 
+	const toggleMenu = () => {
+		setShowMenu(!showMenu);
+	};
+
+	const menuAboutClickHandler = () => {
+		setShowAboutDialog(true);
+	};
+
 	return (
 		<div className="main">
 			<Overlay visible={showOverlay} onClick={hideDiscDetail} />
 			<Header />
+			<div className="menu">
+				<ClickAwayListener onClickAway={() => setShowMenu(false)}>
+					<div>
+						<MenuButton onClick={toggleMenu} />
+					</div>
+				</ClickAwayListener>
+				{showMenu && <Menu aboutClickHandler={menuAboutClickHandler}></Menu>}
+			</div>
+			<AboutDialog open={showAboutDialog} onClose={() => setShowAboutDialog(false)} />
 			<Form
 				filteredDiscsByName={filteredDiscsByName}
 				filteredDiscsByBrand={filteredDiscsByBrand}

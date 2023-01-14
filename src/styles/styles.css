@@ -58,11 +58,6 @@ a:visited {
 	z-index: 300;
 }
 
-.header a:link,
-.header a:visited {
-	color: inherit;
-}
-
 .logo {
 	position: absolute;
 	-ms-transform: translate(-45%, -20%);
@@ -140,8 +135,13 @@ a:visited {
 	margin: 1rem auto;
 }
 
-.disc-grid-count:hover {
-	cursor: pointer;
+.spacer {
+	padding-left: 0.35em;
+}
+
+.disc-grid-count-inner {
+	display: flex;
+	flex-direction: row;
 }
 
 .disc-grid {
@@ -233,6 +233,74 @@ a:visited {
 	z-index: 80;
 	background-color: rgba(221, 221, 221, 0.6);
 	border-radius: 50%;
+}
+
+.menu-btn {
+	position: fixed;
+	top: 0.5em;
+	right: 0.5em;
+	z-index: 80;
+	background-color: rgba(221, 221, 221, 0.6);
+	border-radius: 50%;
+}
+
+.sort-btn {
+	z-index: 80;
+	background-color: rgba(221, 221, 221, 0.6);
+	border-radius: 50%;
+	width: fit-content;
+	height: fit-content;
+}
+
+.sort-btn:hover {
+	cursor: pointer;
+}
+
+.menu {
+	position: fixed;
+	top: 4em;
+	right: 0.5em;
+	z-index: 80;
+}
+
+.menu-item {
+	background-color: rgba(221, 221, 221, 0.6);
+}
+
+.menu-item:hover {
+	background-color: #e2e2e2;
+}
+
+.about-dialog {
+	text-align: center;
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin: 1em;
+	color: black;
+}
+
+.about-dialog-line {
+	padding: 0.5em;
+}
+
+.copyright {
+	padding-top: 2em;
+	font-size: 0.8em;
+	color: dimgray;
+}
+
+.close-btn {
+	position: absolute;
+	top: 0.5em;
+	right: 0.5em;
+	z-index: 80;
+	background-color: rgba(221, 221, 221, 0.6);
+	border-radius: 50%;
+}
+
+.short-wrap {
+	width: 70%;
+	margin: auto;
 }
 
 @keyframes spin-in {

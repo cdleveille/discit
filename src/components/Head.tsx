@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 
-export const HeadContent: React.FC = () => {
+export const HeadContent = () => {
 	return (
 		<Head>
 			<link rel="manifest" href="/manifest.json" />

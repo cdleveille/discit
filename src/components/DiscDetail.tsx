@@ -10,7 +10,7 @@ interface IDiscDetailProps {
 	spinClass: string;
 }
 
-export const DiscDetail: React.FC<IDiscDetailProps> = ({ data, color, backgroundColor, visible, spinClass }) => {
+export const DiscDetail = ({ data, color, backgroundColor, visible, spinClass }: IDiscDetailProps) => {
 	const styles: CSSProperties = {
 		color: color,
 		backgroundColor: backgroundColor,

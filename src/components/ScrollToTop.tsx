@@ -6,7 +6,7 @@ interface IScrollToTopProps {
 	visible: boolean;
 }
 
-export const ScrollToTop: React.FC<IScrollToTopProps> = ({ visible }) => {
+export const ScrollToTop = ({ visible }: IScrollToTopProps) => {
 	return visible ? (
 		<div className="scroll-to-top">
 			<IconButton aria-label="scrollTop" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} size="large">

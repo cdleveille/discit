@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Header: React.FC = () => {
+export const Header = () => {
 	return (
 		<div className="header">
 			<img className="logo" src="/img/disc_golf.svg"></img>
