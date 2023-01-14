@@ -287,6 +287,7 @@ a:visited {
 	padding-top: 2em;
 	font-size: 0.8em;
 	color: dimgray;
+	font-weight: 400;
 }
 
 .close-btn {
@@ -301,6 +302,10 @@ a:visited {
 .short-wrap {
 	width: 70%;
 	margin: auto;
+}
+
+.menu-spacer {
+	padding-top: 0.5em;
 }
 
 @keyframes spin-in {

@@ -17,7 +17,7 @@ import { IDisc } from "../types/abstract";
 import { CSSClasses, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
 
 const Main = () => {
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 	const [allDiscs, setAllDiscs] = useState<IDisc[]>([]);
 	const [filteredDiscs, setFilteredDiscs] = useState<IDisc[]>([]);
 	const [filteredDiscsByName, setFilteredDiscsByName] = useState<IDisc[]>([]);
@@ -48,10 +48,7 @@ const Main = () => {
 
 	useEffect(() => {
 		(async () => {
-			const allDiscsFromServer = await fetchAllDiscsFromServer();
-			setIsLoading(false);
-			const sortedDiscs = sortDiscs(allDiscsFromServer);
-			setAllDiscs(sortedDiscs);
+			const sortedDiscs = await refreshDiscs();
 			resetFilteredDiscs(sortedDiscs);
 		})();
 	}, []);
@@ -70,7 +67,16 @@ const Main = () => {
 		applyFilters();
 	}, [nameFilterValue, brandFilterValue, categoryFilterValue, stabilityFilterValue]);
 
-	const fetchAllDiscsFromServer = async (): Promise<IDisc[]> => {
+	const refreshDiscs = async () => {
+		setIsLoading(true);
+		const allDiscsFromServer = await fetchAllDiscsFromServer();
+		const sortedDiscs = sortDiscs(allDiscsFromServer);
+		setAllDiscs(sortedDiscs);
+		setIsLoading(false);
+		return sortedDiscs;
+	};
+
+	const fetchAllDiscsFromServer = async () => {
 		const res: Response = await fetch(`${Config.Public.API_URL}/disc`);
 		const data: IDisc[] = await res.json();
 		return data;
@@ -159,7 +165,7 @@ const Main = () => {
 		setSortAtoZ(!sortAtoZ);
 	};
 
-	const sortDiscs = (discs: IDisc[]): IDisc[] => {
+	const sortDiscs = (discs: IDisc[]) => {
 		return discs.sort((a, b) => {
 			return (sortAtoZ ? 1 : -1) * a.name.toLowerCase().localeCompare(b.name.toLowerCase());
 		});
@@ -167,6 +173,11 @@ const Main = () => {
 
 	const toggleMenu = () => {
 		setShowMenu(!showMenu);
+	};
+
+	const menuRefreshClickHandler = () => {
+		setShowMenu(false);
+		refreshDiscs();
 	};
 
 	const menuAboutClickHandler = () => {
@@ -182,7 +193,7 @@ const Main = () => {
 				<ClickAwayListener onClickAway={() => setShowMenu(false)}>
 					<div>
 						<MenuButton onClick={toggleMenu} />
-						{showMenu && <Menu aboutClickHandler={menuAboutClickHandler}></Menu>}
+						{showMenu && <Menu refreshClickHandler={menuRefreshClickHandler} aboutClickHandler={menuAboutClickHandler}></Menu>}
 					</div>
 				</ClickAwayListener>
 			</div>
