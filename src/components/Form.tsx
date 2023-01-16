@@ -1,9 +1,10 @@
+import React, { SyntheticEvent, useEffect, useState } from "react";
+
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import Autocomplete from "@mui/material/Autocomplete";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import React, { useState, useEffect, SyntheticEvent } from "react";
 
 import { getArrayIntersection, uniqueValue } from "../helpers/util";
 import { IDisc } from "../types/abstract";

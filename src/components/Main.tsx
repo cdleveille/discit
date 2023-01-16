@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
+
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 
+import { getArrayIntersection, stringArrayIncludesString, stringIncludesString } from "../helpers/util";
+import { useApi } from "../hooks/useApi";
+import { useLogin } from "../hooks/useLogin";
+import { IDisc, IUser } from "../types/abstract";
+import { CSSClasses, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
 import { AboutDialog } from "./AboutDialog";
 import DiscDetail from "./DiscDetail";
 import DiscGrid from "./DiscGrid";
 import Form from "./Form";
 import Header from "./Header";
-import Overlay from "./Overlay";
-import { ScrollToTop } from "./ScrollToTop";
-import { MenuButton } from "./MenuButton";
+import { LoginRegisterDialog } from "./LoginRegisterDialog";
 import { Menu } from "./Menu";
-
-import Config from "../helpers/config";
-import { stringIncludesString, stringArrayIncludesString, getArrayIntersection } from "../helpers/util";
-import { IDisc } from "../types/abstract";
-import { CSSClasses, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
+import { MenuButton } from "./MenuButton";
+import Overlay from "./Overlay";
+import { ProfileDialog } from "./ProfileDialog";
+import { ScrollToTop } from "./ScrollToTop";
 
 const Main = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -45,10 +48,17 @@ const Main = () => {
 
 	const [showMenu, setShowMenu] = useState(false);
 	const [showAboutDialog, setShowAboutDialog] = useState(false);
+	const [showLoginDialog, setShowLoginDialog] = useState(false);
+	const [showProfileDialog, setShowProfileDialog] = useState(false);
+
+	const [loggedInUser, setLoggedInUser] = useState<IUser>();
+
+	const { GET } = useApi();
+	const { validate, logOut } = useLogin(setLoggedInUser);
 
 	useEffect(() => {
 		(async () => {
-			const sortedDiscs = await refreshDiscs();
+			const [sortedDiscs] = await Promise.all([refreshDiscs(), validate()]);
 			resetFilteredDiscs(sortedDiscs);
 		})();
 	}, []);
@@ -77,8 +87,7 @@ const Main = () => {
 	};
 
 	const fetchAllDiscsFromServer = async () => {
-		const res: Response = await fetch(`${Config.Public.API_URL}/disc`);
-		const data: IDisc[] = await res.json();
+		const data = (await GET("/disc")) as unknown as IDisc[];
 		return data;
 	};
 
@@ -175,6 +184,16 @@ const Main = () => {
 		setShowMenu(!showMenu);
 	};
 
+	const menuLoginClickHandler = () => {
+		setShowMenu(false);
+		setShowLoginDialog(true);
+	};
+
+	const menuProfileClickHandler = () => {
+		setShowMenu(false);
+		setShowProfileDialog(true);
+	};
+
 	const menuRefreshClickHandler = () => {
 		setShowMenu(false);
 		refreshDiscs();
@@ -185,6 +204,11 @@ const Main = () => {
 		setShowAboutDialog(true);
 	};
 
+	const logoutClickHandler = () => {
+		setShowMenu(false);
+		logOut();
+	};
+
 	return (
 		<div className="main">
 			<Overlay visible={showOverlay} onClick={hideDiscDetail} />
@@ -193,11 +217,22 @@ const Main = () => {
 				<ClickAwayListener onClickAway={() => setShowMenu(false)}>
 					<div>
 						<MenuButton onClick={toggleMenu} />
-						{showMenu && <Menu refreshClickHandler={menuRefreshClickHandler} aboutClickHandler={menuAboutClickHandler}></Menu>}
+						{showMenu && (
+							<Menu
+								loggedInUser={loggedInUser}
+								loginClickHandler={menuLoginClickHandler}
+								menuProfileClickHandler={menuProfileClickHandler}
+								refreshClickHandler={menuRefreshClickHandler}
+								aboutClickHandler={menuAboutClickHandler}
+								logoutClickHandler={logoutClickHandler}
+							></Menu>
+						)}
 					</div>
 				</ClickAwayListener>
 			</div>
 			<AboutDialog open={showAboutDialog} onClose={() => setShowAboutDialog(false)} />
+			<LoginRegisterDialog open={showLoginDialog} onClose={() => setShowLoginDialog(false)} setLoggedInUser={setLoggedInUser} />
+			<ProfileDialog open={showProfileDialog} onClose={() => setShowProfileDialog(false)} loggedInUser={loggedInUser} />
 			<Form
 				filteredDiscsByName={filteredDiscsByName}
 				filteredDiscsByBrand={filteredDiscsByBrand}

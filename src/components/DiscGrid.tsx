@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
+
 import CircularProgress from "@mui/material/CircularProgress";
 
-import DiscGridItem from "./DiscGridItem";
 import { IDisc } from "../types/abstract";
+import DiscGridItem from "./DiscGridItem";
 import { SortButton } from "./SortButton";
 
 interface IDiscGridProps {

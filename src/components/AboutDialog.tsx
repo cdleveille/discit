@@ -1,5 +1,7 @@
 import React from "react";
+
 import Dialog from "@mui/material/Dialog";
+
 import { CloseButton } from "./CloseButton";
 
 interface IAboutDialogProps {
@@ -12,7 +14,7 @@ export const AboutDialog = ({ open, onClose }: IAboutDialogProps) => {
 		<Dialog open={open} onClose={onClose}>
 			<div className="about-dialog">
 				<CloseButton onClick={onClose} />
-				<div className="about-dialog-line short-wrap">
+				<div className="dialog-line short-wrap">
 					Created just for fun by{" "}
 					<a href="https://www.cdleveille.net" target="_blank" rel="noreferrer">
 						Chris Leveille
@@ -22,7 +24,7 @@ export const AboutDialog = ({ open, onClose }: IAboutDialogProps) => {
 				<div className="about-dialog-line">
 					Disc data sourced from the{" "}
 					<a href="https://www.marshallstreetdiscgolf.com/flightguide" target="_blank" rel="noreferrer">
-						Marshall Street Flight Guide
+						Marshall Street Disc Golf Interactive Flight Guide
 					</a>{" "}
 					and accessed via the{" "}
 					<a href="https://github.com/cdleveille/discit-api" target="_blank" rel="noreferrer">

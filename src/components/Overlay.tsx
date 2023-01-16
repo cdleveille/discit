@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useKeypress from "react-use-keypress";
+
 import { CSSClasses, Keys } from "../types/constants";
 
 interface IOverlayProps {

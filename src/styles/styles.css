@@ -16,6 +16,10 @@ a:visited {
 	text-decoration: none;
 }
 
+a:hover {
+	text-decoration: underline;
+}
+
 .form {
 	display: flex;
 	flex-wrap: wrap;
@@ -91,6 +95,7 @@ a:visited {
 	transition: 0.3s;
 	justify-content: center;
 	align-items: center;
+	user-select: text;
 }
 
 .disc-detail-container {
@@ -263,23 +268,19 @@ a:visited {
 	z-index: 80;
 }
 
-.menu-item {
-	background-color: rgba(221, 221, 221, 0.6);
-}
-
 .menu-item:hover {
-	background-color: #e2e2e2;
+	background-color: rgba(221, 221, 221, 0.6);
 }
 
 .about-dialog {
 	text-align: center;
 	font-size: 1.25rem;
-	font-weight: 600;
 	margin: 1em;
 	color: black;
+	user-select: text;
 }
 
-.about-dialog-line {
+.dialog-line {
 	padding: 0.5em;
 }
 
@@ -287,7 +288,37 @@ a:visited {
 	padding-top: 2em;
 	font-size: 0.8em;
 	color: dimgray;
-	font-weight: 400;
+}
+
+.login-dialog {
+	padding-top: 2.5em;
+	padding-bottom: 2.5em;
+	font-size: 1.25rem;
+	color: black;
+	user-select: text;
+	text-align: center;
+	min-width: 12em;
+}
+
+.login-dialog-item {
+	padding-top: 1em;
+	margin-left: 2em;
+	margin-right: 2em;
+}
+
+.login-dialog-error {
+	color: red;
+}
+
+.profile-dialog {
+	padding-top: 2.5em;
+	padding-bottom: 2.5em;
+	margin-left: 2em;
+	margin-right: 2em;
+	font-size: 1.25rem;
+	color: black;
+	user-select: text;
+	text-align: center;
 }
 
 .close-btn {

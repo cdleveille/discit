@@ -17,7 +17,28 @@ export interface IDisc {
 	background_color: string;
 }
 
+export interface IUser {
+	id: string;
+	username: string;
+	email: string;
+	password: string;
+}
+
+export interface IBag {
+	id: string;
+	name: string;
+	user_id: string;
+	discs: string[];
+}
+
 export interface IDiscColor {
 	color: string;
 	backgroundColor: string;
+}
+
+export interface IResponse<T = any> {
+	ok: boolean;
+	status: number;
+	data: T;
+	error?: string;
 }
