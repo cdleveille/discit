@@ -38,6 +38,12 @@ export const RegisterForm = ({ closeDialog, setLoggedInUser, showNotification }:
 					}}
 					autoFocus={!isMobile}
 					spellCheck={false}
+					inputProps={{
+						autoCapitalize: "none",
+						autoComplete: "none"
+					}}
+					autoCapitalize="none"
+					autoComplete="none"
 				/>
 			</div>
 			<div className="login-dialog-item">
@@ -50,6 +56,12 @@ export const RegisterForm = ({ closeDialog, setLoggedInUser, showNotification }:
 						setEmail(e.target.value);
 					}}
 					spellCheck={false}
+					inputProps={{
+						autoCapitalize: "none",
+						autoComplete: "none"
+					}}
+					autoCapitalize="none"
+					autoComplete="none"
 				/>
 			</div>
 			<div className="login-dialog-item">
@@ -62,6 +74,12 @@ export const RegisterForm = ({ closeDialog, setLoggedInUser, showNotification }:
 						setPassword(e.target.value);
 					}}
 					spellCheck={false}
+					inputProps={{
+						autoCapitalize: "none",
+						autoComplete: "none"
+					}}
+					autoCapitalize="none"
+					autoComplete="none"
 				/>
 			</div>
 			{error && <div className="login-dialog-item login-dialog-error">{error}</div>}

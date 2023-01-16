@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import ClickAwayListener from "@mui/base/ClickAwayListener";
-import { AlertColor } from "@mui/material/Alert";
 
 import { getArrayIntersection, stringArrayIncludesString, stringIncludesString } from "../helpers/util";
 import { useApi } from "../hooks/useApi";
 import { useLogin } from "../hooks/useLogin";
+import { useNotification } from "../hooks/useNotification";
 import { IDisc, IUser } from "../types/abstract";
 import { CSSClasses, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
 import { AboutDialog } from "./AboutDialog";
@@ -16,7 +16,7 @@ import Header from "./Header";
 import { LoginRegisterDialog } from "./LoginRegisterDialog";
 import { Menu } from "./Menu";
 import { MenuButton } from "./MenuButton";
-import { INotificationProps, Notification } from "./Notification";
+import { Notification } from "./Notification";
 import Overlay from "./Overlay";
 import { ProfileDialog } from "./ProfileDialog";
 import { ScrollToTop } from "./ScrollToTop";
@@ -54,23 +54,15 @@ const Main = () => {
 	const [showProfileDialog, setShowProfileDialog] = useState(false);
 
 	const [loggedInUser, setLoggedInUser] = useState<IUser>();
-	const [notification, setNotification] = useState<INotificationProps>();
-
-	const showNotification = (severity: AlertColor, message: string) => {
-		setNotification({
-			open: true,
-			severity,
-			message,
-			clearNotification
-		});
-	};
 
 	const { GET } = useApi();
+	const { notification, clearNotification, showNotification } = useNotification();
 	const { validate, logOut } = useLogin(setLoggedInUser, showNotification);
 
 	useEffect(() => {
 		(async () => {
-			const [sortedDiscs] = await Promise.all([refreshDiscs(), validate()]);
+			const [sortedDiscs, user] = await Promise.all([refreshDiscs(), validate()]);
+			user && showNotification("success", `${user.username} logged in`);
 			resetFilteredDiscs(sortedDiscs);
 		})();
 	}, []);
@@ -219,10 +211,6 @@ const Main = () => {
 	const logoutClickHandler = async () => {
 		setShowMenu(false);
 		await logOut();
-	};
-
-	const clearNotification = () => {
-		setNotification(undefined);
 	};
 
 	return (

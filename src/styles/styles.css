@@ -56,7 +56,7 @@ a:hover {
 .header {
 	margin-top: 0.25rem;
 	margin: 1rem;
-	font-size: 3.5rem;
+	font-size: 3rem;
 	font-weight: 600;
 	color: black;
 	text-align: center;
@@ -65,11 +65,11 @@ a:hover {
 
 .logo {
 	position: absolute;
-	-ms-transform: translate(-45%, -20%);
-	-webkit-transform: translate(-45%, -20%);
-	transform: translate(-45%, -20%);
-	width: 8rem;
-	height: 8rem;
+	-ms-transform: translate(-40%, -15%);
+	-webkit-transform: translate(-40%, -15%);
+	transform: translate(-40%, -15%);
+	width: 6rem;
+	height: 6rem;
 }
 
 .main {

@@ -36,6 +36,13 @@ export const LoginForm = ({ closeDialog, setLoggedInUser, showNotification }: IL
 						setUsername(e.target.value);
 					}}
 					autoFocus={!isMobile}
+					spellCheck={false}
+					inputProps={{
+						autoCapitalize: "none",
+						autoComplete: "none"
+					}}
+					autoCapitalize="none"
+					autoComplete="none"
 				/>
 			</div>
 			<div className="login-dialog-item">
@@ -47,6 +54,13 @@ export const LoginForm = ({ closeDialog, setLoggedInUser, showNotification }: IL
 					onChange={(e) => {
 						setPassword(e.target.value);
 					}}
+					spellCheck={false}
+					inputProps={{
+						autoCapitalize: "none",
+						autoComplete: "none"
+					}}
+					autoCapitalize="none"
+					autoComplete="none"
 				/>
 			</div>
 			{error && <div className="login-dialog-item login-dialog-error">{error}</div>}
