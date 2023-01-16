@@ -14,7 +14,7 @@ export const AboutDialog = ({ open, onClose }: IAboutDialogProps) => {
 		<Dialog open={open} onClose={onClose}>
 			<div className="about-dialog">
 				<CloseButton onClick={onClose} />
-				<div className="dialog-line short-wrap">
+				<div className="dialog-line">
 					Created just for fun by{" "}
 					<a href="https://www.cdleveille.net" target="_blank" rel="noreferrer">
 						Chris Leveille

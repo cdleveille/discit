@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import ClickAwayListener from "@mui/base/ClickAwayListener";
+import { AlertColor } from "@mui/material/Alert";
 
 import { getArrayIntersection, stringArrayIncludesString, stringIncludesString } from "../helpers/util";
 import { useApi } from "../hooks/useApi";
@@ -15,6 +16,7 @@ import Header from "./Header";
 import { LoginRegisterDialog } from "./LoginRegisterDialog";
 import { Menu } from "./Menu";
 import { MenuButton } from "./MenuButton";
+import { INotificationProps, Notification } from "./Notification";
 import Overlay from "./Overlay";
 import { ProfileDialog } from "./ProfileDialog";
 import { ScrollToTop } from "./ScrollToTop";
@@ -52,9 +54,19 @@ const Main = () => {
 	const [showProfileDialog, setShowProfileDialog] = useState(false);
 
 	const [loggedInUser, setLoggedInUser] = useState<IUser>();
+	const [notification, setNotification] = useState<INotificationProps>();
+
+	const showNotification = (severity: AlertColor, message: string) => {
+		setNotification({
+			open: true,
+			severity,
+			message,
+			clearNotification
+		});
+	};
 
 	const { GET } = useApi();
-	const { validate, logOut } = useLogin(setLoggedInUser);
+	const { validate, logOut } = useLogin(setLoggedInUser, showNotification);
 
 	useEffect(() => {
 		(async () => {
@@ -204,15 +216,25 @@ const Main = () => {
 		setShowAboutDialog(true);
 	};
 
-	const logoutClickHandler = () => {
+	const logoutClickHandler = async () => {
 		setShowMenu(false);
-		logOut();
+		await logOut();
+	};
+
+	const clearNotification = () => {
+		setNotification(undefined);
 	};
 
 	return (
 		<div className="main">
 			<Overlay visible={showOverlay} onClick={hideDiscDetail} />
 			<Header />
+			<Notification
+				open={notification?.open}
+				severity={notification?.severity}
+				message={notification?.message}
+				clearNotification={clearNotification}
+			/>
 			<div className="menu">
 				<ClickAwayListener onClickAway={() => setShowMenu(false)}>
 					<div>
@@ -231,7 +253,12 @@ const Main = () => {
 				</ClickAwayListener>
 			</div>
 			<AboutDialog open={showAboutDialog} onClose={() => setShowAboutDialog(false)} />
-			<LoginRegisterDialog open={showLoginDialog} onClose={() => setShowLoginDialog(false)} setLoggedInUser={setLoggedInUser} />
+			<LoginRegisterDialog
+				open={showLoginDialog}
+				onClose={() => setShowLoginDialog(false)}
+				setLoggedInUser={setLoggedInUser}
+				showNotification={showNotification}
+			/>
 			<ProfileDialog open={showProfileDialog} onClose={() => setShowProfileDialog(false)} loggedInUser={loggedInUser} />
 			<Form
 				filteredDiscsByName={filteredDiscsByName}

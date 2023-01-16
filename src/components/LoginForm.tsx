@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 
+import { AlertColor } from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
@@ -9,29 +11,36 @@ import { IUser } from "../types/abstract";
 interface ILoginFormProps {
 	closeDialog: () => void;
 	setLoggedInUser: (user: IUser | undefined) => void;
+	showNotification: (severity: AlertColor, message: string) => void;
 }
 
-export const LoginForm = ({ closeDialog, setLoggedInUser }: ILoginFormProps) => {
+export const LoginForm = ({ closeDialog, setLoggedInUser, showNotification }: ILoginFormProps) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 
-	const { logIn } = useLogin(setLoggedInUser);
+	useEffect(() => {
+		if (username.length > 16) setUsername(username.substring(0, 16));
+	}, [username]);
+
+	const { logIn } = useLogin(setLoggedInUser, showNotification);
 
 	return (
 		<form>
 			<div className="login-dialog-item">
 				<TextField
+					value={username}
 					label="username"
 					variant="outlined"
 					onChange={(e) => {
 						setUsername(e.target.value);
 					}}
-					autoFocus
+					autoFocus={!isMobile}
 				/>
 			</div>
 			<div className="login-dialog-item">
 				<TextField
+					value={password}
 					label="password"
 					variant="outlined"
 					type="password"

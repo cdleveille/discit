@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 
+import { AlertColor } from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
@@ -9,46 +11,57 @@ import { IUser } from "../types/abstract";
 interface IRegisterFormProps {
 	closeDialog: () => void;
 	setLoggedInUser: (user: IUser | undefined) => void;
+	showNotification: (severity: AlertColor, message: string) => void;
 }
 
-export const RegisterForm = ({ closeDialog, setLoggedInUser }: IRegisterFormProps) => {
+export const RegisterForm = ({ closeDialog, setLoggedInUser, showNotification }: IRegisterFormProps) => {
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 
-	const { register } = useLogin(setLoggedInUser);
+	useEffect(() => {
+		if (username.length > 16) setUsername(username.substring(0, 16));
+	}, [username]);
+
+	const { register } = useLogin(setLoggedInUser, showNotification);
 
 	return (
 		<form>
 			<div className="login-dialog-item">
 				<TextField
+					value={username}
 					label="username"
 					variant="outlined"
 					onChange={(e) => {
 						setUsername(e.target.value);
 					}}
-					autoFocus
+					autoFocus={!isMobile}
+					spellCheck={false}
 				/>
 			</div>
 			<div className="login-dialog-item">
 				<TextField
+					value={email}
 					label="email"
 					variant="outlined"
 					type="email"
 					onChange={(e) => {
 						setEmail(e.target.value);
 					}}
+					spellCheck={false}
 				/>
 			</div>
 			<div className="login-dialog-item">
 				<TextField
+					value={password}
 					label="password"
 					variant="outlined"
 					type="password"
 					onChange={(e) => {
 						setPassword(e.target.value);
 					}}
+					spellCheck={false}
 				/>
 			</div>
 			{error && <div className="login-dialog-item login-dialog-error">{error}</div>}

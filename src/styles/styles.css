@@ -3,7 +3,8 @@
 }
 
 html,
-body {
+body,
+#root {
 	padding: 0;
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -243,7 +244,7 @@ a:hover {
 .menu-btn {
 	position: fixed;
 	top: 0.5em;
-	right: 0.5em;
+	left: 0.5em;
 	z-index: 80;
 	background-color: rgba(221, 221, 221, 0.6);
 	border-radius: 50%;
@@ -264,8 +265,8 @@ a:hover {
 .menu {
 	position: fixed;
 	top: 4em;
-	right: 0.5em;
-	z-index: 80;
+	left: 0.5em;
+	z-index: 120;
 }
 
 .menu-item:hover {
@@ -273,9 +274,10 @@ a:hover {
 }
 
 .about-dialog {
+	padding-top: 2.5em;
+	padding-bottom: 2.5em;
 	text-align: center;
 	font-size: 1.25rem;
-	margin: 1em;
 	color: black;
 	user-select: text;
 }
@@ -330,13 +332,15 @@ a:hover {
 	border-radius: 50%;
 }
 
-.short-wrap {
-	width: 70%;
-	margin: auto;
-}
-
 .menu-spacer {
 	padding-top: 0.5em;
+}
+
+.alert {
+	z-index: 100;
+	position: fixed;
+	top: 0.5em;
+	left: 4.5em;
 }
 
 @keyframes spin-in {
