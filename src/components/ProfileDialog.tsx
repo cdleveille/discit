@@ -1,9 +1,11 @@
 import React from "react";
 
 import PersonIcon from "@mui/icons-material/Person";
+import { AlertColor } from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 
+import { useLogin } from "../hooks/useLogin";
 import { IUser } from "../types/abstract";
 import { CloseButton } from "./CloseButton";
 
@@ -11,9 +13,13 @@ interface IProfileDialogProps {
 	open: boolean;
 	onClose: () => void;
 	loggedInUser: IUser | undefined;
+	setLoggedInUser: (user: IUser | undefined) => void;
+	showNotification: (severity: AlertColor, message: string) => void;
 }
 
-export const ProfileDialog = ({ open, onClose, loggedInUser }: IProfileDialogProps) => {
+export const ProfileDialog = ({ open, onClose, loggedInUser, setLoggedInUser, showNotification }: IProfileDialogProps) => {
+	const { deleteAccount } = useLogin(setLoggedInUser, showNotification);
+
 	return loggedInUser ? (
 		<Dialog open={open} onClose={onClose}>
 			<div className="profile-dialog">
@@ -39,7 +45,14 @@ export const ProfileDialog = ({ open, onClose, loggedInUser }: IProfileDialogPro
 					</Button>
 				</div>
 				<div className="dialog-line" style={{ paddingTop: "1.5em" }}>
-					<Button className="profile-btn" variant="outlined" color="error" onClick={() => console.log("delete account")}>
+					<Button
+						className="profile-btn"
+						variant="outlined"
+						color="error"
+						onClick={async () => {
+							await deleteAccount(loggedInUser.id);
+						}}
+					>
 						Delete Account
 					</Button>
 				</div>

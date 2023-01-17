@@ -7,7 +7,7 @@ import { IUser } from "../types/abstract";
 export const useLogin = (setLoggedInUser: (user: IUser | undefined) => void, showNotification: (severity: AlertColor, message: string) => void) => {
 	const LOGIN_TOKEN_KEY = "loginToken";
 
-	const { POST } = useApi();
+	const { POST, DELETE } = useApi();
 	const { getLocalStorageItem, setLocalStorageItem, removeLocalStorageItem } = useLocalStorage();
 
 	const register = async (username: string, email: string, password: string) => {
@@ -39,12 +39,23 @@ export const useLogin = (setLoggedInUser: (user: IUser | undefined) => void, sho
 		return data;
 	};
 
-	const logOut = async () => {
-		const user = await validate();
+	const logOut = async (username: string | undefined) => {
 		removeLocalStorageItem(LOGIN_TOKEN_KEY);
 		setLoggedInUser(undefined);
-		user && showNotification("success", `${user.username} logged out`);
+		username && showNotification("success", `${username} logged out`);
 	};
 
-	return { register, logIn, validate, logOut };
+	const deleteAccount = async (id: string) => {
+		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
+		const { data, error } = await DELETE<IUser>("/user/delete", { id }, {
+			"Authorization": `Bearer ${loginToken}`
+		});
+		if (error) throw error;
+		removeLocalStorageItem(LOGIN_TOKEN_KEY);
+		setLoggedInUser(undefined);
+		console.log(data);
+		data && showNotification("success", `${data.username} account deleted`);
+	};
+
+	return { register, logIn, validate, logOut, deleteAccount };
 };

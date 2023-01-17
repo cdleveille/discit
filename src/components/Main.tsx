@@ -216,7 +216,7 @@ const Main = () => {
 
 	const logoutClickHandler = async () => {
 		setShowMenu(false);
-		await logOut();
+		await logOut(loggedInUser?.username);
 	};
 
 	return (
@@ -253,7 +253,13 @@ const Main = () => {
 				setLoggedInUser={setLoggedInUser}
 				showNotification={showNotification}
 			/>
-			<ProfileDialog open={showProfileDialog} onClose={() => setShowProfileDialog(false)} loggedInUser={loggedInUser} />
+			<ProfileDialog
+				open={showProfileDialog}
+				onClose={() => setShowProfileDialog(false)}
+				loggedInUser={loggedInUser}
+				setLoggedInUser={setLoggedInUser}
+				showNotification={showNotification}
+			/>
 			<Form
 				filteredDiscsByName={filteredDiscsByName}
 				filteredDiscsByBrand={filteredDiscsByBrand}
