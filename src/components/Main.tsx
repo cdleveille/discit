@@ -10,6 +10,7 @@ import { useNotification } from "../hooks/useNotification";
 import { IDisc, IUser } from "../types/abstract";
 import { CSSClasses, Keys, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
 import { AboutDialog } from "./AboutDialog";
+import { DeleteAccountDialog } from "./DeleteAccountDialog";
 import DiscDetail from "./DiscDetail";
 import DiscGrid from "./DiscGrid";
 import Form from "./Form";
@@ -53,12 +54,13 @@ const Main = () => {
 	const [showAboutDialog, setShowAboutDialog] = useState(false);
 	const [showLoginDialog, setShowLoginDialog] = useState(false);
 	const [showProfileDialog, setShowProfileDialog] = useState(false);
+	const [showDeleteAcountDialog, setShowDeleteAccountDialog] = useState(false);
 
 	const [loggedInUser, setLoggedInUser] = useState<IUser>();
 
 	const { GET } = useApi();
 	const { notification, clearNotification, showNotification } = useNotification();
-	const { validate, logOut } = useLogin(setLoggedInUser, showNotification);
+	const { validate, logOut, deleteAccount } = useLogin(setLoggedInUser, showNotification);
 
 	useEffect(() => {
 		(async () => {
@@ -257,8 +259,13 @@ const Main = () => {
 				open={showProfileDialog}
 				onClose={() => setShowProfileDialog(false)}
 				loggedInUser={loggedInUser}
-				setLoggedInUser={setLoggedInUser}
-				showNotification={showNotification}
+				setShowDeleteAccountDialog={setShowDeleteAccountDialog}
+			/>
+			<DeleteAccountDialog
+				open={showDeleteAcountDialog}
+				onClose={() => setShowDeleteAccountDialog(false)}
+				loggedInUser={loggedInUser}
+				deleteAccount={deleteAccount}
 			/>
 			<Form
 				filteredDiscsByName={filteredDiscsByName}

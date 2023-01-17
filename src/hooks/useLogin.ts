@@ -53,8 +53,7 @@ export const useLogin = (setLoggedInUser: (user: IUser | undefined) => void, sho
 		if (error) throw error;
 		removeLocalStorageItem(LOGIN_TOKEN_KEY);
 		setLoggedInUser(undefined);
-		console.log(data);
-		data && showNotification("success", `${data.username} account deleted`);
+		data && showNotification("success", `Account deleted: ${data.username}`);
 	};
 
 	return { register, logIn, validate, logOut, deleteAccount };

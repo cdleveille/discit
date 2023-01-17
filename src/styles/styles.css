@@ -347,6 +347,17 @@ a:hover {
 	width: 14em;
 }
 
+.delete-account-dialog {
+	padding-top: 2.5em;
+	padding-bottom: 2.5em;
+	margin-left: 2em;
+	margin-right: 2em;
+	font-size: 1.25rem;
+	color: black;
+	user-select: text;
+	text-align: center;
+}
+
 @keyframes spin-in {
 	0% {
 		opacity: 0;
