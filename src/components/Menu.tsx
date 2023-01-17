@@ -1,4 +1,5 @@
 import React from "react";
+import { isMobile } from "react-device-detect";
 
 import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from "@mui/icons-material/Login";
@@ -35,14 +36,14 @@ export const Menu = ({
 		<Paper elevation={3} sx={{ width: "fit-content", minWidth: 180 }}>
 			<MenuList>
 				{loggedInUser ? (
-					<MenuItem className="menu-item" onClick={menuProfileClickHandler} autoFocus>
+					<MenuItem className="menu-item" onClick={menuProfileClickHandler} autoFocus={!isMobile}>
 						<ListItemIcon>
 							<PersonIcon fontSize="medium" />
 						</ListItemIcon>
 						<ListItemText>{loggedInUser.username}</ListItemText>
 					</MenuItem>
 				) : (
-					<MenuItem className="menu-item" onClick={loginClickHandler} autoFocus>
+					<MenuItem className="menu-item" onClick={loginClickHandler} autoFocus={!isMobile}>
 						<ListItemIcon>
 							<LoginIcon fontSize="medium" />
 						</ListItemIcon>
