@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 
-import { AlertColor } from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
-import { useLogin } from "../hooks/useLogin";
-import { IUser } from "../types/abstract";
-
 interface ILoginFormProps {
-	closeDialog: () => void;
-	setLoggedInUser: (user: IUser | undefined) => void;
-	showNotification: (severity: AlertColor, message: string) => void;
+	onClose: () => void;
+	logIn: (username: string, password: string) => Promise<void>;
 }
 
-export const LoginForm = ({ closeDialog, setLoggedInUser, showNotification }: ILoginFormProps) => {
+export const LoginForm = ({ onClose, logIn }: ILoginFormProps) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
@@ -23,7 +18,11 @@ export const LoginForm = ({ closeDialog, setLoggedInUser, showNotification }: IL
 		if (username.length > 16) setUsername(username.substring(0, 16));
 	}, [username]);
 
-	const { logIn } = useLogin(setLoggedInUser, showNotification);
+	const resetForm = () => {
+		setUsername("");
+		setPassword("");
+		setError("");
+	};
 
 	return (
 		<form>
@@ -72,7 +71,8 @@ export const LoginForm = ({ closeDialog, setLoggedInUser, showNotification }: IL
 						try {
 							e.preventDefault();
 							await logIn(username, password);
-							closeDialog();
+							resetForm();
+							onClose();
 						} catch (error) {
 							setError(error as string);
 						}

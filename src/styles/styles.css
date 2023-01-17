@@ -358,6 +358,27 @@ a:hover {
 	text-align: center;
 }
 
+.change-username-dialog {
+	padding-top: 2.5em;
+	padding-bottom: 2.5em;
+	font-size: 1.25rem;
+	color: black;
+	user-select: text;
+	text-align: center;
+	min-width: 12em;
+}
+
+.change-username-dialog-item {
+	padding-top: 2em;
+	margin-left: 2em;
+	margin-right: 2em;
+}
+
+.change-username-dialog-error {
+	font-size: 14px;
+	color: red;
+}
+
 @keyframes spin-in {
 	0% {
 		opacity: 0;

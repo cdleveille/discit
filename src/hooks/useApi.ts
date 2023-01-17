@@ -26,13 +26,13 @@ export const useApi = () => {
 		return request<T>("POST", Config.Public.API_URL + path, body, headers);
 	};
 
-	const DELETE = async <T = any>(path: string, body?: Record<string, string>, headers?: Record<string, string>) => {
-		return request<T>("DELETE", Config.Public.API_URL + path, body, headers);
-		// return axios.delete<T>(Config.Public.API_URL + path, {
-		// 	headers,
-		// 	data: body
-		// });
+	const PUT = async <T = any>(path: string, body?: Record<string, string>, headers?: Record<string, string>) => {
+		return request<T>("PUT", Config.Public.API_URL + path, body, headers);
 	};
 
-	return { GET, POST, DELETE };
+	const DELETE = async <T = any>(path: string, body?: Record<string, string>, headers?: Record<string, string>) => {
+		return request<T>("DELETE", Config.Public.API_URL + path, body, headers);
+	};
+
+	return { GET, POST, PUT, DELETE };
 };

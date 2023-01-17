@@ -12,30 +12,47 @@ interface IProfileDialogProps {
 	onClose: () => void;
 	loggedInUser: IUser | undefined;
 	setShowDeleteAccountDialog: (show: boolean) => void;
+	setShowChangeUsernameDialog: (show: boolean) => void;
+	setShowChangePasswordDialog: (show: boolean) => void;
 }
 
-export const ProfileDialog = ({ open, onClose, loggedInUser, setShowDeleteAccountDialog }: IProfileDialogProps) => {
+export const ProfileDialog = ({
+	open,
+	onClose,
+	loggedInUser,
+	setShowDeleteAccountDialog,
+	setShowChangeUsernameDialog,
+	setShowChangePasswordDialog
+}: IProfileDialogProps) => {
 	return loggedInUser ? (
 		<Dialog open={open} onClose={onClose}>
 			<div className="profile-dialog">
 				<CloseButton onClick={onClose} />
 				<div className="dialog-line">
-					<div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+					<div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", paddingBottom: "0.2em" }}>
 						<PersonIcon fontSize="medium" />
 						<span>{loggedInUser.username}</span>
 					</div>
-					<Button className="profile-btn" variant="outlined" onClick={() => console.log("change username")}>
+					<Button
+						className="profile-btn"
+						variant="outlined"
+						onClick={() => {
+							onClose();
+							setShowChangeUsernameDialog(true);
+						}}
+					>
 						Change Username
 					</Button>
 				</div>
-				<div className="dialog-line">
-					<div>{loggedInUser.email}</div>
-					<Button className="profile-btn" variant="outlined" onClick={() => console.log("change email")}>
-						Change Email
-					</Button>
-				</div>
 				<div className="dialog-line" style={{ paddingTop: "1.5em" }}>
-					<Button className="profile-btn" variant="outlined" onClick={() => console.log("change password")}>
+					<Button
+						className="profile-btn"
+						variant="outlined"
+						onClick={() => {
+							onClose();
+							setShowChangePasswordDialog(true);
+						}}
+					>
 						Change Password
 					</Button>
 				</div>

@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 
-import { AlertColor } from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 
-import { IUser } from "../types/abstract";
 import { CloseButton } from "./CloseButton";
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
@@ -15,11 +13,11 @@ import { TabPanel } from "./TabPanel";
 interface ILoginRegisterDialogProps {
 	open: boolean;
 	onClose: () => void;
-	setLoggedInUser: (user: IUser | undefined) => void;
-	showNotification: (severity: AlertColor, message: string) => void;
+	logIn: (username: string, password: string) => Promise<void>;
+	register: (username: string, password: string) => Promise<void>;
 }
 
-export const LoginRegisterDialog = ({ open, onClose, setLoggedInUser, showNotification }: ILoginRegisterDialogProps) => {
+export const LoginRegisterDialog = ({ open, onClose, logIn, register }: ILoginRegisterDialogProps) => {
 	const [tabIndex, setTabIndex] = useState(0);
 
 	const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -38,10 +36,10 @@ export const LoginRegisterDialog = ({ open, onClose, setLoggedInUser, showNotifi
 						</Tabs>
 					</Box>
 					<TabPanel value={tabIndex} index={0}>
-						<LoginForm closeDialog={onClose} setLoggedInUser={setLoggedInUser} showNotification={showNotification} />
+						<LoginForm onClose={onClose} logIn={logIn} />
 					</TabPanel>
 					<TabPanel value={tabIndex} index={1}>
-						<RegisterForm closeDialog={onClose} setLoggedInUser={setLoggedInUser} showNotification={showNotification} />
+						<RegisterForm onClose={onClose} register={register} />
 					</TabPanel>
 				</Box>
 			</div>

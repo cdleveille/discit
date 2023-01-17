@@ -10,6 +10,8 @@ import { useNotification } from "../hooks/useNotification";
 import { IDisc, IUser } from "../types/abstract";
 import { CSSClasses, Keys, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
 import { AboutDialog } from "./AboutDialog";
+import { ChangePasswordDialog } from "./ChangePasswordDialog";
+import { ChangeUsernameDialog } from "./ChangeUsernameDialog";
 import { DeleteAccountDialog } from "./DeleteAccountDialog";
 import DiscDetail from "./DiscDetail";
 import DiscGrid from "./DiscGrid";
@@ -55,12 +57,18 @@ const Main = () => {
 	const [showLoginDialog, setShowLoginDialog] = useState(false);
 	const [showProfileDialog, setShowProfileDialog] = useState(false);
 	const [showDeleteAcountDialog, setShowDeleteAccountDialog] = useState(false);
+	const [showChangeUsernameDialog, setShowChangeUsernameDialog] = useState(false);
+	const [showChangePasswordDialog, setShowChangePasswordDialog] = useState(false);
 
 	const [loggedInUser, setLoggedInUser] = useState<IUser>();
 
 	const { GET } = useApi();
 	const { notification, clearNotification, showNotification } = useNotification();
-	const { validate, logOut, deleteAccount } = useLogin(setLoggedInUser, showNotification);
+	const { logIn, register, validate, logOut, changeUsername, changePassword, deleteAccount } = useLogin(
+		loggedInUser,
+		setLoggedInUser,
+		showNotification
+	);
 
 	useEffect(() => {
 		(async () => {
@@ -218,7 +226,7 @@ const Main = () => {
 
 	const logoutClickHandler = async () => {
 		setShowMenu(false);
-		await logOut(loggedInUser?.username);
+		await logOut();
 	};
 
 	return (
@@ -249,23 +257,30 @@ const Main = () => {
 				</ClickAwayListener>
 			</div>
 			<AboutDialog open={showAboutDialog} onClose={() => setShowAboutDialog(false)} />
-			<LoginRegisterDialog
-				open={showLoginDialog}
-				onClose={() => setShowLoginDialog(false)}
-				setLoggedInUser={setLoggedInUser}
-				showNotification={showNotification}
-			/>
+			<LoginRegisterDialog open={showLoginDialog} onClose={() => setShowLoginDialog(false)} logIn={logIn} register={register} />
 			<ProfileDialog
 				open={showProfileDialog}
 				onClose={() => setShowProfileDialog(false)}
 				loggedInUser={loggedInUser}
 				setShowDeleteAccountDialog={setShowDeleteAccountDialog}
+				setShowChangeUsernameDialog={setShowChangeUsernameDialog}
+				setShowChangePasswordDialog={setShowChangePasswordDialog}
 			/>
 			<DeleteAccountDialog
 				open={showDeleteAcountDialog}
 				onClose={() => setShowDeleteAccountDialog(false)}
 				loggedInUser={loggedInUser}
 				deleteAccount={deleteAccount}
+			/>
+			<ChangeUsernameDialog
+				open={showChangeUsernameDialog}
+				onClose={() => setShowChangeUsernameDialog(false)}
+				changeUsername={changeUsername}
+			/>
+			<ChangePasswordDialog
+				open={showChangePasswordDialog}
+				onClose={() => setShowChangePasswordDialog(false)}
+				changePassword={changePassword}
 			/>
 			<Form
 				filteredDiscsByName={filteredDiscsByName}

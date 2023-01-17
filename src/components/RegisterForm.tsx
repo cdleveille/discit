@@ -1,30 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { isMobile } from "react-device-detect";
 
-import { AlertColor } from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
-import { useLogin } from "../hooks/useLogin";
-import { IUser } from "../types/abstract";
-
 interface IRegisterFormProps {
-	closeDialog: () => void;
-	setLoggedInUser: (user: IUser | undefined) => void;
-	showNotification: (severity: AlertColor, message: string) => void;
+	onClose: () => void;
+	register: (username: string, password: string) => Promise<void>;
 }
 
-export const RegisterForm = ({ closeDialog, setLoggedInUser, showNotification }: IRegisterFormProps) => {
+export const RegisterForm = ({ onClose, register }: IRegisterFormProps) => {
 	const [username, setUsername] = useState("");
-	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 
-	useEffect(() => {
-		if (username.length > 16) setUsername(username.substring(0, 16));
-	}, [username]);
-
-	const { register } = useLogin(setLoggedInUser, showNotification);
+	const resetForm = () => {
+		setUsername("");
+		setPassword("");
+		setError("");
+	};
 
 	return (
 		<form>
@@ -34,27 +28,9 @@ export const RegisterForm = ({ closeDialog, setLoggedInUser, showNotification }:
 					label="username"
 					variant="outlined"
 					onChange={(e) => {
-						setUsername(e.target.value);
+						if (e.target.value.length <= 16) setUsername(e.target.value);
 					}}
 					autoFocus={!isMobile}
-					spellCheck={false}
-					inputProps={{
-						autoCapitalize: "none",
-						autoComplete: "none"
-					}}
-					autoCapitalize="none"
-					autoComplete="none"
-				/>
-			</div>
-			<div className="login-dialog-item">
-				<TextField
-					value={email}
-					label="email"
-					variant="outlined"
-					type="email"
-					onChange={(e) => {
-						setEmail(e.target.value);
-					}}
 					spellCheck={false}
 					inputProps={{
 						autoCapitalize: "none",
@@ -90,8 +66,9 @@ export const RegisterForm = ({ closeDialog, setLoggedInUser, showNotification }:
 					onClick={async (e) => {
 						try {
 							e.preventDefault();
-							await register(username, email, password);
-							closeDialog();
+							await register(username, password);
+							resetForm();
+							onClose();
 						} catch (error) {
 							setError(error as string);
 						}

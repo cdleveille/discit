@@ -10,7 +10,7 @@ interface IDeleteAccountDialogProps {
 	open: boolean;
 	onClose: () => void;
 	loggedInUser: IUser | undefined;
-	deleteAccount: (id: string) => void;
+	deleteAccount: () => void;
 }
 
 export const DeleteAccountDialog = ({ open, onClose, loggedInUser, deleteAccount }: IDeleteAccountDialogProps) => {
@@ -23,7 +23,7 @@ export const DeleteAccountDialog = ({ open, onClose, loggedInUser, deleteAccount
 					variant="outlined"
 					color="error"
 					onClick={() => {
-						loggedInUser && deleteAccount(loggedInUser?.id);
+						loggedInUser && deleteAccount();
 						onClose();
 					}}
 					style={{ marginLeft: "1em", marginRight: "1em", marginBottom: "1em" }}
