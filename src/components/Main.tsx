@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useKeypress from "react-use-keypress";
 
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 
@@ -7,7 +8,7 @@ import { useApi } from "../hooks/useApi";
 import { useLogin } from "../hooks/useLogin";
 import { useNotification } from "../hooks/useNotification";
 import { IDisc, IUser } from "../types/abstract";
-import { CSSClasses, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
+import { CSSClasses, Keys, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
 import { AboutDialog } from "./AboutDialog";
 import DiscDetail from "./DiscDetail";
 import DiscGrid from "./DiscGrid";
@@ -80,6 +81,11 @@ const Main = () => {
 	useEffect(() => {
 		applyFilters();
 	}, [nameFilterValue, brandFilterValue, categoryFilterValue, stabilityFilterValue]);
+
+	useKeypress(Keys.f2, (e) => {
+		e.preventDefault();
+		toggleMenu();
+	});
 
 	const refreshDiscs = async () => {
 		setIsLoading(true);

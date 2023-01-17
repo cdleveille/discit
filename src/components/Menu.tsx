@@ -32,21 +32,21 @@ export const Menu = ({
 	logoutClickHandler
 }: IMenuProps) => {
 	return (
-		<Paper elevation={3} sx={{ width: 200, maxWidth: "100%" }}>
+		<Paper elevation={3} sx={{ width: "fit-content", minWidth: 180 }}>
 			<MenuList>
 				{loggedInUser ? (
-					<MenuItem className="menu-item" onClick={menuProfileClickHandler}>
+					<MenuItem className="menu-item" onClick={menuProfileClickHandler} autoFocus>
 						<ListItemIcon>
 							<PersonIcon fontSize="medium" />
 						</ListItemIcon>
 						<ListItemText>{loggedInUser.username}</ListItemText>
 					</MenuItem>
 				) : (
-					<MenuItem className="menu-item" onClick={loginClickHandler}>
+					<MenuItem className="menu-item" onClick={loginClickHandler} autoFocus>
 						<ListItemIcon>
 							<LoginIcon fontSize="medium" />
 						</ListItemIcon>
-						<ListItemText>Log In / Register</ListItemText>
+						<ListItemText>Log In</ListItemText>
 					</MenuItem>
 				)}
 				<Divider />
@@ -64,12 +64,15 @@ export const Menu = ({
 					<ListItemText>About</ListItemText>
 				</MenuItem>
 				{loggedInUser && (
-					<MenuItem className="menu-item" onClick={logoutClickHandler}>
-						<ListItemIcon>
-							<LogoutIcon fontSize="medium" />
-						</ListItemIcon>
-						<ListItemText>Log Out</ListItemText>
-					</MenuItem>
+					<div>
+						<div className="menu-spacer"></div>
+						<MenuItem className="menu-item" onClick={logoutClickHandler}>
+							<ListItemIcon>
+								<LogoutIcon fontSize="medium" />
+							</ListItemIcon>
+							<ListItemText>Log Out</ListItemText>
+						</MenuItem>
+					</div>
 				)}
 			</MenuList>
 		</Paper>

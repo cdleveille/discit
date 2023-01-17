@@ -10,5 +10,6 @@ export enum CSSClasses {
 }
 
 export enum Keys {
-	escape = "Escape"
+	escape = "Escape",
+	f2 = "F2"
 }

@@ -283,7 +283,7 @@ a:hover {
 }
 
 .dialog-line {
-	padding: 0.5em;
+	padding: 1em;
 }
 
 .copyright {
@@ -303,7 +303,7 @@ a:hover {
 }
 
 .login-dialog-item {
-	padding-top: 1em;
+	padding-top: 2em;
 	margin-left: 2em;
 	margin-right: 2em;
 }
@@ -341,6 +341,10 @@ a:hover {
 	position: fixed;
 	top: 0.5em;
 	left: 4.5em;
+}
+
+.profile-btn {
+	width: 14em;
 }
 
 @keyframes spin-in {
