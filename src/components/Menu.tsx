@@ -17,6 +17,8 @@ import Paper from "@mui/material/Paper";
 
 import { IUser } from "../types/abstract";
 
+const ICON_SIZE = "medium";
+
 interface IMenuProps {
 	loggedInUser: IUser | undefined;
 	loginClickHandler: () => void;
@@ -39,12 +41,12 @@ export const Menu = ({
 	isBagView
 }: IMenuProps) => {
 	return (
-		<Paper elevation={3} sx={{ width: "fit-content", minWidth: 180 }}>
+		<Paper elevation={5} sx={{ width: "fit-content", minWidth: 180 }}>
 			<MenuList>
 				{loggedInUser ? (
 					<MenuItem className="menu-item" onClick={menuProfileClickHandler} autoFocus={!isMobile}>
 						<ListItemIcon>
-							<PersonIcon fontSize="medium" />
+							<PersonIcon fontSize={ICON_SIZE} />
 						</ListItemIcon>
 						<ListItemText>{loggedInUser.username}</ListItemText>
 					</MenuItem>
@@ -63,7 +65,7 @@ export const Menu = ({
 							<div>
 								<MenuItem className="menu-item" onClick={viewToggleClickHandler}>
 									<ListItemIcon>
-										<SearchIcon fontSize="medium" />
+										<SearchIcon fontSize={ICON_SIZE} />
 									</ListItemIcon>
 									<ListItemText>Disc Search</ListItemText>
 								</MenuItem>
@@ -72,7 +74,7 @@ export const Menu = ({
 							<div>
 								<MenuItem className="menu-item" onClick={viewToggleClickHandler}>
 									<ListItemIcon>
-										<BackpackIcon fontSize="medium" />
+										<BackpackIcon fontSize={ICON_SIZE} />
 									</ListItemIcon>
 									<ListItemText>My Bag</ListItemText>
 								</MenuItem>
@@ -83,14 +85,14 @@ export const Menu = ({
 				)}
 				<MenuItem className="menu-item" onClick={refreshClickHandler}>
 					<ListItemIcon>
-						<RefreshIcon fontSize="medium" />
+						<RefreshIcon fontSize={ICON_SIZE} />
 					</ListItemIcon>
 					<ListItemText>Refresh</ListItemText>
 				</MenuItem>
 				<div className="menu-spacer"></div>
 				<MenuItem className="menu-item" onClick={aboutClickHandler}>
 					<ListItemIcon>
-						<InfoIcon fontSize="medium" />
+						<InfoIcon fontSize={ICON_SIZE} />
 					</ListItemIcon>
 					<ListItemText>About</ListItemText>
 				</MenuItem>
@@ -99,7 +101,7 @@ export const Menu = ({
 						<div className="menu-spacer"></div>
 						<MenuItem className="menu-item" onClick={logoutClickHandler}>
 							<ListItemIcon>
-								<LogoutIcon fontSize="medium" />
+								<LogoutIcon fontSize={ICON_SIZE} />
 							</ListItemIcon>
 							<ListItemText>Log Out</ListItemText>
 						</MenuItem>

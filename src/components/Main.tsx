@@ -10,6 +10,7 @@ import { useNotification } from "../hooks/useNotification";
 import { IBag, IDisc, IUser } from "../types/abstract";
 import { CSSClasses, Keys, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
 import { AboutDialog } from "./AboutDialog";
+import { AddRemoveButton } from "./AddRemoveButton";
 import { ChangePasswordDialog } from "./ChangePasswordDialog";
 import { ChangeUsernameDialog } from "./ChangeUsernameDialog";
 import { DeleteAccountDialog } from "./DeleteAccountDialog";
@@ -291,6 +292,16 @@ const Main = () => {
 					</div>
 				</ClickAwayListener>
 			</div>
+			<div className="add-remove-btn">
+				{detailVisible && activeDetailDisc && loggedInUser && loggedInUserBags && (
+					<AddRemoveButton
+						addDiscToActiveBag={addDiscToActiveBag}
+						removeDiscFromActiveBag={removeDiscFromActiveBag}
+						isDiscInActiveBag={isDiscInActiveBag}
+						disc={activeDetailDisc}
+					/>
+				)}
+			</div>
 			<AboutDialog open={showAboutDialog} onClose={() => setShowAboutDialog(false)} />
 			<LoginRegisterDialog open={showLoginDialog} onClose={() => setShowLoginDialog(false)} logIn={logIn} register={register} />
 			<ProfileDialog
@@ -335,9 +346,6 @@ const Main = () => {
 				backgroundColor={activeDetailDiscBackgroundColor}
 				visible={detailVisible}
 				spinClass={spinClass}
-				addDiscToActiveBag={addDiscToActiveBag}
-				removeDiscFromActiveBag={removeDiscFromActiveBag}
-				isDiscInActiveBag={isDiscInActiveBag}
 			/>
 			<DiscGrid
 				data={renderedDiscs}

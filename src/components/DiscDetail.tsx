@@ -1,7 +1,6 @@
 import React, { CSSProperties } from "react";
 
 import { IDisc } from "../types/abstract";
-import { AddRemoveButton } from "./AddRemoveButton";
 
 interface IDiscDetailProps {
 	data: IDisc | null;
@@ -9,21 +8,9 @@ interface IDiscDetailProps {
 	backgroundColor: string;
 	visible: boolean;
 	spinClass: string;
-	addDiscToActiveBag: (disc: IDisc) => Promise<void>;
-	removeDiscFromActiveBag: (disc: IDisc) => Promise<void>;
-	isDiscInActiveBag: (disc: IDisc) => boolean;
 }
 
-export const DiscDetail = ({
-	data,
-	color,
-	backgroundColor,
-	visible,
-	spinClass,
-	addDiscToActiveBag,
-	removeDiscFromActiveBag,
-	isDiscInActiveBag
-}: IDiscDetailProps) => {
+export const DiscDetail = ({ data, color, backgroundColor, visible, spinClass }: IDiscDetailProps) => {
 	const styles: CSSProperties = {
 		color: color,
 		backgroundColor: backgroundColor,
@@ -47,12 +34,6 @@ export const DiscDetail = ({
 
 	return data ? (
 		<div className={`disc-detail ${spinClass}`} style={{ ...styles, ...borderStyles, ...centerStyles }}>
-			<AddRemoveButton
-				addDiscToActiveBag={addDiscToActiveBag}
-				removeDiscFromActiveBag={removeDiscFromActiveBag}
-				isDiscInActiveBag={isDiscInActiveBag}
-				disc={data}
-			/>
 			<div className="disc-detail-container" style={centerStyles}>
 				<div className="disc-detail-name" style={{ color }}>
 					{data.name}
