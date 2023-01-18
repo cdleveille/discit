@@ -17,16 +17,17 @@ export const AddRemoveButton = ({ addDiscToActiveBag, removeDiscFromActiveBag, i
 	const inBag = isDiscInActiveBag(disc);
 
 	return (
-		<IconButton
-			className="add-remove-btn"
-			aria-label={inBag ? "Remove" : "Add"}
-			onClick={async () => {
-				if (inBag) await removeDiscFromActiveBag(disc);
-				else await addDiscToActiveBag(disc);
-			}}
-			size="large"
-		>
-			{inBag ? <RemoveIcon /> : <AddIcon />}
-		</IconButton>
+		<div className="add-remove-btn">
+			<IconButton
+				aria-label={inBag ? "Remove" : "Add"}
+				onClick={async () => {
+					if (inBag) await removeDiscFromActiveBag(disc);
+					else await addDiscToActiveBag(disc);
+				}}
+				size="large"
+			>
+				{inBag ? <RemoveIcon /> : <AddIcon />}
+			</IconButton>
+		</div>
 	);
 };
