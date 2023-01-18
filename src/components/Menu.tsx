@@ -59,37 +59,28 @@ export const Menu = ({
 					</MenuItem>
 				)}
 				<Divider />
-				{loggedInUser && (
-					<div>
-						{isBagView ? (
-							<div>
-								<MenuItem className="menu-item" onClick={viewToggleClickHandler}>
-									<ListItemIcon>
-										<SearchIcon fontSize={ICON_SIZE} />
-									</ListItemIcon>
-									<ListItemText>Disc Search</ListItemText>
-								</MenuItem>
-							</div>
-						) : (
-							<div>
-								<MenuItem className="menu-item" onClick={viewToggleClickHandler}>
-									<ListItemIcon>
-										<BackpackIcon fontSize={ICON_SIZE} />
-									</ListItemIcon>
-									<ListItemText>My Bag</ListItemText>
-								</MenuItem>
-							</div>
-						)}
-						<div className="menu-spacer"></div>
-					</div>
-				)}
+				{loggedInUser &&
+					(isBagView ? (
+						<MenuItem className="menu-item" onClick={viewToggleClickHandler}>
+							<ListItemIcon>
+								<SearchIcon fontSize={ICON_SIZE} />
+							</ListItemIcon>
+							<ListItemText>Disc Search</ListItemText>
+						</MenuItem>
+					) : (
+						<MenuItem className="menu-item" onClick={viewToggleClickHandler}>
+							<ListItemIcon>
+								<BackpackIcon fontSize={ICON_SIZE} />
+							</ListItemIcon>
+							<ListItemText>My Bag</ListItemText>
+						</MenuItem>
+					))}
 				<MenuItem className="menu-item" onClick={refreshClickHandler}>
 					<ListItemIcon>
 						<RefreshIcon fontSize={ICON_SIZE} />
 					</ListItemIcon>
 					<ListItemText>Refresh</ListItemText>
 				</MenuItem>
-				<div className="menu-spacer"></div>
 				<MenuItem className="menu-item" onClick={aboutClickHandler}>
 					<ListItemIcon>
 						<InfoIcon fontSize={ICON_SIZE} />
@@ -97,15 +88,12 @@ export const Menu = ({
 					<ListItemText>About</ListItemText>
 				</MenuItem>
 				{loggedInUser && (
-					<div>
-						<div className="menu-spacer"></div>
-						<MenuItem className="menu-item" onClick={logoutClickHandler}>
-							<ListItemIcon>
-								<LogoutIcon fontSize={ICON_SIZE} />
-							</ListItemIcon>
-							<ListItemText>Log Out</ListItemText>
-						</MenuItem>
-					</div>
+					<MenuItem className="menu-item" onClick={logoutClickHandler}>
+						<ListItemIcon>
+							<LogoutIcon fontSize={ICON_SIZE} />
+						</ListItemIcon>
+						<ListItemText>Log Out</ListItemText>
+					</MenuItem>
 				)}
 			</MenuList>
 		</Paper>

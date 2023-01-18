@@ -2,6 +2,11 @@
 	box-sizing: border-box;
 }
 
+html {
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
 html,
 body,
 #root {
@@ -54,8 +59,7 @@ a:hover {
 }
 
 .header {
-	margin-top: 0.25rem;
-	margin: 1rem;
+	margin: 0.5rem;
 	font-size: 3rem;
 	font-weight: 600;
 	color: black;
@@ -148,10 +152,15 @@ a:hover {
 }
 
 .disc-grid-count {
-	font-size: 1.25rem;
+	font-size: 1.25em;
 	font-weight: 600;
-	width: fit-content;
-	margin: 1rem auto;
+}
+
+.disc-grid-placeholder {
+	margin-top: 1.5em;
+	text-align: center;
+	font-size: 1.25em;
+	color: dimgray;
 }
 
 .spacer {
@@ -159,8 +168,12 @@ a:hover {
 }
 
 .disc-grid-count-inner {
-	display: flex;
-	flex-direction: row;
+	text-align: center;
+	width: 5em;
+}
+
+.disc-grid-count-inner:hover {
+	cursor: pointer;
 }
 
 .disc-grid {
@@ -299,7 +312,7 @@ a:hover {
 	padding-top: 2.5em;
 	padding-bottom: 2.5em;
 	text-align: center;
-	font-size: 1.25rem;
+	font-size: 1.25em;
 	color: black;
 	user-select: text;
 }
@@ -317,7 +330,7 @@ a:hover {
 .login-dialog {
 	padding-top: 2.5em;
 	padding-bottom: 2.5em;
-	font-size: 1.25rem;
+	font-size: 1.25em;
 	color: black;
 	user-select: text;
 	text-align: center;
@@ -339,7 +352,7 @@ a:hover {
 	padding-bottom: 2.5em;
 	margin-left: 2em;
 	margin-right: 2em;
-	font-size: 1.25rem;
+	font-size: 1.25em;
 	color: black;
 	user-select: text;
 	text-align: center;
@@ -374,7 +387,7 @@ a:hover {
 	padding-bottom: 2.5em;
 	margin-left: 2em;
 	margin-right: 2em;
-	font-size: 1.25rem;
+	font-size: 1.25em;
 	color: black;
 	user-select: text;
 	text-align: center;
@@ -383,7 +396,7 @@ a:hover {
 .change-username-dialog {
 	padding-top: 2.5em;
 	padding-bottom: 2.5em;
-	font-size: 1.25rem;
+	font-size: 1.25em;
 	color: black;
 	user-select: text;
 	text-align: center;
@@ -399,6 +412,29 @@ a:hover {
 .change-username-dialog-error {
 	font-size: 14px;
 	color: red;
+}
+
+.disc-grid-header-container {
+	padding-top: 0.4em;
+}
+
+.disc-grid-header {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.search-btn,
+.bag-btn {
+	background-color: rgba(221, 221, 221, 0.6);
+	border-radius: 50%;
+}
+
+.search-btn:hover,
+.bag-btn:hover {
+	background-color: rgba(221, 221, 221, 0.7);
 }
 
 @keyframes spin-in {

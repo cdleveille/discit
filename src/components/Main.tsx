@@ -72,8 +72,7 @@ const Main = () => {
 
 	useEffect(() => {
 		(async () => {
-			const [sortedDiscs, user] = await Promise.all([refreshDiscs(), validate()]);
-			resetFilteredDiscs(sortedDiscs);
+			const [user] = await Promise.all([validate(), refreshDiscsAndBags(true)]);
 			user && showNotification("success", `${user.username} logged in`);
 		})();
 	}, []);
@@ -97,13 +96,8 @@ const Main = () => {
 	}, [loggedInUserBags]);
 
 	useEffect(() => {
-		if (!loggedInUser) return;
 		(async () => {
-			const bags = await getBags();
-			if (bags.length === 0) {
-				bags.push(await createBag(`${loggedInUser.username}'s Bag`));
-			}
-			setLoggedInUserBags(bags);
+			await refreshBags();
 		})();
 	}, [loggedInUser]);
 
@@ -112,17 +106,28 @@ const Main = () => {
 		toggleMenu();
 	});
 
-	const refreshDiscs = async () => {
+	const refreshDiscsAndBags = async (reset?: boolean) => {
 		setIsLoading(true);
-		const allDiscsFromServer = await fetchAllDiscsFromServer();
+		const [sortedDiscs] = await Promise.all([refreshDiscs(), refreshBags()]);
+		reset && resetFilteredDiscs(sortedDiscs);
+		setIsLoading(false);
+	};
+
+	const refreshDiscs = async () => {
+		const allDiscsFromServer = (await GET("/disc")) as unknown as IDisc[];
 		const sortedDiscs = sortDiscs(allDiscsFromServer);
 		setAllDiscs(sortedDiscs);
 		setIsLoading(false);
 		return sortedDiscs;
 	};
 
-	const fetchAllDiscsFromServer = async () => {
-		return GET("/disc") as unknown as IDisc[];
+	const refreshBags = async () => {
+		if (!loggedInUser) return;
+		const bags = await getBags();
+		if (bags.length === 0) {
+			bags.push(await createBag(`${loggedInUser.username}'s Bag`));
+		}
+		setLoggedInUserBags(bags);
 	};
 
 	const isDiscInActiveBag = (disc: IDisc) =>
@@ -243,9 +248,9 @@ const Main = () => {
 		setIsBagView(!isBagView);
 	};
 
-	const menuRefreshClickHandler = () => {
+	const menuRefreshClickHandler = async () => {
 		setShowMenu(false);
-		refreshDiscs();
+		await refreshDiscsAndBags();
 	};
 
 	const menuAboutClickHandler = () => {
@@ -260,12 +265,12 @@ const Main = () => {
 
 	const addDiscToActiveBag = async (disc: IDisc) => {
 		await addDiscToBag(loggedInUserBags[0].id, disc);
-		setLoggedInUserBags(await getBags());
+		await refreshBags();
 	};
 
 	const removeDiscFromActiveBag = async (disc: IDisc) => {
 		await removeDiscFromBag(loggedInUserBags[0].id, disc);
-		setLoggedInUserBags(await getBags());
+		await refreshBags();
 	};
 
 	return (
@@ -355,6 +360,9 @@ const Main = () => {
 				toggleSortOrder={toggleSortOrder}
 				isLoading={isLoading}
 				setIsScollToTopVisible={setIsScollToTopVisible}
+				isBagView={isBagView}
+				setIsBagView={setIsBagView}
+				isLoggedIn={!!loggedInUser}
 			/>
 			<ScrollToTop visible={isScrollToTopVisible} />
 		</div>

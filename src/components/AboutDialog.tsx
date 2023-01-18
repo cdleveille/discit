@@ -15,7 +15,7 @@ export const AboutDialog = ({ open, onClose }: IAboutDialogProps) => {
 			<div className="about-dialog">
 				<CloseButton onClick={onClose} />
 				<div className="dialog-line">
-					Created just for fun by{" "}
+					Created by{" "}
 					<a href="https://www.cdleveille.net" target="_blank" rel="noreferrer">
 						Chris Leveille
 					</a>
