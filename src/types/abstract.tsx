@@ -1,4 +1,5 @@
 export interface IDisc {
+	id: string;
 	name: string;
 	brand: string;
 	category: string;

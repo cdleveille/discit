@@ -2,7 +2,7 @@ import { AlertColor } from "@mui/material/Alert";
 
 import { useApi } from "../hooks/useApi";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import { IUser } from "../types/abstract";
+import { IBag, IDisc, IUser } from "../types/abstract";
 
 export const useLogin = (loggedInUser: IUser | undefined, setLoggedInUser: (user: IUser | undefined) => void, showNotification: (severity: AlertColor, message: string) => void) => {
 	const LOGIN_TOKEN_KEY = "loginToken";
@@ -31,9 +31,7 @@ export const useLogin = (loggedInUser: IUser | undefined, setLoggedInUser: (user
 	const validate = async () => {
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken) return;
-		const { data, error } = await POST<IUser>("/user/validate", {}, {
-			"Authorization": `Bearer ${loginToken}`
-		});
+		const { data, error } = await POST<IUser>("/user/validate", {}, auth(loginToken));
 		if (error) throw error;
 		setLoggedInUser(data);
 		return data;
@@ -51,10 +49,7 @@ export const useLogin = (loggedInUser: IUser | undefined, setLoggedInUser: (user
 		if (!username || !password) throw "All fields are required.";
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const { id } = loggedInUser;
-		const { data, error } = await PUT<{ token: string }>("/user/update", { id, username, password }, {
-			"Authorization": `Bearer ${loginToken}`
-		});
+		const { data, error } = await PUT<{ token: string }>("/user/update", { id: loggedInUser.id, username, password }, auth(loginToken));
 		if (error) throw error;
 		setLocalStorageItem(LOGIN_TOKEN_KEY, data.token);
 		const user = await validate();
@@ -65,10 +60,7 @@ export const useLogin = (loggedInUser: IUser | undefined, setLoggedInUser: (user
 		if (!newPassword || !password) throw "All fields are required.";
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const { id } = loggedInUser;
-		const { data, error } = await PUT<{ token: string }>("/user/update", { id, newPassword, password }, {
-			"Authorization": `Bearer ${loginToken}`
-		});
+		const { data, error } = await PUT<{ token: string }>("/user/update", { id: loggedInUser.id, newPassword, password }, auth(loginToken));
 		if (error) throw error;
 		setLocalStorageItem(LOGIN_TOKEN_KEY, data.token);
 		const user = await validate();
@@ -76,17 +68,50 @@ export const useLogin = (loggedInUser: IUser | undefined, setLoggedInUser: (user
 	};
 
 	const deleteAccount = async () => {
-		if (!loggedInUser) throw "Not logged in.";
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
-		if (!loginToken) return;
-		const { data, error } = await DELETE<IUser>("/user/delete", { id: loggedInUser.id }, {
-			"Authorization": `Bearer ${loginToken}`
-		});
+		if (!loginToken || !loggedInUser) throw "Not logged in.";
+		const { data, error } = await DELETE<IUser>("/user/delete", { id: loggedInUser.id }, auth(loginToken));
 		if (error) throw error;
 		removeLocalStorageItem(LOGIN_TOKEN_KEY);
 		setLoggedInUser(undefined);
 		data && showNotification("success", `Account deleted: ${data.username}`);
 	};
 
-	return { register, logIn, validate, logOut, changeUsername, changePassword, deleteAccount };
+	const getBags = async () => {
+		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
+		if (!loginToken || !loggedInUser) throw "Not logged in.";
+		const { data, error } = await POST<IBag[]>("/bag", { user_id: loggedInUser.id }, auth(loginToken));
+		if (error) throw error;
+		return data;
+	};
+
+	const createBag = async (name: string) => {
+		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
+		if (!loginToken || !loggedInUser) throw "Not logged in.";
+		const { data, error } = await POST<IBag>("/bag/create", { user_id: loggedInUser.id, name }, auth(loginToken));
+		if (error) throw error;
+		return data;
+	};
+
+	const addDiscToBag = async (id: string, disc: IDisc) => {
+		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
+		if (!loginToken || !loggedInUser) throw "Not logged in.";
+		const { data, error } = await POST<IBag>("/bag/add-disc", { id, disc_id: disc.id }, auth(loginToken));
+		if (error) throw error;
+		data && showNotification("success", `Added ${disc.name} to bag`);
+		return data;
+	};
+
+	const removeDiscFromBag = async (id: string, disc: IDisc) => {
+		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
+		if (!loginToken || !loggedInUser) throw "Not logged in.";
+		const { data, error } = await POST<IBag>("/bag/remove-disc", { id, disc_id: disc.id }, auth(loginToken));
+		if (error) throw error;
+		data && showNotification("success", `Removed ${disc.name} from bag`);
+		return data;
+	};
+
+	const auth = (loginToken: string) => ({ "Authorization": `Bearer ${loginToken}` });
+
+	return { register, logIn, validate, logOut, changeUsername, changePassword, deleteAccount, getBags, createBag, addDiscToBag, removeDiscFromBag };
 };

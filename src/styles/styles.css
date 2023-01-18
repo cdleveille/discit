@@ -115,6 +115,18 @@ a:hover {
 	height: 85%;
 }
 
+.add-remove-btn {
+	position: fixed;
+	top: 1.5em;
+	right: 1.5em;
+	background-color: rgba(221, 221, 221, 0.6);
+	border-radius: 50%;
+}
+
+.add-remove-btn:hover {
+	background-color: rgba(221, 221, 221, 0.7);
+}
+
 .disc-detail-name {
 	font-size: min(8vmin, 3rem);
 	font-weight: 600;
@@ -241,6 +253,10 @@ a:hover {
 	border-radius: 50%;
 }
 
+.scroll-to-top:hover {
+	background-color: rgba(221, 221, 221, 0.7);
+}
+
 .menu-btn {
 	position: fixed;
 	top: 0.5em;
@@ -248,6 +264,10 @@ a:hover {
 	z-index: 80;
 	background-color: rgba(221, 221, 221, 0.6);
 	border-radius: 50%;
+}
+
+.menu-btn:hover {
+	background-color: rgba(221, 221, 221, 0.7);
 }
 
 .sort-btn {
@@ -260,6 +280,7 @@ a:hover {
 
 .sort-btn:hover {
 	cursor: pointer;
+	background-color: rgba(221, 221, 221, 0.7);
 }
 
 .menu {
@@ -270,7 +291,7 @@ a:hover {
 }
 
 .menu-item:hover {
-	background-color: rgba(221, 221, 221, 0.6);
+	background-color: rgba(221, 221, 221, 0.7);
 }
 
 .about-dialog {

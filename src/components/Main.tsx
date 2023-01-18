@@ -7,7 +7,7 @@ import { getArrayIntersection, stringArrayIncludesString, stringIncludesString }
 import { useApi } from "../hooks/useApi";
 import { useLogin } from "../hooks/useLogin";
 import { useNotification } from "../hooks/useNotification";
-import { IDisc, IUser } from "../types/abstract";
+import { IBag, IDisc, IUser } from "../types/abstract";
 import { CSSClasses, Keys, NUM_DISCS_TO_RENDER_INCR } from "../types/constants";
 import { AboutDialog } from "./AboutDialog";
 import { ChangePasswordDialog } from "./ChangePasswordDialog";
@@ -61,20 +61,19 @@ const Main = () => {
 	const [showChangePasswordDialog, setShowChangePasswordDialog] = useState(false);
 
 	const [loggedInUser, setLoggedInUser] = useState<IUser>();
+	const [loggedInUserBags, setLoggedInUserBags] = useState<IBag[]>([]);
+	const [isBagView, setIsBagView] = useState(false);
 
 	const { GET } = useApi();
 	const { notification, clearNotification, showNotification } = useNotification();
-	const { logIn, register, validate, logOut, changeUsername, changePassword, deleteAccount } = useLogin(
-		loggedInUser,
-		setLoggedInUser,
-		showNotification
-	);
+	const { logIn, register, validate, logOut, changeUsername, changePassword, deleteAccount, getBags, createBag, addDiscToBag, removeDiscFromBag } =
+		useLogin(loggedInUser, setLoggedInUser, showNotification);
 
 	useEffect(() => {
 		(async () => {
 			const [sortedDiscs, user] = await Promise.all([refreshDiscs(), validate()]);
-			user && showNotification("success", `${user.username} logged in`);
 			resetFilteredDiscs(sortedDiscs);
+			user && showNotification("success", `${user.username} logged in`);
 		})();
 	}, []);
 
@@ -90,7 +89,22 @@ const Main = () => {
 
 	useEffect(() => {
 		applyFilters();
-	}, [nameFilterValue, brandFilterValue, categoryFilterValue, stabilityFilterValue]);
+	}, [nameFilterValue, brandFilterValue, categoryFilterValue, stabilityFilterValue, isBagView]);
+
+	useEffect(() => {
+		isBagView && applyFilters();
+	}, [loggedInUserBags]);
+
+	useEffect(() => {
+		if (!loggedInUser) return;
+		(async () => {
+			const bags = await getBags();
+			if (bags.length === 0) {
+				bags.push(await createBag(`${loggedInUser.username}'s Bag`));
+			}
+			setLoggedInUserBags(bags);
+		})();
+	}, [loggedInUser]);
 
 	useKeypress(Keys.f2, (e) => {
 		e.preventDefault();
@@ -107,9 +121,13 @@ const Main = () => {
 	};
 
 	const fetchAllDiscsFromServer = async () => {
-		const data = (await GET("/disc")) as unknown as IDisc[];
-		return data;
+		return GET("/disc") as unknown as IDisc[];
 	};
+
+	const isDiscInActiveBag = (disc: IDisc) =>
+		!!loggedInUser && !!loggedInUserBags[0] && stringArrayIncludesString(loggedInUserBags[0].discs, disc.id, true);
+
+	const discFilter = (disc: IDisc) => !isBagView || isDiscInActiveBag(disc);
 
 	const applyFilters = (applySort?: boolean) => {
 		setNumDiscsToRender(NUM_DISCS_TO_RENDER_INCR);
@@ -119,24 +137,29 @@ const Main = () => {
 			brandFilterValue.length === 0 &&
 			categoryFilterValue.length === 0 &&
 			stabilityFilterValue.length === 0 &&
-			!applySort
+			!applySort &&
+			!isBagView
 		) {
 			resetFilteredDiscs(allDiscs);
 		} else {
 			const newFilteredDiscsByName = allDiscs.filter((disc) => {
-				return nameFilterValue ? stringIncludesString(disc.name, nameFilterValue) : true;
+				return nameFilterValue ? stringIncludesString(disc.name, nameFilterValue) : true && discFilter(disc);
 			});
 
 			const newFilteredDiscsByBrand = allDiscs.filter((disc) => {
-				return brandFilterValue.length > 0 ? stringArrayIncludesString(brandFilterValue, disc.brand, true) : true;
+				return brandFilterValue.length > 0 ? stringArrayIncludesString(brandFilterValue, disc.brand, true) : true && discFilter(disc);
 			});
 
 			const newFilteredDiscsByCategory = allDiscs.filter((disc) => {
-				return categoryFilterValue.length > 0 ? stringArrayIncludesString(categoryFilterValue, disc.category, true) : true;
+				return categoryFilterValue.length > 0
+					? stringArrayIncludesString(categoryFilterValue, disc.category, true)
+					: true && discFilter(disc);
 			});
 
 			const newFilteredDiscsByStability = allDiscs.filter((disc) => {
-				return stabilityFilterValue.length > 0 ? stringArrayIncludesString(stabilityFilterValue, disc.stability, true) : true;
+				return stabilityFilterValue.length > 0
+					? stringArrayIncludesString(stabilityFilterValue, disc.stability, true)
+					: true && discFilter(disc);
 			});
 
 			const newFilteredDiscs = getArrayIntersection(
@@ -214,6 +237,11 @@ const Main = () => {
 		setShowProfileDialog(true);
 	};
 
+	const viewToggleClickHandler = () => {
+		setShowMenu(false);
+		setIsBagView(!isBagView);
+	};
+
 	const menuRefreshClickHandler = () => {
 		setShowMenu(false);
 		refreshDiscs();
@@ -229,16 +257,21 @@ const Main = () => {
 		await logOut();
 	};
 
+	const addDiscToActiveBag = async (disc: IDisc) => {
+		await addDiscToBag(loggedInUserBags[0].id, disc);
+		setLoggedInUserBags(await getBags());
+	};
+
+	const removeDiscFromActiveBag = async (disc: IDisc) => {
+		await removeDiscFromBag(loggedInUserBags[0].id, disc);
+		setLoggedInUserBags(await getBags());
+	};
+
 	return (
 		<div className="main">
 			<Overlay visible={showOverlay} onClick={hideDiscDetail} />
 			<Header />
-			<Notification
-				open={notification?.open}
-				severity={notification?.severity}
-				message={notification?.message}
-				clearNotification={clearNotification}
-			/>
+			<Notification severity={notification?.severity} message={notification?.message} clearNotification={clearNotification} />
 			<div className="menu">
 				<ClickAwayListener onClickAway={() => setShowMenu(false)}>
 					<div>
@@ -247,10 +280,12 @@ const Main = () => {
 							<Menu
 								loggedInUser={loggedInUser}
 								loginClickHandler={menuLoginClickHandler}
+								viewToggleClickHandler={viewToggleClickHandler}
 								menuProfileClickHandler={menuProfileClickHandler}
 								refreshClickHandler={menuRefreshClickHandler}
 								aboutClickHandler={menuAboutClickHandler}
 								logoutClickHandler={logoutClickHandler}
+								isBagView={isBagView}
 							></Menu>
 						)}
 					</div>
@@ -300,6 +335,9 @@ const Main = () => {
 				backgroundColor={activeDetailDiscBackgroundColor}
 				visible={detailVisible}
 				spinClass={spinClass}
+				addDiscToActiveBag={addDiscToActiveBag}
+				removeDiscFromActiveBag={removeDiscFromActiveBag}
+				isDiscInActiveBag={isDiscInActiveBag}
 			/>
 			<DiscGrid
 				data={renderedDiscs}
