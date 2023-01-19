@@ -345,6 +345,7 @@ a:hover {
 
 .login-dialog-error {
 	color: red;
+	font-size: 14px;
 }
 
 .profile-dialog {
@@ -385,8 +386,8 @@ a:hover {
 .delete-account-dialog {
 	padding-top: 2.5em;
 	padding-bottom: 2.5em;
-	margin-left: 2em;
-	margin-right: 2em;
+	padding-left: 1em;
+	padding-right: 1em;
 	font-size: 1.25em;
 	color: black;
 	user-select: text;

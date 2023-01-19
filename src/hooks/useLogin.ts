@@ -67,10 +67,11 @@ export const useLogin = (loggedInUser: IUser | undefined, setLoggedInUser: (user
 		user && showNotification("success", "Password changed");
 	};
 
-	const deleteAccount = async () => {
+	const deleteAccount = async (password: string) => {
+		if (!password) throw "Password field is required.";
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const { data, error } = await DELETE<IUser>("/user/delete", { id: loggedInUser.id }, auth(loginToken));
+		const { data, error } = await DELETE<IUser>("/user/delete", { id: loggedInUser.id, password }, auth(loginToken));
 		if (error) throw error;
 		removeLocalStorageItem(LOGIN_TOKEN_KEY);
 		setLoggedInUser(undefined);
