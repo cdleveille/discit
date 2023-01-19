@@ -4,11 +4,12 @@
   "author": "Chris Leveille",
   "license": "MIT",
   "scripts": {
+    "prepare": "husky install",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
-    "clean": "yarn autoclean --force"
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx . && prettier --check .",
+    "format": "eslint --fix --ext .js,.jsx,.ts,.tsx . && prettier --write ."
   },
   "dependencies": {
     "@emotion/react": "^11.7.0",
@@ -26,16 +27,17 @@
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^13.1.2",
     "@types/node": "16.11.10",
     "@types/react": "17.0.37",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.5.0",
     "eslint": "7",
+    "eslint-config-next": "^13.1.2",
+    "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-react": "^7.27.1",
     "husky": "^7.0.4",
+    "prettier": "^2.8.3",
     "typescript": "4.5.2"
-  },
-  "engines": {
-    "node": ">=14.0.0",
-    "yarn": ">=1.22.17"
   }
 }

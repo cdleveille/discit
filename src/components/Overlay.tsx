@@ -11,7 +11,7 @@ interface IOverlayProps {
 export const Overlay = ({ visible, onClick }: IOverlayProps) => {
 	const [className, setClassName] = useState<string>(CSSClasses.overlayHidden);
 
-	useKeypress(Keys.escape, (e) => {
+	useKeypress(Keys.escape, e => {
 		e.preventDefault();
 		onClick();
 	});

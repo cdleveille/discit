@@ -31,7 +31,7 @@ export const LoginForm = ({ onClose, logIn }: ILoginFormProps) => {
 					value={username}
 					label="username"
 					variant="outlined"
-					onChange={(e) => {
+					onChange={e => {
 						setUsername(e.target.value);
 					}}
 					autoFocus={!isMobile}
@@ -50,7 +50,7 @@ export const LoginForm = ({ onClose, logIn }: ILoginFormProps) => {
 					label="password"
 					variant="outlined"
 					type="password"
-					onChange={(e) => {
+					onChange={e => {
 						setPassword(e.target.value);
 					}}
 					spellCheck={false}
@@ -67,7 +67,7 @@ export const LoginForm = ({ onClose, logIn }: ILoginFormProps) => {
 				<Button
 					variant="outlined"
 					type="submit"
-					onClick={async (e) => {
+					onClick={async e => {
 						try {
 							e.preventDefault();
 							await logIn(username, password);

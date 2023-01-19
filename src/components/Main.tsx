@@ -67,8 +67,19 @@ const Main = () => {
 
 	const { GET } = useApi();
 	const { notification, clearNotification, showNotification } = useNotification();
-	const { logIn, register, validate, logOut, changeUsername, changePassword, deleteAccount, getBags, createBag, addDiscToBag, removeDiscFromBag } =
-		useLogin(loggedInUser, setLoggedInUser, showNotification);
+	const {
+		logIn,
+		register,
+		validate,
+		logOut,
+		changeUsername,
+		changePassword,
+		deleteAccount,
+		getBags,
+		createBag,
+		addDiscToBag,
+		removeDiscFromBag
+	} = useLogin(loggedInUser, setLoggedInUser, showNotification);
 
 	useEffect(() => {
 		(async () => {
@@ -101,7 +112,7 @@ const Main = () => {
 		})();
 	}, [loggedInUser]);
 
-	useKeypress(Keys.f2, (e) => {
+	useKeypress(Keys.f2, e => {
 		e.preventDefault();
 		toggleMenu();
 	});
@@ -148,21 +159,23 @@ const Main = () => {
 		) {
 			resetFilteredDiscs(allDiscs);
 		} else {
-			const newFilteredDiscsByName = allDiscs.filter((disc) => {
+			const newFilteredDiscsByName = allDiscs.filter(disc => {
 				return nameFilterValue ? stringIncludesString(disc.name, nameFilterValue) : true && discFilter(disc);
 			});
 
-			const newFilteredDiscsByBrand = allDiscs.filter((disc) => {
-				return brandFilterValue.length > 0 ? stringArrayIncludesString(brandFilterValue, disc.brand, true) : true && discFilter(disc);
+			const newFilteredDiscsByBrand = allDiscs.filter(disc => {
+				return brandFilterValue.length > 0
+					? stringArrayIncludesString(brandFilterValue, disc.brand, true)
+					: true && discFilter(disc);
 			});
 
-			const newFilteredDiscsByCategory = allDiscs.filter((disc) => {
+			const newFilteredDiscsByCategory = allDiscs.filter(disc => {
 				return categoryFilterValue.length > 0
 					? stringArrayIncludesString(categoryFilterValue, disc.category, true)
 					: true && discFilter(disc);
 			});
 
-			const newFilteredDiscsByStability = allDiscs.filter((disc) => {
+			const newFilteredDiscsByStability = allDiscs.filter(disc => {
 				return stabilityFilterValue.length > 0
 					? stringArrayIncludesString(stabilityFilterValue, disc.stability, true)
 					: true && discFilter(disc);
@@ -277,7 +290,11 @@ const Main = () => {
 		<div className="main">
 			<Overlay visible={showOverlay} onClick={hideDiscDetail} />
 			<Header />
-			<Notification severity={notification?.severity} message={notification?.message} clearNotification={clearNotification} />
+			<Notification
+				severity={notification?.severity}
+				message={notification?.message}
+				clearNotification={clearNotification}
+			/>
 			<div className="menu">
 				<ClickAwayListener onClickAway={() => setShowMenu(false)}>
 					<div>
@@ -308,7 +325,12 @@ const Main = () => {
 				)}
 			</div>
 			<AboutDialog open={showAboutDialog} onClose={() => setShowAboutDialog(false)} />
-			<LoginRegisterDialog open={showLoginDialog} onClose={() => setShowLoginDialog(false)} logIn={logIn} register={register} />
+			<LoginRegisterDialog
+				open={showLoginDialog}
+				onClose={() => setShowLoginDialog(false)}
+				logIn={logIn}
+				register={register}
+			/>
 			<ProfileDialog
 				open={showProfileDialog}
 				onClose={() => setShowProfileDialog(false)}

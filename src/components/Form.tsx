@@ -47,7 +47,7 @@ const Form = ({
 
 		setNames(
 			discs
-				.map((option) => option.name)
+				.map(option => option.name)
 				.filter(uniqueValue)
 				.sort((a, b) => {
 					return (sortAtoZ ? 1 : -1) * a.toLowerCase().localeCompare(b.toLowerCase());
@@ -60,7 +60,7 @@ const Form = ({
 
 		setBrands(
 			discs
-				.map((option) => option.brand)
+				.map(option => option.brand)
 				.filter(uniqueValue)
 				.sort((a, b) => {
 					return (sortAtoZ ? 1 : -1) * a.toLowerCase().localeCompare(b.toLowerCase());
@@ -73,7 +73,7 @@ const Form = ({
 
 		setCategories(
 			discs
-				.map((option) => option.category)
+				.map(option => option.category)
 				.filter(uniqueValue)
 				.sort((a, b) => {
 					return (sortAtoZ ? 1 : -1) * a.toLowerCase().localeCompare(b.toLowerCase());
@@ -86,7 +86,7 @@ const Form = ({
 
 		setStabilities(
 			discs
-				.map((option) => option.stability)
+				.map(option => option.stability)
 				.filter(uniqueValue)
 				.sort((a, b) => {
 					return (sortAtoZ ? 1 : -1) * a.toLowerCase().localeCompare(b.toLowerCase());
@@ -101,7 +101,7 @@ const Form = ({
 				className="input"
 				freeSolo
 				options={names}
-				renderInput={(params) => <TextField {...params} label="name" placeholder="name" />}
+				renderInput={params => <TextField {...params} label="name" placeholder="name" />}
 				onInputChange={(_e: SyntheticEvent, value: string) => setNameFilterValue(value)}
 			/>
 			<Autocomplete
@@ -110,14 +110,14 @@ const Form = ({
 				multiple
 				options={brands}
 				disableCloseOnSelect
-				getOptionLabel={(option) => option}
+				getOptionLabel={option => option}
 				renderOption={(props, option, { selected }) => (
 					<li {...props}>
 						<Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8 }} checked={selected} />
 						{option}
 					</li>
 				)}
-				renderInput={(params) => <TextField {...params} label="brand" placeholder="brand" />}
+				renderInput={params => <TextField {...params} label="brand" placeholder="brand" />}
 				onChange={(_e: SyntheticEvent, value: string[]) => setBrandFilterValue(value)}
 			/>
 			<Autocomplete
@@ -126,14 +126,14 @@ const Form = ({
 				multiple
 				options={categories}
 				disableCloseOnSelect
-				getOptionLabel={(option) => option}
+				getOptionLabel={option => option}
 				renderOption={(props, option, { selected }) => (
 					<li {...props}>
 						<Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8 }} checked={selected} />
 						{option}
 					</li>
 				)}
-				renderInput={(params) => <TextField {...params} label="category" placeholder="category" />}
+				renderInput={params => <TextField {...params} label="category" placeholder="category" />}
 				onChange={(_e: SyntheticEvent, value: string[]) => setCategoryFilterValue(value)}
 			/>
 			<Autocomplete
@@ -142,14 +142,14 @@ const Form = ({
 				multiple
 				options={stabilities}
 				disableCloseOnSelect
-				getOptionLabel={(option) => option}
+				getOptionLabel={option => option}
 				renderOption={(props, option, { selected }) => (
 					<li {...props}>
 						<Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8 }} checked={selected} />
 						{option}
 					</li>
 				)}
-				renderInput={(params) => <TextField {...params} label="stability" placeholder="stability" />}
+				renderInput={params => <TextField {...params} label="stability" placeholder="stability" />}
 				onChange={(_e: SyntheticEvent, value: string[]) => setStabilityFilterValue(value)}
 			/>
 		</div>

@@ -27,7 +27,7 @@ export const RegisterForm = ({ onClose, register }: IRegisterFormProps) => {
 					value={username}
 					label="username"
 					variant="outlined"
-					onChange={(e) => {
+					onChange={e => {
 						if (e.target.value.length <= 16) setUsername(e.target.value);
 					}}
 					autoFocus={!isMobile}
@@ -46,7 +46,7 @@ export const RegisterForm = ({ onClose, register }: IRegisterFormProps) => {
 					label="password"
 					variant="outlined"
 					type="password"
-					onChange={(e) => {
+					onChange={e => {
 						setPassword(e.target.value);
 					}}
 					spellCheck={false}
@@ -63,7 +63,7 @@ export const RegisterForm = ({ onClose, register }: IRegisterFormProps) => {
 				<Button
 					variant="outlined"
 					type="submit"
-					onClick={async (e) => {
+					onClick={async e => {
 						try {
 							e.preventDefault();
 							await register(username, password);

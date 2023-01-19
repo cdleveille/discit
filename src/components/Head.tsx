@@ -11,7 +11,10 @@ export const HeadContent = () => {
 			<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#ffffff" />
 			<meta name="msapplication-TileColor" content="#ffffff" />
 			<meta name="theme-color" content="#ffffff" />
-			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+			<meta
+				name="viewport"
+				content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+			/>
 			<title>DiscIt</title>
 		</Head>
 	);

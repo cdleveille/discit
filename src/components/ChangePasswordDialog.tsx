@@ -35,7 +35,7 @@ export const ChangePasswordDialog = ({ open, onClose, changePassword }: IChangeP
 							label="new password"
 							variant="outlined"
 							type="password"
-							onChange={(e) => {
+							onChange={e => {
 								setNewPassword(e.target.value);
 							}}
 							autoFocus={!isMobile}
@@ -54,7 +54,7 @@ export const ChangePasswordDialog = ({ open, onClose, changePassword }: IChangeP
 							label="current password"
 							variant="outlined"
 							type="password"
-							onChange={(e) => {
+							onChange={e => {
 								setPassword(e.target.value);
 							}}
 							spellCheck={false}
@@ -72,7 +72,7 @@ export const ChangePasswordDialog = ({ open, onClose, changePassword }: IChangeP
 							variant="outlined"
 							color="error"
 							type="submit"
-							onClick={async (e) => {
+							onClick={async e => {
 								try {
 									e.preventDefault();
 									await changePassword(newPassword, password);
@@ -86,7 +86,11 @@ export const ChangePasswordDialog = ({ open, onClose, changePassword }: IChangeP
 						>
 							Change Password
 						</Button>
-						<Button variant="outlined" onClick={onClose} style={{ marginLeft: "1em", marginRight: "1em", marginBottom: "1em" }}>
+						<Button
+							variant="outlined"
+							onClick={onClose}
+							style={{ marginLeft: "1em", marginRight: "1em", marginBottom: "1em" }}
+						>
 							Cancel
 						</Button>
 					</div>

@@ -12,8 +12,5 @@
 
 # Force bash scripts to always use LF line endings so that if a repo is accessed
 # in Unix via a file share from Windows, the scripts will work.
-*.sh text eol=lf
-
-# Isolate binary files in case the auto-detection algorithm fails and
-# marks them as text files (which could brick them).
-*.{png,jpg,jpeg,gif,webp,woff,woff2} binary
+*.{sh} text eol=lf
+.husky/* text eol=lf

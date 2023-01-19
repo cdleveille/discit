@@ -34,7 +34,7 @@ export const DeleteAccountDialog = ({ open, onClose, loggedInUser, deleteAccount
 							label="password"
 							variant="outlined"
 							type="password"
-							onChange={(e) => {
+							onChange={e => {
 								setPassword(e.target.value);
 							}}
 							spellCheck={false}
@@ -55,7 +55,7 @@ export const DeleteAccountDialog = ({ open, onClose, loggedInUser, deleteAccount
 						variant="outlined"
 						type="submit"
 						color="error"
-						onClick={async (e) => {
+						onClick={async e => {
 							try {
 								e.preventDefault();
 								loggedInUser && (await deleteAccount(password));
@@ -69,7 +69,11 @@ export const DeleteAccountDialog = ({ open, onClose, loggedInUser, deleteAccount
 					>
 						Delete Account
 					</Button>
-					<Button variant="outlined" onClick={onClose} style={{ marginLeft: "1em", marginRight: "1em", marginBottom: "1em" }}>
+					<Button
+						variant="outlined"
+						onClick={onClose}
+						style={{ marginLeft: "1em", marginRight: "1em", marginBottom: "1em" }}
+					>
 						Cancel
 					</Button>
 				</form>

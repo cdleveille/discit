@@ -13,7 +13,12 @@ interface IAddRemoveButtonProps {
 	disc: IDisc;
 }
 
-export const AddRemoveButton = ({ addDiscToActiveBag, removeDiscFromActiveBag, isDiscInActiveBag, disc }: IAddRemoveButtonProps) => {
+export const AddRemoveButton = ({
+	addDiscToActiveBag,
+	removeDiscFromActiveBag,
+	isDiscInActiveBag,
+	disc
+}: IAddRemoveButtonProps) => {
 	const inBag = isDiscInActiveBag(disc);
 
 	return (

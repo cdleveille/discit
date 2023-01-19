@@ -29,7 +29,15 @@ export const ProfileDialog = ({
 			<div className="profile-dialog">
 				<CloseButton onClick={onClose} />
 				<div className="dialog-line">
-					<div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", paddingBottom: "0.2em" }}>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							alignItems: "center",
+							justifyContent: "center",
+							paddingBottom: "0.2em"
+						}}
+					>
 						<PersonIcon fontSize="medium" />
 						<span>{loggedInUser.username}</span>
 					</div>

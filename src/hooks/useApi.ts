@@ -2,19 +2,28 @@ import Config from "../helpers/config";
 import { IResponse } from "../types/abstract";
 
 export const useApi = () => {
-	const request = async <T = any>(method: string, path: string, body?: Record<string, string>, headers?: Record<string, string>) => {
+	const request = async <T = any>(
+		method: string,
+		path: string,
+		body?: Record<string, string>,
+		headers?: Record<string, string>
+	) => {
 		return new Promise<IResponse<T>>((resolve, reject) => {
 			fetch(path, {
-				method, headers: {
+				method,
+				headers: {
 					"Content-Type": "application/json",
 					...headers
-				}, body: JSON.stringify(body)
-			}
-			).then(r => r.json()).then(data => {
-				return resolve(data);
-			}).catch(e => {
-				return reject(e);
-			});
+				},
+				body: JSON.stringify(body)
+			})
+				.then(r => r.json())
+				.then(data => {
+					return resolve(data);
+				})
+				.catch(e => {
+					return reject(e);
+				});
 		});
 	};
 

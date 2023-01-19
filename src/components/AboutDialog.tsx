@@ -32,7 +32,9 @@ export const AboutDialog = ({ open, onClose }: IAboutDialogProps) => {
 					</a>
 					.
 				</div>
-				<div className="about-dialog-line copyright">©&nbsp;{new Date().getFullYear()} Christopher D. Leveille</div>
+				<div className="about-dialog-line copyright">
+					©&nbsp;{new Date().getFullYear()} Christopher D. Leveille
+				</div>
 			</div>
 		</Dialog>
 	);

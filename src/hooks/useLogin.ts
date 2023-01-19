@@ -4,7 +4,11 @@ import { useApi } from "../hooks/useApi";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { IBag, IDisc, IUser } from "../types/abstract";
 
-export const useLogin = (loggedInUser: IUser | undefined, setLoggedInUser: (user: IUser | undefined) => void, showNotification: (severity: AlertColor, message: string) => void) => {
+export const useLogin = (
+	loggedInUser: IUser | undefined,
+	setLoggedInUser: (user: IUser | undefined) => void,
+	showNotification: (severity: AlertColor, message: string) => void
+) => {
 	const LOGIN_TOKEN_KEY = "loginToken";
 
 	const { POST, PUT, DELETE } = useApi();
@@ -49,7 +53,11 @@ export const useLogin = (loggedInUser: IUser | undefined, setLoggedInUser: (user
 		if (!username || !password) throw "All fields are required.";
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const { data, error } = await PUT<{ token: string }>("/user/update", { id: loggedInUser.id, username, password }, auth(loginToken));
+		const { data, error } = await PUT<{ token: string }>(
+			"/user/update",
+			{ id: loggedInUser.id, username, password },
+			auth(loginToken)
+		);
 		if (error) throw error;
 		setLocalStorageItem(LOGIN_TOKEN_KEY, data.token);
 		const user = await validate();
@@ -60,7 +68,11 @@ export const useLogin = (loggedInUser: IUser | undefined, setLoggedInUser: (user
 		if (!newPassword || !password) throw "All fields are required.";
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const { data, error } = await PUT<{ token: string }>("/user/update", { id: loggedInUser.id, newPassword, password }, auth(loginToken));
+		const { data, error } = await PUT<{ token: string }>(
+			"/user/update",
+			{ id: loggedInUser.id, newPassword, password },
+			auth(loginToken)
+		);
 		if (error) throw error;
 		setLocalStorageItem(LOGIN_TOKEN_KEY, data.token);
 		const user = await validate();
@@ -71,7 +83,11 @@ export const useLogin = (loggedInUser: IUser | undefined, setLoggedInUser: (user
 		if (!password) throw "Password field is required.";
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const { data, error } = await DELETE<IUser>("/user/delete", { id: loggedInUser.id, password }, auth(loginToken));
+		const { data, error } = await DELETE<IUser>(
+			"/user/delete",
+			{ id: loggedInUser.id, password },
+			auth(loginToken)
+		);
 		if (error) throw error;
 		removeLocalStorageItem(LOGIN_TOKEN_KEY);
 		setLoggedInUser(undefined);
@@ -112,7 +128,19 @@ export const useLogin = (loggedInUser: IUser | undefined, setLoggedInUser: (user
 		return data;
 	};
 
-	const auth = (loginToken: string) => ({ "Authorization": `Bearer ${loginToken}` });
+	const auth = (loginToken: string) => ({ Authorization: `Bearer ${loginToken}` });
 
-	return { register, logIn, validate, logOut, changeUsername, changePassword, deleteAccount, getBags, createBag, addDiscToBag, removeDiscFromBag };
+	return {
+		register,
+		logIn,
+		validate,
+		logOut,
+		changeUsername,
+		changePassword,
+		deleteAccount,
+		getBags,
+		createBag,
+		addDiscToBag,
+		removeDiscFromBag
+	};
 };

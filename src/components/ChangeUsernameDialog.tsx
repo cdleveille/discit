@@ -34,7 +34,7 @@ export const ChangeUsernameDialog = ({ open, onClose, changeUsername }: IChangeU
 							value={username}
 							label="new username"
 							variant="outlined"
-							onChange={(e) => {
+							onChange={e => {
 								if (e.target.value.length <= 16) setUsername(e.target.value);
 							}}
 							autoFocus={!isMobile}
@@ -53,7 +53,7 @@ export const ChangeUsernameDialog = ({ open, onClose, changeUsername }: IChangeU
 							label="password"
 							variant="outlined"
 							type="password"
-							onChange={(e) => {
+							onChange={e => {
 								setPassword(e.target.value);
 							}}
 							spellCheck={false}
@@ -71,7 +71,7 @@ export const ChangeUsernameDialog = ({ open, onClose, changeUsername }: IChangeU
 							variant="outlined"
 							color="error"
 							type="submit"
-							onClick={async (e) => {
+							onClick={async e => {
 								try {
 									e.preventDefault();
 									await changeUsername(username, password);
@@ -85,7 +85,11 @@ export const ChangeUsernameDialog = ({ open, onClose, changeUsername }: IChangeU
 						>
 							Change Username
 						</Button>
-						<Button variant="outlined" onClick={onClose} style={{ marginLeft: "1em", marginRight: "1em", marginBottom: "1em" }}>
+						<Button
+							variant="outlined"
+							onClick={onClose}
+							style={{ marginLeft: "1em", marginRight: "1em", marginBottom: "1em" }}
+						>
 							Cancel
 						</Button>
 					</div>

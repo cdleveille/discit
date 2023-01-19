@@ -45,7 +45,10 @@ const DiscGrid = ({
 		window.onscroll = () => {
 			const discGrid = document.getElementById("disc-grid");
 			if (discGrid) {
-				if (window.innerHeight + document.documentElement.scrollTop + 1 >= discGrid.offsetTop + discGrid.clientHeight) {
+				if (
+					window.innerHeight + document.documentElement.scrollTop + 1 >=
+					discGrid.offsetTop + discGrid.clientHeight
+				) {
 					renderMoreDiscs();
 				}
 			}

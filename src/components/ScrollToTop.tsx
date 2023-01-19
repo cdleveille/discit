@@ -10,7 +10,11 @@ interface IScrollToTopProps {
 export const ScrollToTop = ({ visible }: IScrollToTopProps) => {
 	return visible ? (
 		<div className="scroll-to-top">
-			<IconButton aria-label="scrollTop" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} size="large">
+			<IconButton
+				aria-label="scrollTop"
+				onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+				size="large"
+			>
 				<ArrowUpwardIcon />
 			</IconButton>
 		</div>
