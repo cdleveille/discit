@@ -45,6 +45,7 @@ a:hover {
 	width: 300%;
 	height: 300%;
 	transition: 0.5s;
+	transform: translate3d(0, 0, 0);
 }
 
 .overlay-visible {
@@ -75,6 +76,7 @@ a:hover {
 	transform: translate(-40%, -15%);
 	width: 6rem;
 	height: 6rem;
+	transform: translate3d(0, 0, 0);
 }
 
 .main {
@@ -102,6 +104,7 @@ a:hover {
 	justify-content: center;
 	align-items: center;
 	user-select: text;
+	transform: translate3d(0, 0, 0);
 }
 
 .disc-detail-container {
@@ -118,6 +121,7 @@ a:hover {
 	width: 55%;
 	max-width: 400px;
 	height: 85%;
+	transform: translate3d(0, 0, 0);
 }
 
 .add-remove-btn {
@@ -127,6 +131,7 @@ a:hover {
 	right: 0.5em;
 	background-color: rgba(221, 221, 221, 0.6);
 	border-radius: 50%;
+	transform: translate3d(0, 0, 0);
 }
 
 .add-remove-btn-grid {
@@ -135,6 +140,7 @@ a:hover {
 	background-color: rgba(221, 221, 221, 0.5);
 	border-radius: 50%;
 	margin-bottom: 8em;
+	transform: translate3d(0, 0, 0);
 }
 
 .add-remove-btn:hover,
@@ -276,6 +282,7 @@ a:hover {
 	z-index: 80;
 	background-color: rgba(221, 221, 221, 0.6);
 	border-radius: 50%;
+	transform: translate3d(0, 0, 0);
 }
 
 .scroll-to-top:hover {
@@ -289,6 +296,7 @@ a:hover {
 	z-index: 80;
 	background-color: rgba(221, 221, 221, 0.6);
 	border-radius: 50%;
+	transform: translate3d(0, 0, 0);
 }
 
 .menu-btn:hover {
@@ -313,6 +321,7 @@ a:hover {
 	top: 4em;
 	left: 0.5em;
 	z-index: 120;
+	transform: translate3d(0, 0, 0);
 }
 
 .menu-item:hover {
@@ -377,6 +386,7 @@ a:hover {
 	z-index: 80;
 	background-color: rgba(221, 221, 221, 0.6);
 	border-radius: 50%;
+	transform: translate3d(0, 0, 0);
 }
 
 .menu-spacer {
@@ -388,6 +398,7 @@ a:hover {
 	position: fixed;
 	top: 0.5em;
 	left: 4.5em;
+	transform: translate3d(0, 0, 0);
 }
 
 .profile-btn {
