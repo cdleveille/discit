@@ -134,7 +134,7 @@ a:hover {
 	position: absolute;
 	background-color: rgba(221, 221, 221, 0.5);
 	border-radius: 50%;
-	margin-bottom: 8em;
+	top: 1em;
 }
 
 .add-remove-btn:hover,
@@ -198,6 +198,7 @@ a:hover {
 	height: 12rem;
 	display: grid;
 	place-items: center;
+	position: relative;
 }
 
 .disc {

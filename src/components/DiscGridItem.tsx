@@ -31,17 +31,17 @@ export const DiscGridItem = ({
 
 	return data ? (
 		<div className="disc-box">
+			{isLoggedIn && (
+				<AddRemoveButton
+					addDiscToActiveBag={addDiscToActiveBag}
+					removeDiscFromActiveBag={removeDiscFromActiveBag}
+					isDiscInActiveBag={isDiscInActiveBag}
+					disc={data}
+					size="small"
+					className="add-remove-btn-grid"
+				/>
+			)}
 			<div className="disc" style={styles}>
-				{isLoggedIn && (
-					<AddRemoveButton
-						addDiscToActiveBag={addDiscToActiveBag}
-						removeDiscFromActiveBag={removeDiscFromActiveBag}
-						isDiscInActiveBag={isDiscInActiveBag}
-						disc={data}
-						size="small"
-						className="add-remove-btn-grid"
-					/>
-				)}
 				<div onClick={() => showDiscDetail(data, color, backgroundColor)}>
 					<div className="disc-text" style={{ color }}>
 						<div className="disc-name" style={{ color }}>
