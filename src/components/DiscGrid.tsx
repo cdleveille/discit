@@ -18,6 +18,9 @@ interface IDiscGridProps {
 	isBagView: boolean;
 	setIsBagView: (isBagView: boolean) => void;
 	isLoggedIn: boolean;
+	addDiscToActiveBag: (disc: IDisc) => Promise<void>;
+	removeDiscFromActiveBag: (disc: IDisc) => Promise<void>;
+	isDiscInActiveBag: (disc: IDisc) => boolean;
 }
 
 const DiscGrid = ({
@@ -30,7 +33,10 @@ const DiscGrid = ({
 	setIsScollToTopVisible,
 	isBagView,
 	setIsBagView,
-	isLoggedIn
+	isLoggedIn,
+	addDiscToActiveBag,
+	removeDiscFromActiveBag,
+	isDiscInActiveBag
 }: IDiscGridProps) => {
 	useEffect(() => {
 		const discGrid = document.getElementById("disc-grid");
@@ -65,7 +71,7 @@ const DiscGrid = ({
 	return (
 		<div className="disc-grid-header-container">
 			<div className="disc-grid-header">
-				<div style={{ marginRight: "1em" }}>
+				<div style={{ marginRight: "1.5em" }}>
 					<SearchButton onClick={() => setIsBagView(false)} style={isBagView ? {} : selectedStyle} />
 				</div>
 				<div className="disc-grid-count">
@@ -77,7 +83,7 @@ const DiscGrid = ({
 						</div>
 					)}
 				</div>
-				<div style={{ marginLeft: "1em" }}>
+				<div style={{ marginLeft: "1.5em" }}>
 					<BagButton onClick={() => setIsBagView(true)} style={isBagView ? selectedStyle : {}} />
 				</div>
 			</div>
@@ -87,7 +93,15 @@ const DiscGrid = ({
 				) : (
 					<div className="disc-grid" id="disc-grid">
 						{data.map((disc, i) => (
-							<DiscGridItem key={i} data={disc} showDiscDetail={showDiscDetail} />
+							<DiscGridItem
+								key={i}
+								data={disc}
+								showDiscDetail={showDiscDetail}
+								addDiscToActiveBag={addDiscToActiveBag}
+								removeDiscFromActiveBag={removeDiscFromActiveBag}
+								isDiscInActiveBag={isDiscInActiveBag}
+								isLoggedIn={isLoggedIn}
+							/>
 						))}
 					</div>
 				))}

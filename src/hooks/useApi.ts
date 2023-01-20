@@ -7,8 +7,8 @@ export const useApi = () => {
 		path: string,
 		body?: Record<string, string>,
 		headers?: Record<string, string>
-	) => {
-		return new Promise<IResponse<T>>((resolve, reject) => {
+	) =>
+		new Promise<IResponse<T>>((resolve, reject) => {
 			fetch(path, {
 				method,
 				headers: {
@@ -25,7 +25,6 @@ export const useApi = () => {
 					return reject(e);
 				});
 		});
-	};
 
 	const GET = async <T = any>(path: string) => {
 		return request<T>("GET", Config.Public.API_URL + path);

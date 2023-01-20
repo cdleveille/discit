@@ -11,25 +11,29 @@ interface IAddRemoveButtonProps {
 	removeDiscFromActiveBag: (disc: IDisc) => Promise<void>;
 	isDiscInActiveBag: (disc: IDisc) => boolean;
 	disc: IDisc;
+	size?: "small" | "medium" | "large";
+	className?: string;
 }
 
 export const AddRemoveButton = ({
 	addDiscToActiveBag,
 	removeDiscFromActiveBag,
 	isDiscInActiveBag,
-	disc
+	disc,
+	size,
+	className
 }: IAddRemoveButtonProps) => {
 	const inBag = isDiscInActiveBag(disc);
 
 	return (
-		<div className="add-remove-btn">
+		<div className={className || "add-remove-btn"}>
 			<IconButton
 				aria-label={inBag ? "Remove" : "Add"}
 				onClick={async () => {
 					if (inBag) await removeDiscFromActiveBag(disc);
 					else await addDiscToActiveBag(disc);
 				}}
-				size="large"
+				size={size || "large"}
 			>
 				{inBag ? <RemoveIcon /> : <AddIcon />}
 			</IconButton>

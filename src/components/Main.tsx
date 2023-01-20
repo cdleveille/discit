@@ -385,6 +385,9 @@ const Main = () => {
 				isBagView={isBagView}
 				setIsBagView={setIsBagView}
 				isLoggedIn={!!loggedInUser}
+				addDiscToActiveBag={addDiscToActiveBag}
+				removeDiscFromActiveBag={removeDiscFromActiveBag}
+				isDiscInActiveBag={isDiscInActiveBag}
 			/>
 			<ScrollToTop visible={isScrollToTopVisible} />
 		</div>
