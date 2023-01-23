@@ -41,24 +41,22 @@ export const DiscGridItem = ({
 					className="add-remove-btn-grid"
 				/>
 			)}
-			<div className="disc" style={styles}>
-				<div onClick={() => showDiscDetail(data, color, backgroundColor)}>
-					<div className="disc-text" style={{ color }}>
-						<div className="disc-name" style={{ color }}>
-							{data.name}
-						</div>
-						<div className="disc-fields" style={{ color }}>
-							<span>{data.brand}</span>
-							<br />
-							<span>{data.category}</span>
-							<br />
-							<span>{data.stability}</span>
-							<br />
-							<span>
-								{data.speed}&nbsp;|&nbsp;{data.glide}&nbsp;|&nbsp;
-								{data.turn}&nbsp;|&nbsp;{data.fade}
-							</span>
-						</div>
+			<div className="disc" style={styles} onClick={() => showDiscDetail(data, color, backgroundColor)}>
+				<div className="disc-text" style={{ color }}>
+					<div className="disc-name" style={{ color }}>
+						{data.name}
+					</div>
+					<div className="disc-fields" style={{ color }}>
+						<span>{data.brand}</span>
+						<br />
+						<span>{data.category}</span>
+						<br />
+						<span>{data.stability}</span>
+						<br />
+						<span>
+							{data.speed}&nbsp;|&nbsp;{data.glide}&nbsp;|&nbsp;
+							{data.turn}&nbsp;|&nbsp;{data.fade}
+						</span>
 					</div>
 				</div>
 			</div>
