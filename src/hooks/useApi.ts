@@ -1,4 +1,5 @@
 import Config from "../helpers/config";
+import { IResponse } from "../types/abstract";
 
 export const useApi = () => {
 	const request = async <T = any>(
@@ -7,7 +8,7 @@ export const useApi = () => {
 		body?: Record<string, string>,
 		headers?: Record<string, string>
 	) =>
-		new Promise<T>((resolve, reject) => {
+		new Promise<IResponse<T>>((resolve, reject) => {
 			fetch(path, {
 				method,
 				headers: {
@@ -16,7 +17,10 @@ export const useApi = () => {
 				},
 				body: JSON.stringify(body)
 			})
-				.then(r => resolve(r.json()))
+				.then(r => r.json())
+				.then(data => {
+					return resolve(data);
+				})
 				.catch(e => {
 					return reject(e);
 				});

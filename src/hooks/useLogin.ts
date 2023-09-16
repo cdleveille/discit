@@ -11,25 +11,23 @@ export const useLogin = (
 ) => {
 	const LOGIN_TOKEN_KEY = "loginToken";
 
-	const { GET, POST, PUT, DELETE } = useApi();
+	const { POST, PUT, DELETE } = useApi();
 	const { getLocalStorageItem, setLocalStorageItem, removeLocalStorageItem } = useLocalStorage();
 
 	const logIn = async (username: string, password: string) => {
 		if (!username || !password) throw "All fields are required.";
-		const res = await POST<{ token: string; error: string }>("/user/login", { username, password });
-		const { token, error } = res;
+		const { data, error } = await POST<{ token: string }>("/user/login", { username, password });
 		if (error) throw error;
-		setLocalStorageItem(LOGIN_TOKEN_KEY, token);
+		setLocalStorageItem(LOGIN_TOKEN_KEY, data.token);
 		const user = await validate();
 		user && showNotification("success", `${user.username} logged in`);
 	};
 
 	const register = async (username: string, password: string) => {
 		if (!username || !password) throw "All fields are required.";
-		const res = await POST<{ token: string; error: string }>("/user/register", { username, password });
-		const { token, error } = res;
+		const { data, error } = await POST<{ token: string }>("/user/register", { username, password });
 		if (error) throw error;
-		setLocalStorageItem(LOGIN_TOKEN_KEY, token);
+		setLocalStorageItem(LOGIN_TOKEN_KEY, data.token);
 		const user = await validate();
 		user && showNotification("success", `${user.username} logged in`);
 	};
@@ -37,11 +35,10 @@ export const useLogin = (
 	const validate = async () => {
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken) return;
-		const res = await POST<IUser & { error: string }>("/user/validate", {}, auth(loginToken));
-		const { error } = res;
+		const { data, error } = await POST<IUser>("/user/validate", {}, auth(loginToken));
 		if (error) throw error;
-		setLoggedInUser(res);
-		return res;
+		setLoggedInUser(data);
+		return data;
 	};
 
 	const logOut = async () => {
@@ -56,14 +53,13 @@ export const useLogin = (
 		if (!username || !password) throw "All fields are required.";
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const res = await PUT<{ token: string; error: string }>(
-			"/user/update/username",
+		const { data, error } = await PUT<{ token: string }>(
+			"/user/update",
 			{ id: loggedInUser.id, username, password },
 			auth(loginToken)
 		);
-		const { token, error } = res;
 		if (error) throw error;
-		setLocalStorageItem(LOGIN_TOKEN_KEY, token);
+		setLocalStorageItem(LOGIN_TOKEN_KEY, data.token);
 		const user = await validate();
 		user && showNotification("success", `Username changed: ${user.username}`);
 	};
@@ -72,14 +68,13 @@ export const useLogin = (
 		if (!newPassword || !password) throw "All fields are required.";
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const res = await PUT<{ token: string; error: string }>(
-			"/user/update/password",
+		const { data, error } = await PUT<{ token: string }>(
+			"/user/update",
 			{ id: loggedInUser.id, newPassword, password },
 			auth(loginToken)
 		);
-		const { token, error } = res;
 		if (error) throw error;
-		setLocalStorageItem(LOGIN_TOKEN_KEY, token);
+		setLocalStorageItem(LOGIN_TOKEN_KEY, data.token);
 		const user = await validate();
 		user && showNotification("success", "Password changed");
 	};
@@ -88,62 +83,49 @@ export const useLogin = (
 		if (!password) throw "Password field is required.";
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const res = await DELETE<IUser & { error: string }>(
+		const { data, error } = await DELETE<IUser>(
 			"/user/delete",
 			{ id: loggedInUser.id, password },
 			auth(loginToken)
 		);
-		const { username, error } = res;
 		if (error) throw error;
 		removeLocalStorageItem(LOGIN_TOKEN_KEY);
 		setLoggedInUser(undefined);
-		username && showNotification("success", `Account deleted: ${username}`);
+		data && showNotification("success", `Account deleted: ${data.username}`);
 	};
 
 	const getBags = async () => {
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const res = await GET<IBag[] & { error: string }>(`/bag?user_id=${loggedInUser.id}`);
-		const { error } = res;
+		const { data, error } = await POST<IBag[]>("/bag", { user_id: loggedInUser.id }, auth(loginToken));
 		if (error) throw error;
-		return res;
+		return data;
 	};
 
 	const createBag = async (name: string) => {
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const res = await POST<IBag & { error: string }>(
-			"/bag/create",
-			{ user_id: loggedInUser.id, name },
-			auth(loginToken)
-		);
-		const { error } = res;
+		const { data, error } = await POST<IBag>("/bag/create", { user_id: loggedInUser.id, name }, auth(loginToken));
 		if (error) throw error;
-		return res;
+		return data;
 	};
 
 	const addDiscToBag = async (id: string, disc: IDisc) => {
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const res = await POST<IBag & { error: string }>("/bag/add-disc", { id, disc_id: disc.id }, auth(loginToken));
-		const { error } = res;
+		const { data, error } = await POST<IBag>("/bag/add-disc", { id, disc_id: disc.id }, auth(loginToken));
 		if (error) throw error;
-		res && showNotification("success", `Added ${disc.name} to bag`);
-		return res;
+		data && showNotification("success", `Added ${disc.name} to bag`);
+		return data;
 	};
 
 	const removeDiscFromBag = async (id: string, disc: IDisc) => {
 		const loginToken = getLocalStorageItem(LOGIN_TOKEN_KEY);
 		if (!loginToken || !loggedInUser) throw "Not logged in.";
-		const res = await POST<IBag & { error: string }>(
-			"/bag/remove-disc",
-			{ id, disc_id: disc.id },
-			auth(loginToken)
-		);
-		const { error } = res;
+		const { data, error } = await POST<IBag>("/bag/remove-disc", { id, disc_id: disc.id }, auth(loginToken));
 		if (error) throw error;
-		res && showNotification("success", `Removed ${disc.name} from bag`);
-		return res;
+		data && showNotification("success", `Removed ${disc.name} from bag`);
+		return data;
 	};
 
 	const auth = (loginToken: string) => ({ Authorization: `Bearer ${loginToken}` });
