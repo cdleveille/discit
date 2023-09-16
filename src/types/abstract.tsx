@@ -35,10 +35,3 @@ export interface IDiscColor {
 	color: string;
 	backgroundColor: string;
 }
-
-export interface IResponse<T = any> {
-	ok: boolean;
-	status: number;
-	data: T;
-	error?: string;
-}

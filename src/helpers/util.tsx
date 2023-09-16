@@ -7,6 +7,7 @@ export const stringIncludesString = (a: string, b: string) => {
 };
 
 export const stringArrayIncludesString = (a: string[], b: string, exactMatch?: boolean) => {
+	if (!a || !b) return false;
 	for (const c of a) {
 		if (exactMatch) {
 			if (b === c) return true;
