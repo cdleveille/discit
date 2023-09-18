@@ -20,7 +20,7 @@ Install prerequisites:
 
 Configure/launch app:
 
--   Set up the [DiscIt API](https://github.com/cdleveille/discit-api) locally and run `yarn dev-server` to start the back end.
+-   Set up the [DiscIt API](https://github.com/cdleveille/discit-api) locally and run `bun dev` to start the back end.
 -   Create and populate a `.env` file in the root folder based on the `.env.example` file.
 -   Run `yarn install` to install package dependencies.
 -   Run `yarn dev` and go to [localhost:3000](http://localhost:3000/) to use the app.
