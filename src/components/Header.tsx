@@ -1,12 +1,17 @@
-import React from "react";
+import Image from "next/image";
+
+import { Menu } from "@components";
+import { Stack } from "@mui/material";
 
 export const Header = () => {
 	return (
-		<div className="header">
-			<img className="logo" src="/img/disc_golf.svg"></img>
-			&nbsp;&nbsp;&nbsp;DiscIt&nbsp;&nbsp;
-		</div>
+		<Stack direction="row" justifyContent="space-between" width="100%">
+			<Menu />
+			<Stack direction="row" spacing={-2} alignItems="center" className="title">
+				<Image src="/discit.svg" alt="DiscIt" width={100} height={100} priority />
+				<h1>DiscIt</h1>
+			</Stack>
+			<span className="hidden" style={{ width: "3rem" }}></span>
+		</Stack>
 	);
 };
-
-export default Header;

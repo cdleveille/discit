@@ -1,0 +1,97 @@
+:root {
+	--disc-size: 11rem;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	overflow-x: hidden;
+}
+
+h1 {
+	font-size: 3rem;
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0.5rem;
+}
+
+.title {
+	margin-top: -1rem;
+	margin-left: -1rem;
+	padding-right: 2rem;
+}
+
+.menu-btn {
+	background-color: rgba(221, 221, 221, 0.6);
+	border-radius: 50%;
+	width: 3rem;
+	height: 3rem;
+}
+
+.menu-btn:hover {
+	background-color: rgba(221, 221, 221, 0.8);
+}
+
+.hidden {
+	visibility: hidden;
+	user-select: none;
+}
+
+.scroll-to-top {
+	background-color: rgba(221, 221, 221, 0.6);
+	border-radius: 50%;
+	position: fixed;
+	bottom: 0.5rem;
+	right: 0.5rem;
+}
+
+.scroll-to-top:hover {
+	background-color: rgba(221, 221, 221, 0.8);
+}
+
+.disc-grid {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, calc(var(--disc-size) + 1rem));
+	justify-content: center;
+}
+
+.disc-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: calc(var(--disc-size) + 1rem);
+	height: calc(var(--disc-size) + 1rem);
+}
+
+.disc {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: var(--disc-size);
+	height: var(--disc-size);
+	border-radius: 50%;
+	transition: 0.25s ease-in-out;
+	text-align: center;
+}
+
+.disc:hover {
+	cursor: pointer;
+	width: calc(var(--disc-size) + 1rem);
+	height: calc(var(--disc-size) + 1rem);
+}
+
+.disc-name {
+	width: var(--disc-size);
+	font-size: calc(var(--disc-size) / 7);
+	font-weight: 500;
+}

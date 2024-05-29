@@ -1,112 +1,39 @@
-import React, { CSSProperties, useEffect } from "react";
+"use client";
 
-import CircularProgress from "@mui/material/CircularProgress";
+import { useContext, useEffect, useState } from "react";
 
-import { IDisc } from "../types/abstract";
-import { BagButton } from "./BagButton";
-import DiscGridItem from "./DiscGridItem";
-import { SearchButton } from "./SearchButton";
+import { Disc, DiscContext } from "@components";
 
-interface IDiscGridProps {
-	data: IDisc[];
-	renderMoreDiscs: () => void;
-	showDiscDetail: (data: IDisc, color: string, backgroundColor: string) => void;
-	count: number;
-	toggleSortOrder: () => void;
-	isLoading: boolean;
-	setIsScollToTopVisible: (visible: boolean) => void;
-	isBagView: boolean;
-	setIsBagView: (isBagView: boolean) => void;
-	isLoggedIn: boolean;
-	addDiscToActiveBag: (disc: IDisc) => Promise<void>;
-	removeDiscFromActiveBag: (disc: IDisc) => Promise<void>;
-	isDiscInActiveBag: (disc: IDisc) => boolean;
-}
+const DISC_INCREMENT = 100;
 
-const DiscGrid = ({
-	data,
-	renderMoreDiscs,
-	showDiscDetail,
-	count,
-	toggleSortOrder,
-	isLoading,
-	setIsScollToTopVisible,
-	isBagView,
-	setIsBagView,
-	isLoggedIn,
-	addDiscToActiveBag,
-	removeDiscFromActiveBag,
-	isDiscInActiveBag
-}: IDiscGridProps) => {
+export const DiscGrid = () => {
+	const [numDiscsToRender, setNumDiscsToRender] = useState(DISC_INCREMENT);
+
+	const { filteredDiscs } = useContext(DiscContext);
+
 	useEffect(() => {
-		const discGrid = document.getElementById("disc-grid");
-		if (discGrid) {
-			if (discGrid.clientHeight < window.innerHeight - discGrid.offsetTop) {
-				renderMoreDiscs();
-			}
-		}
-	}, [data]);
-
-	if (typeof window !== "undefined" && typeof document !== "undefined") {
-		window.onscroll = () => {
+		const checkIfAtBottom = () => {
 			const discGrid = document.getElementById("disc-grid");
-			if (discGrid) {
-				if (
-					window.innerHeight + document.documentElement.scrollTop + 1 >=
-					discGrid.offsetTop + discGrid.clientHeight
-				) {
-					renderMoreDiscs();
-				}
-			}
-			if (document.documentElement.scrollTop > 800) {
-				setIsScollToTopVisible(true);
-			} else {
-				setIsScollToTopVisible(false);
-			}
+			if (!discGrid) return;
+			const scrollDiff =
+				discGrid.offsetTop + discGrid.clientHeight - window.innerHeight - document.documentElement.scrollTop;
+			if (scrollDiff <= 1) renderMoreDiscs();
 		};
-	}
+		window.addEventListener("scroll", checkIfAtBottom);
+		return () => window.removeEventListener("scroll", checkIfAtBottom);
+	}, []);
 
-	const selectedStyle: CSSProperties = { border: "2px solid #6C6C6C" };
+	useEffect(() => setNumDiscsToRender(DISC_INCREMENT), [filteredDiscs]);
+
+	const renderMoreDiscs = () => setNumDiscsToRender(current => current + DISC_INCREMENT);
+
+	const discs = filteredDiscs.slice(0, numDiscsToRender);
 
 	return (
-		<div className="disc-grid-header-container">
-			<div className="disc-grid-header">
-				<div style={{ marginRight: "1.5em" }}>
-					<SearchButton onClick={() => setIsBagView(false)} style={isBagView ? {} : selectedStyle} />
-				</div>
-				<div className="disc-grid-count">
-					{isLoading ? (
-						<CircularProgress size={56} />
-					) : (
-						<div className="disc-grid-count-inner" onClick={toggleSortOrder}>
-							{count} disc{count === 1 ? "" : "s"}
-						</div>
-					)}
-				</div>
-				<div style={{ marginLeft: "1.5em" }}>
-					<BagButton onClick={() => setIsBagView(true)} style={isBagView ? selectedStyle : {}} />
-				</div>
-			</div>
-			{!isLoading &&
-				(!isLoggedIn && isBagView ? (
-					<div className="disc-grid-placeholder">Log in to add discs to your bag!</div>
-				) : (
-					<div className="disc-grid" id="disc-grid">
-						{data.map((disc, i) => (
-							<DiscGridItem
-								key={i}
-								data={disc}
-								showDiscDetail={showDiscDetail}
-								addDiscToActiveBag={addDiscToActiveBag}
-								removeDiscFromActiveBag={removeDiscFromActiveBag}
-								isDiscInActiveBag={isDiscInActiveBag}
-								isLoggedIn={isLoggedIn}
-							/>
-						))}
-					</div>
-				))}
+		<div id="disc-grid" className="disc-grid">
+			{discs.map(disc => (
+				<Disc key={disc.id} disc={disc} />
+			))}
 		</div>
 	);
 };
-
-export default DiscGrid;

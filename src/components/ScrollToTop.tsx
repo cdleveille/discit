@@ -1,22 +1,29 @@
-import React from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import IconButton from "@mui/material/IconButton";
+import { IconButton } from "@mui/material";
 
-interface IScrollToTopProps {
-	visible: boolean;
-}
+export const ScrollToTop = () => {
+	const [isVisible, setIsVisible] = useState(false);
 
-export const ScrollToTop = ({ visible }: IScrollToTopProps) => {
-	return visible ? (
-		<div className="scroll-to-top">
-			<IconButton
-				aria-label="scrollTop"
-				onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-				size="large"
-			>
-				<ArrowUpwardIcon />
-			</IconButton>
-		</div>
-	) : null;
+	useEffect(() => {
+		const determineVisibility = () => setIsVisible(window.scrollY > 500 ? true : false);
+		window.addEventListener("scroll", determineVisibility);
+		return () => window.removeEventListener("scroll", determineVisibility);
+	}, []);
+
+	if (!isVisible) return null;
+
+	return (
+		<IconButton
+			aria-label="scrollTop"
+			onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+			size="large"
+			className="scroll-to-top"
+		>
+			<ArrowUpwardIcon />
+		</IconButton>
+	);
 };

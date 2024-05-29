@@ -1,18 +1,14 @@
-import React from "react";
-
 import MenuIcon from "@mui/icons-material/Menu";
-import IconButton from "@mui/material/IconButton";
+import { IconButton } from "@mui/material";
 
-interface IMenuButtonProps {
+type MenuButtonProps = {
 	onClick: () => void;
-}
+};
 
-export const MenuButton = ({ onClick }: IMenuButtonProps) => {
+export const MenuButton = ({ onClick }: MenuButtonProps) => {
 	return (
-		<div className="menu-btn">
-			<IconButton aria-label="Menu" onClick={onClick} size="large">
-				<MenuIcon />
-			</IconButton>
-		</div>
+		<IconButton aria-label="Menu" onClick={onClick} size="large" className="menu-btn">
+			<MenuIcon />
+		</IconButton>
 	);
 };
