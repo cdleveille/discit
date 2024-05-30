@@ -2,26 +2,40 @@
 
 import { createContext, useState } from "react";
 
-import { DiscGrid } from "@components";
+import { DiscCount, DiscDetail, DiscGrid, Filters, Header, ScrollToTop } from "@components";
 
-import type { Disc, DiscContextType } from "@types";
+import type { Disc, DiscContext as TDiscContext, DiscContextProviderProps, FilterValues } from "@types";
 
-export const DiscContext = createContext<DiscContextType>({
-	discs: [],
-	filteredDiscs: [],
-	setFilteredDiscs: () => null
-});
+export const DiscContext = createContext<TDiscContext>({} as TDiscContext);
 
-type DiscGridContainerProps = {
-	discs: Disc[];
-};
-
-export const DiscContextProvider = ({ discs }: DiscGridContainerProps) => {
+export const DiscContextProvider = ({ discs }: DiscContextProviderProps) => {
 	const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>(discs);
+	const [discDetail, setDiscDetail] = useState<Disc | null>(null);
+	const [filterValues, setFilterValues] = useState<FilterValues>({
+		name: "",
+		brands: [],
+		categories: [],
+		stabilities: []
+	});
 
 	return (
-		<DiscContext.Provider value={{ discs, filteredDiscs, setFilteredDiscs }}>
+		<DiscContext.Provider
+			value={{
+				discs,
+				filteredDiscs,
+				setFilteredDiscs,
+				discDetail,
+				setDiscDetail,
+				filterValues,
+				setFilterValues
+			}}
+		>
+			<Header />
+			<Filters />
+			<DiscCount />
 			<DiscGrid />
+			<DiscDetail />
+			<ScrollToTop />
 		</DiscContext.Provider>
 	);
 };

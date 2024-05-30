@@ -4,3 +4,5 @@ export enum RequestMethod {
 	PUT = "PUT",
 	DELETE = "DELETE"
 }
+
+export const SCROLL_INCREMENT = 100;

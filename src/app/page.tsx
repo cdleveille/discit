@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 
 import { Home } from "@components";
 
-const HomePage = () => <Home />;
+const HomePage = () => (
+	<main>
+		<Home />
+	</main>
+);
 
 export default HomePage;
 

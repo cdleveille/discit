@@ -3,35 +3,34 @@
 import { useContext, useEffect, useState } from "react";
 
 import { Disc, DiscContext } from "@components";
-
-const DISC_INCREMENT = 100;
+import { SCROLL_INCREMENT } from "@constants";
 
 export const DiscGrid = () => {
-	const [numDiscsToRender, setNumDiscsToRender] = useState(DISC_INCREMENT);
+	const [numDiscsToRender, setNumDiscsToRender] = useState(SCROLL_INCREMENT);
 
 	const { filteredDiscs } = useContext(DiscContext);
 
 	useEffect(() => {
-		const checkIfAtBottom = () => {
-			const discGrid = document.getElementById("disc-grid");
+		const discGrid = document.getElementById("disc-grid");
+		const renderMoreDiscsIfAtBottom = () => {
 			if (!discGrid) return;
 			const scrollDiff =
 				discGrid.offsetTop + discGrid.clientHeight - window.innerHeight - document.documentElement.scrollTop;
 			if (scrollDiff <= 1) renderMoreDiscs();
 		};
-		window.addEventListener("scroll", checkIfAtBottom);
-		return () => window.removeEventListener("scroll", checkIfAtBottom);
+		window.addEventListener("scroll", renderMoreDiscsIfAtBottom);
+		return () => window.removeEventListener("scroll", renderMoreDiscsIfAtBottom);
 	}, []);
 
-	useEffect(() => setNumDiscsToRender(DISC_INCREMENT), [filteredDiscs]);
+	useEffect(() => setNumDiscsToRender(SCROLL_INCREMENT), [filteredDiscs]);
 
-	const renderMoreDiscs = () => setNumDiscsToRender(current => current + DISC_INCREMENT);
+	const renderMoreDiscs = () => setNumDiscsToRender(current => current + SCROLL_INCREMENT);
 
-	const discs = filteredDiscs.slice(0, numDiscsToRender);
+	const discsToRender = filteredDiscs.slice(0, numDiscsToRender);
 
 	return (
-		<div id="disc-grid" className="disc-grid">
-			{discs.map(disc => (
+		<div id="disc-grid">
+			{discsToRender.map(disc => (
 				<Disc key={disc.id} disc={disc} />
 			))}
 		</div>

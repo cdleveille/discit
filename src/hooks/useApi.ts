@@ -1,17 +1,15 @@
 import { RequestMethod } from "@constants";
 import { config } from "@services";
 
-import type { RequestMethodType } from "@types";
-
-import type { Disc } from "@types";
+import type { Disc, RequestMethodOption } from "@types";
 
 export const useApi = () => {
-	const request = async <T>(path: string, method: RequestMethodType, body?: unknown) => {
+	const request = async <T>(path: string, method: RequestMethodOption, body?: unknown) => {
 		const res = await fetch(`${config.API_URL}/${path}`, {
 			method,
 			headers: {
 				"Content-Type": "application/json",
-				...(method !== RequestMethod.GET && { Authorization: `Bearer ${config.API_KEY}` })
+				Authorization: `Bearer ${config.API_KEY}`
 			},
 			body: JSON.stringify(body)
 		});

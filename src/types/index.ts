@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 import { RequestMethod } from "@constants";
 
 export type Config = {
@@ -5,7 +7,7 @@ export type Config = {
 	API_KEY: string;
 };
 
-export type RequestMethodType = keyof typeof RequestMethod;
+export type RequestMethodOption = keyof typeof RequestMethod;
 
 export type Disc = {
 	id: string;
@@ -27,8 +29,27 @@ export type Disc = {
 	background_color: string;
 };
 
-export type DiscContextType = {
+export type DiscContext = {
 	discs: Disc[];
 	filteredDiscs: Disc[];
-	setFilteredDiscs: (discs: Disc[]) => void;
+	setFilteredDiscs: Dispatch<SetStateAction<Disc[]>>;
+	discDetail: Disc | null;
+	setDiscDetail: (disc: Disc | null) => void;
+	filterValues: FilterValues;
+	setFilterValues: Dispatch<SetStateAction<FilterValues>>;
+};
+
+export type FilterValues = {
+	name: string;
+	brands: string[];
+	categories: string[];
+	stabilities: string[];
+};
+
+export type DiscContextProviderProps = {
+	discs: Disc[];
+};
+
+export type DiscProps = {
+	disc: Disc;
 };
