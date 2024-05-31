@@ -53,7 +53,7 @@ export type FilterValues = {
 	stabilities: string[];
 };
 
-export type DiscContextProviderProps = {
+export type HomeProps = {
 	discs: Disc[];
 };
 

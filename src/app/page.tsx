@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 
 import { Home } from "@components";
+import { useApi } from "@hooks";
 
-const HomePage = () => (
-	<main>
-		<Home />
-	</main>
-);
-
-export default HomePage;
+export default async function HomePage() {
+	const { getDiscs } = useApi();
+	const discs = await getDiscs();
+	return (
+		<main>
+			<Home discs={discs} />
+		</main>
+	);
+}
 
 export const metadata: Metadata = {
 	title: "DiscIt",
