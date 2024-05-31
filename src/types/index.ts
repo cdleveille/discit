@@ -54,6 +54,11 @@ export type FilterValues = {
 	stabilities: string[];
 };
 
+export type DiscContextProviderProps = {
+	discs: Disc[];
+	children: React.ReactNode;
+};
+
 export type HomeProps = {
 	discs: Disc[];
 };

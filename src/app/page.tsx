@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
 
 import { Home } from "@components";
-import { useApi } from "@hooks";
 
-export default async function HomePage() {
-	const { getDiscs } = useApi();
-	const discs = await getDiscs();
+export default function HomePage() {
 	return (
 		<main>
-			<Home discs={discs} />
+			<Home />
 		</main>
 	);
 }
