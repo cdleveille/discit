@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useContext } from "react";
 
 import { DiscContext } from "@components";
+import { hexToRgba } from "@util";
 
 export const DiscDetail = () => {
 	const { discDetail, setDiscDetail } = useContext(DiscContext);
@@ -24,9 +25,15 @@ export const DiscDetail = () => {
 		background_color: backgroundColor
 	} = discDetail;
 
+	const borderColor = hexToRgba(color, 0.25);
+
 	return (
 		<div className="overlay" onClick={() => setDiscDetail(null)}>
-			<div className="disc-detail" onClick={e => e.stopPropagation()} style={{ color, backgroundColor }}>
+			<div
+				className="disc-detail"
+				onClick={e => e.stopPropagation()}
+				style={{ color, backgroundColor, border: `1.5vmin solid ${borderColor}` }}
+			>
 				<div className="disc-detail-name">{name}</div>
 				<div className="disc-detail-info">
 					<div>{brand}</div>

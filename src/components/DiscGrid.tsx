@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState } from "react";
 
-import { Disc, DiscContext } from "@components";
+import { Disc, DiscContext, ScrollToTop } from "@components";
 import { SCROLL_INCREMENT } from "@constants";
 
 export const DiscGrid = () => {
@@ -33,6 +33,7 @@ export const DiscGrid = () => {
 			{discsToRender.map(disc => (
 				<Disc key={disc.id} disc={disc} />
 			))}
+			<ScrollToTop />
 		</div>
 	);
 };

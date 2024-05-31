@@ -6,6 +6,4 @@ export * from "./DiscGrid";
 export * from "./Filters";
 export * from "./Header";
 export * from "./Home";
-export * from "./Menu";
-export * from "./MenuButton";
 export * from "./ScrollToTop";

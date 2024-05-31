@@ -20,7 +20,7 @@ export const ScrollToTop = () => {
 	if (!isVisible) return null;
 
 	return (
-		<IconButton aria-label="scrollTop" onClick={() => scrollToTop()} size="large" className="scroll-to-top">
+		<IconButton aria-label="scroll-to-top" onClick={() => scrollToTop()} size="large" className="scroll-to-top">
 			<ArrowUpwardIcon />
 		</IconButton>
 	);

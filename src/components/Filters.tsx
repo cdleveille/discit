@@ -1,6 +1,6 @@
 "use client";
 
-import { SyntheticEvent, useContext, useEffect, useMemo, useState } from "react";
+import { SyntheticEvent, useContext, useEffect, useState } from "react";
 
 import { DiscContext } from "@components";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
@@ -8,11 +8,15 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import { Autocomplete, Checkbox, TextField } from "@mui/material";
 import { getArrayIntersection } from "@util";
 
+import type { FilterOptions } from "@types";
+
 export const Filters = () => {
-	const [nameOptions, setNameOptions] = useState<string[]>([]);
-	const [brandOptions, setBrandOptions] = useState<string[]>([]);
-	const [categoryOptions, setCategoryOptions] = useState<string[]>([]);
-	const [stabilityOptions, setStabilityOptions] = useState<string[]>([]);
+	const [filterOptions, setFilterOptions] = useState<FilterOptions>({
+		names: [],
+		brands: [],
+		categories: [],
+		stabilities: []
+	});
 
 	const { discs, setFilteredDiscs, filterValues, setFilterValues, discDetail } = useContext(DiscContext);
 
@@ -32,28 +36,30 @@ export const Filters = () => {
 			discsFilteredByCategory,
 			discsFilteredByStability
 		);
-		setNameOptions([...new Set(discsFiltered.map(disc => disc.name))]);
-		setBrandOptions([
-			...new Set(
-				getArrayIntersection(discsFilteredByName, discsFilteredByCategory, discsFilteredByStability)
-					.map(disc => disc.brand)
-					.sort()
-			)
-		]);
-		setCategoryOptions([
-			...new Set(
-				getArrayIntersection(discsFilteredByName, discsFilteredByBrand, discsFilteredByStability)
-					.map(disc => disc.category)
-					.sort()
-			)
-		]);
-		setStabilityOptions([
-			...new Set(
-				getArrayIntersection(discsFilteredByName, discsFilteredByBrand, discsFilteredByCategory)
-					.map(disc => disc.stability)
-					.sort()
-			)
-		]);
+		setFilterOptions({
+			names: [...new Set(discsFiltered.map(disc => disc.name))],
+			brands: [
+				...new Set(
+					getArrayIntersection(discsFilteredByName, discsFilteredByCategory, discsFilteredByStability)
+						.map(disc => disc.brand)
+						.sort()
+				)
+			],
+			categories: [
+				...new Set(
+					getArrayIntersection(discsFilteredByName, discsFilteredByBrand, discsFilteredByStability)
+						.map(disc => disc.category)
+						.sort()
+				)
+			],
+			stabilities: [
+				...new Set(
+					getArrayIntersection(discsFilteredByName, discsFilteredByBrand, discsFilteredByCategory)
+						.map(disc => disc.stability)
+						.sort()
+				)
+			]
+		});
 		setFilteredDiscs(discsFiltered);
 	}, [discs, setFilteredDiscs, filterValues]);
 
@@ -64,7 +70,8 @@ export const Filters = () => {
 			<Autocomplete
 				disabled={disabled}
 				className="filter"
-				options={nameOptions}
+				options={filterOptions.names}
+				freeSolo
 				renderInput={params => (
 					<TextField {...params} label={!disabled ? "name" : undefined} placeholder="name" />
 				)}
@@ -76,11 +83,11 @@ export const Filters = () => {
 				disabled={disabled}
 				className="filter"
 				multiple
-				options={brandOptions}
+				options={filterOptions.brands}
 				disableCloseOnSelect
 				getOptionLabel={option => option}
 				renderOption={(props, option, { selected }) => (
-					<li {...props} key={brandOptions.indexOf(option)}>
+					<li {...props} key={filterOptions.brands.indexOf(option)}>
 						<Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8 }} checked={selected} />
 						{option}
 					</li>
@@ -96,11 +103,11 @@ export const Filters = () => {
 				disabled={disabled}
 				className="filter"
 				multiple
-				options={categoryOptions}
+				options={filterOptions.categories}
 				disableCloseOnSelect
 				getOptionLabel={option => option}
 				renderOption={(props, option, { selected }) => (
-					<li {...props} key={categoryOptions.indexOf(option)}>
+					<li {...props} key={filterOptions.categories.indexOf(option)}>
 						<Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8 }} checked={selected} />
 						{option}
 					</li>
@@ -116,11 +123,11 @@ export const Filters = () => {
 				disabled={disabled}
 				className="filter"
 				multiple
-				options={stabilityOptions}
+				options={filterOptions.stabilities}
 				disableCloseOnSelect
 				getOptionLabel={option => option}
 				renderOption={(props, option, { selected }) => (
-					<li {...props} key={stabilityOptions.indexOf(option)}>
+					<li {...props} key={filterOptions.stabilities.indexOf(option)}>
 						<Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8 }} checked={selected} />
 						{option}
 					</li>

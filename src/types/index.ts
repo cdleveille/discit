@@ -39,6 +39,13 @@ export type DiscContext = {
 	setFilterValues: Dispatch<SetStateAction<FilterValues>>;
 };
 
+export type FilterOptions = {
+	names: string[];
+	brands: string[];
+	categories: string[];
+	stabilities: string[];
+};
+
 export type FilterValues = {
 	name: string;
 	brands: string[];

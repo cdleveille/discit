@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 
 import { DiscContext } from "@components";
 import { Stack } from "@mui/material";
+import { hexToRgba } from "@util";
 
 import type { DiscProps } from "@types";
 
@@ -12,36 +13,44 @@ export const Disc = ({ disc }: DiscProps) => {
 
 	const { setDiscDetail } = useContext(DiscContext);
 
-	const { name, color, background_color: backgroundColor } = disc;
+	const {
+		name,
+		brand,
+		category,
+		stability,
+		speed,
+		glide,
+		turn,
+		fade,
+		color,
+		background_color: backgroundColor
+	} = disc;
+
+	const borderColor = hexToRgba(color, 0.25);
 
 	return (
 		<div className="disc-container">
 			<div
 				className="disc"
-				style={{ color, backgroundColor }}
+				style={{ color, backgroundColor, border: `5px solid ${borderColor}` }}
 				onClick={() => setDiscDetail(disc)}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 			>
 				<Stack spacing="0.25rem">
 					<div className="disc-name">{name}</div>
-					{isHovered && <DiscInfo disc={disc} />}
+					{isHovered && (
+						<Stack className="disc-info" spacing="0.25rem">
+							<div>{brand}</div>
+							<div>{category}</div>
+							<div>{stability}</div>
+							<div>
+								{speed}&nbsp;|&nbsp;{glide}&nbsp;|&nbsp;{turn}&nbsp;|&nbsp;{fade}
+							</div>
+						</Stack>
+					)}
 				</Stack>
 			</div>
 		</div>
-	);
-};
-
-export const DiscInfo = ({ disc }: DiscProps) => {
-	const { brand, category, stability, speed, glide, turn, fade } = disc;
-	return (
-		<Stack className="disc-info" spacing="0.25rem">
-			<div>{brand}</div>
-			<div>{category}</div>
-			<div>{stability}</div>
-			<div>
-				{speed}&nbsp;|&nbsp;{glide}&nbsp;|&nbsp;{turn}&nbsp;|&nbsp;{fade}
-			</div>
-		</Stack>
 	);
 };
