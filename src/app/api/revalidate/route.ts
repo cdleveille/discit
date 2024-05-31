@@ -1,4 +1,4 @@
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -9,6 +9,6 @@ export async function POST() {
 	const token = authorization?.split("Bearer ")?.[1];
 	if (!token || token !== config.API_KEY)
 		return NextResponse.json({ ok: false, message: "Unauthorized" }, { status: 401 });
-	revalidatePath("/", "layout");
+	revalidateTag("disc");
 	return NextResponse.json({ ok: true, message: `Revalidated at ${new Date().toISOString()}` });
 }
