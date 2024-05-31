@@ -2,7 +2,7 @@
 
 import { createContext, useState } from "react";
 
-import { DiscCount, DiscDetail, DiscGrid, Filters, Header } from "@components";
+import { DiscCount, DiscDetail, DiscGrid, Filters, Header, ScrollToTop } from "@components";
 
 import type { Disc, DiscContext as TDiscContext, DiscContextProviderProps, FilterValues } from "@types";
 
@@ -35,6 +35,7 @@ export const DiscContextProvider = ({ discs }: DiscContextProviderProps) => {
 			<DiscCount />
 			<DiscGrid />
 			<DiscDetail />
+			<ScrollToTop />
 		</DiscContext.Provider>
 	);
 };

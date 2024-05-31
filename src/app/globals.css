@@ -64,7 +64,6 @@ h1 {
 }
 
 .disc {
-	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -125,10 +124,19 @@ h1 {
 	row-gap: 0.5vmin;
 }
 
-.disc-detail-img {
+.disc-detail-img-container {
 	width: 44vmin;
 	max-width: 400px;
-	height: auto;
+	height: 37.4vmin;
+	max-height: 340px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.disc-detail-img {
+	width: 100%;
+	height: 100%;
 }
 
 .filters {
