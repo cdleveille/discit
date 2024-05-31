@@ -3,7 +3,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 
 import { DiscContextProvider } from "@components";
-import { useApi } from "@hooks";
+import { API } from "@services";
 
 import type { Metadata } from "next";
 
@@ -16,8 +16,9 @@ export default async function RootLayout({
 	children: React.ReactNode;
 	modal: React.ReactNode;
 }>) {
-	const { getDiscs } = useApi();
-	const discs = await getDiscs();
+	const discs = await API.getDiscs();
+	const imageUrls = discs.map(({ pic }) => pic).filter(pic => !!pic);
+	await API.fetchMany(imageUrls);
 	return (
 		<html lang="en">
 			<body className={inter.className}>

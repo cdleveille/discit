@@ -10,6 +10,14 @@ export type Config = {
 
 export type RequestMethodOption = keyof typeof RequestMethod;
 
+export type RequestParams = {
+	url: string;
+	method: RequestMethodOption;
+	accept?: string;
+	body?: unknown;
+	tags?: string[];
+};
+
 export type Disc = {
 	id: string;
 	name: string;
