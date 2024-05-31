@@ -21,6 +21,5 @@ export const API = {
 			url: `${config.API_URL}/disc`,
 			method: RequestMethod.GET,
 			tags: ["disc"]
-		}),
-	fetchMany: async (urls: string[]) => Promise.allSettled(urls.map(url => fetch(url, { next: { tags: ["image"] } })))
+		})
 };

@@ -46,8 +46,7 @@ export const DiscDetail = ({ name_slug }: DiscDetailProps) => {
 					</div>
 				</div>
 				<div className="disc-detail-img-container">
-					{/* eslint-disable-next-line @next/next/no-img-element */}
-					<img src={pic} alt={name} className="disc-detail-img" />
+					<Image src={pic} alt={name} width={400} height={340} className="disc-detail-img" />
 				</div>
 			</div>
 		</Modal>

@@ -17,14 +17,12 @@ export default async function RootLayout({
 	modal: React.ReactNode;
 }>) {
 	const discs = await API.getDiscs();
-	const imageUrls = discs.map(({ pic }) => pic).filter(pic => !!pic);
-	await API.fetchMany(imageUrls);
 	return (
 		<html lang="en">
 			<body className={inter.className}>
 				<DiscContextProvider discs={discs}>
-					{modal}
 					{children}
+					{modal}
 				</DiscContextProvider>
 			</body>
 		</html>
