@@ -3,13 +3,14 @@
 import Image from "next/image";
 import { useContext } from "react";
 
-import { DiscContext } from "@components";
+import { DiscContext, Modal } from "@components";
 import { hexToRgba } from "@util";
 
-export const DiscDetail = () => {
-	const { discDetail, setDiscDetail } = useContext(DiscContext);
-
-	if (!discDetail) return null;
+import type { DiscDetailProps } from "@types";
+export const DiscDetail = ({ name_slug }: DiscDetailProps) => {
+	const { discs } = useContext(DiscContext);
+	const disc = discs.find(disc => disc.name_slug === name_slug);
+	if (!disc) return null;
 
 	const {
 		name,
@@ -23,12 +24,12 @@ export const DiscDetail = () => {
 		pic,
 		color,
 		background_color: backgroundColor
-	} = discDetail;
+	} = disc;
 
 	const borderColor = hexToRgba(color, 0.25);
 
 	return (
-		<div className="overlay" onClick={() => setDiscDetail(null)}>
+		<Modal>
 			<div
 				className="disc-detail"
 				onClick={e => e.stopPropagation()}
@@ -48,6 +49,6 @@ export const DiscDetail = () => {
 					<Image src={pic} alt={name} width={400} height={340} className="disc-detail-img" />
 				</div>
 			</div>
-		</div>
+		</Modal>
 	);
 };

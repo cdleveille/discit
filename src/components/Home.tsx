@@ -1,7 +1,7 @@
 "use client";
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { DiscCount, DiscDetail, DiscGrid, Filters, Header, ScrollToTop } from "@components";
+import { DiscCount, DiscGrid, Filters, Header, ScrollToTop } from "@components";
 import { config } from "@services";
 
 export const Home = () => {
@@ -11,7 +11,6 @@ export const Home = () => {
 			<Filters />
 			<DiscCount />
 			<DiscGrid />
-			<DiscDetail />
 			<ScrollToTop />
 		</ClerkProvider>
 	);

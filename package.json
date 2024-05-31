@@ -14,18 +14,17 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.18",
-    "babel-plugin-react-compiler": "^0.0.0-experimental-592953e-20240517",
-    "next": "^14.3.0-canary.86",
-    "react": "^19.0.0-rc-6f23540c7d-20240528",
-    "react-dom": "^19.0.0-rc-6f23540c7d-20240528"
+    "next": "^14.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "npm:types-react@rc",
-    "@types/react-dom": "npm:types-react-dom@rc",
+    "@types/node": "20.3.1",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.18",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "prettier": "^3.2.5",
-    "typescript": "^5"
+    "typescript": "^5.1.3"
   }
 }

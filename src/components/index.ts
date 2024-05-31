@@ -7,4 +7,5 @@ export * from "./DiscGrid";
 export * from "./Filters";
 export * from "./Header";
 export * from "./Home";
+export * from "./Modal";
 export * from "./ScrollToTop";

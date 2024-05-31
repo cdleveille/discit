@@ -66,3 +66,11 @@ export type HomeProps = {
 export type DiscProps = {
 	disc: Disc;
 };
+
+export type DiscDetailProps = {
+	name_slug: string;
+};
+
+export type ModalProps = {
+	children: React.ReactNode;
+};
