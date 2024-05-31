@@ -7,8 +7,6 @@ import { config } from "@services";
 export async function POST() {
 	const authorization = headers().get("Authorization");
 	const token = authorization?.split("Bearer ")?.[1];
-	console.log("Token: ", token);
-	console.log("API Key: ", config.API_KEY);
 	if (!token || token !== config.API_KEY)
 		return NextResponse.json({ ok: false, message: "Unauthorized" }, { status: 401 });
 	revalidatePath("/", "layout");
