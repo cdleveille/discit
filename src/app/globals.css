@@ -11,7 +11,8 @@
 
 html,
 body {
-	overflow-x: hidden;
+	padding: 0 !important;
+	overflow: auto !important;
 }
 
 a {
