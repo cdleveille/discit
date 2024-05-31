@@ -18,7 +18,7 @@ export const Filters = () => {
 		stabilities: []
 	});
 
-	const { discs, setFilteredDiscs, filterValues, setFilterValues, discDetail } = useContext(DiscContext);
+	const { discs, setFilteredDiscs, filterValues, setFilterValues } = useContext(DiscContext);
 
 	useEffect(() => {
 		const { name, brands, categories, stabilities } = filterValues;
@@ -63,24 +63,18 @@ export const Filters = () => {
 		setFilteredDiscs(discsFiltered);
 	}, [discs, setFilteredDiscs, filterValues]);
 
-	const disabled = !!discDetail;
-
 	return (
 		<div className="filters">
 			<Autocomplete
-				disabled={disabled}
 				className="filter"
 				options={filterOptions.names}
 				freeSolo
-				renderInput={params => (
-					<TextField {...params} label={!disabled ? "name" : undefined} placeholder="name" />
-				)}
+				renderInput={params => <TextField {...params} label="name" placeholder="name" />}
 				onInputChange={(_e: SyntheticEvent, value: string) =>
 					setFilterValues(current => ({ ...current, name: value }))
 				}
 			/>
 			<Autocomplete
-				disabled={disabled}
 				className="filter"
 				multiple
 				options={filterOptions.brands}
@@ -92,15 +86,12 @@ export const Filters = () => {
 						{option}
 					</li>
 				)}
-				renderInput={params => (
-					<TextField {...params} label={!disabled ? "brand" : undefined} placeholder="brand" />
-				)}
+				renderInput={params => <TextField {...params} label="brand" placeholder="brand" />}
 				onChange={(_e: SyntheticEvent, value: string[]) =>
 					setFilterValues(current => ({ ...current, brands: value }))
 				}
 			/>
 			<Autocomplete
-				disabled={disabled}
 				className="filter"
 				multiple
 				options={filterOptions.categories}
@@ -112,15 +103,12 @@ export const Filters = () => {
 						{option}
 					</li>
 				)}
-				renderInput={params => (
-					<TextField {...params} label={!disabled ? "category" : undefined} placeholder="category" />
-				)}
+				renderInput={params => <TextField {...params} label="category" placeholder="category" />}
 				onChange={(_e: SyntheticEvent, value: string[]) =>
 					setFilterValues(current => ({ ...current, categories: value }))
 				}
 			/>
 			<Autocomplete
-				disabled={disabled}
 				className="filter"
 				multiple
 				options={filterOptions.stabilities}
@@ -132,9 +120,7 @@ export const Filters = () => {
 						{option}
 					</li>
 				)}
-				renderInput={params => (
-					<TextField {...params} label={!disabled ? "stability" : undefined} placeholder="stability" />
-				)}
+				renderInput={params => <TextField {...params} label="stability" placeholder="stability" />}
 				onChange={(_e: SyntheticEvent, value: string[]) =>
 					setFilterValues(current => ({ ...current, stabilities: value }))
 				}

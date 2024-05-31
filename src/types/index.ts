@@ -34,8 +34,6 @@ export type DiscContext = {
 	discs: Disc[];
 	filteredDiscs: Disc[];
 	setFilteredDiscs: Dispatch<SetStateAction<Disc[]>>;
-	discDetail: Disc | null;
-	setDiscDetail: (disc: Disc | null) => void;
 	filterValues: FilterValues;
 	setFilterValues: Dispatch<SetStateAction<FilterValues>>;
 };
@@ -57,10 +55,6 @@ export type FilterValues = {
 export type DiscContextProviderProps = {
 	discs: Disc[];
 	children: React.ReactNode;
-};
-
-export type HomeProps = {
-	discs: Disc[];
 };
 
 export type DiscProps = {
