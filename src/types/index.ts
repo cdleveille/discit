@@ -4,7 +4,8 @@ import { RequestMethod } from "@constants";
 
 export type Config = {
 	API_URL: string;
-	API_KEY?: string;
+	API_KEY: string;
+	NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: string;
 };
 
 export type RequestMethodOption = keyof typeof RequestMethod;

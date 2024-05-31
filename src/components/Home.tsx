@@ -4,9 +4,9 @@ import { createContext, useState } from "react";
 
 import { ClerkProvider } from "@clerk/nextjs";
 import { DiscCount, DiscDetail, DiscGrid, Filters, Header, ScrollToTop } from "@components";
+import { config } from "@services";
 
 import type { Disc, DiscContext as TDiscContext, HomeProps, FilterValues } from "@types";
-
 export const DiscContext = createContext<TDiscContext>({} as TDiscContext);
 
 export const Home = ({ discs }: HomeProps) => {
@@ -20,7 +20,7 @@ export const Home = ({ discs }: HomeProps) => {
 	});
 
 	return (
-		<ClerkProvider>
+		<ClerkProvider publishableKey={config.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
 			<DiscContext.Provider
 				value={{
 					discs,
