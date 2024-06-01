@@ -18,14 +18,14 @@ export default async function RootLayout({
 }>) {
 	const discs = await API.getDiscs();
 	return (
-		<html lang="en">
-			<body className={inter.className}>
-				<DiscContextProvider discs={discs}>
+		<DiscContextProvider discs={discs}>
+			<html lang="en">
+				<body className={inter.className}>
 					{children}
 					{modal}
-				</DiscContextProvider>
-			</body>
-		</html>
+				</body>
+			</html>
+		</DiscContextProvider>
 	);
 }
 

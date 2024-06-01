@@ -8,5 +8,4 @@ export * from "./DiscModal";
 export * from "./DiscNotFound";
 export * from "./Filters";
 export * from "./Header";
-export * from "./Home";
 export * from "./ScrollToTop";

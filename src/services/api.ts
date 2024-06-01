@@ -3,7 +3,7 @@ import { config } from "@services";
 
 import type { Disc, RequestParams } from "@types";
 
-const request = async <T = unknown>({ url, method, body, tags }: RequestParams) => {
+const requestJson = async <T = unknown>({ url, method, body, tags }: RequestParams) => {
 	const res = await fetch(url, {
 		method,
 		headers: {
@@ -17,7 +17,7 @@ const request = async <T = unknown>({ url, method, body, tags }: RequestParams) 
 
 export const API = {
 	getDiscs: async () =>
-		request<Disc[]>({
+		requestJson<Disc[]>({
 			url: `${config.API_URL}/disc`,
 			method: RequestMethod.GET,
 			tags: ["disc"]
