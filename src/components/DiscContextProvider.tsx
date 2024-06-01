@@ -15,8 +15,6 @@ export const DiscContextProvider = ({ discs, children }: DiscContextProviderProp
 		stabilities: []
 	});
 
-	if (!discs) return null;
-
 	return (
 		<DiscContext.Provider
 			value={{
