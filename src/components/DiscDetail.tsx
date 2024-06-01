@@ -56,24 +56,26 @@ export const DiscDetail = ({ name_slug, hideNavButtons }: DiscDetailProps) => {
 						<Image src={pic} alt={name} width={400} height={340} className="disc-detail-img" />
 					</div>
 				)}
-				<Stack direction="row" spacing="32vmin" style={{ display: hideNavButtons ? "none" : "flex" }}>
-					<Link
-						href={`/${previousDiscNameSlug}`}
-						className={`disc-detail-nav disc-detail-previous ${!previousDiscNameSlug ? "disabled" : ""}`}
-					>
-						<IconButton aria-label="previous" disabled={!previousDiscNameSlug}>
-							<NavigateBefore sx={{ width: "5vmin", height: "5vmin" }} />
-						</IconButton>
-					</Link>
-					<Link
-						href={`/${nextDiscNameSlug}`}
-						className={`disc-detail-nav disc-detail-next ${!nextDiscNameSlug ? "disabled" : ""}`}
-					>
-						<IconButton aria-label="next" disabled={!nextDiscNameSlug}>
-							<NavigateNext sx={{ width: "5vmin", height: "5vmin" }} />
-						</IconButton>
-					</Link>
-				</Stack>
+				{!hideNavButtons && (
+					<Stack direction="row" spacing="32vmin">
+						<Link
+							href={`/${previousDiscNameSlug}`}
+							className={`disc-detail-nav disc-detail-previous ${!previousDiscNameSlug ? "disabled" : ""}`}
+						>
+							<IconButton aria-label="previous" disabled={!previousDiscNameSlug}>
+								<NavigateBefore sx={{ width: "5vmin", height: "5vmin" }} />
+							</IconButton>
+						</Link>
+						<Link
+							href={`/${nextDiscNameSlug}`}
+							className={`disc-detail-nav disc-detail-next ${!nextDiscNameSlug ? "disabled" : ""}`}
+						>
+							<IconButton aria-label="next" disabled={!nextDiscNameSlug}>
+								<NavigateNext sx={{ width: "5vmin", height: "5vmin" }} />
+							</IconButton>
+						</Link>
+					</Stack>
+				)}
 			</div>
 		</div>
 	);

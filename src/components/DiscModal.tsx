@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 import { useKeyPress } from "@hooks";
 import { Modal as MuiModal } from "@mui/material";
@@ -9,18 +8,16 @@ import { Modal as MuiModal } from "@mui/material";
 import type { ModalProps } from "@types";
 
 export function DiscModal({ children }: ModalProps) {
-	const [open, setOpen] = useState(true);
-
 	const router = useRouter();
+
 	const onClose = () => {
-		setOpen(false);
-		router.push("/");
+		router.back();
 	};
 
 	useKeyPress("Escape", onClose);
 
 	return (
-		<MuiModal open={open} disableEscapeKeyDown>
+		<MuiModal open={true} disableEscapeKeyDown>
 			<div className="modal" onClick={onClose}>
 				{children}
 			</div>
