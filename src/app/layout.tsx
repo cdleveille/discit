@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import { DiscContextProvider } from "@components";
 import { API } from "@services";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,11 +29,32 @@ export default async function RootLayout({
 	);
 }
 
+export const viewport: Viewport = {
+	themeColor: "#ffffff"
+};
+
 export const metadata: Metadata = {
 	title: "DiscIt",
 	description: "A responsive disc golf disc search engine.",
 	authors: { name: "Chris Leveille", url: "https://www.cdleveille.net" },
 	publisher: "Chris Leveille",
+	manifest: "/manifest.json",
+	icons: [
+		"/icons/icon512-maskable.png",
+		"/icons/icon512.png",
+		"/icons/icon384.png",
+		"/icons/icon256.png",
+		"/icons/icon192-maskable.png",
+		"/icons/icon192.png",
+		"/icons/apple-icon.png",
+		"/icons/icon152.png",
+		"/icons/icon144.png",
+		"/icons/icon128.png",
+		"/icons/icon96.png",
+		"/icons/icon72.png",
+		"/icons/icon32.png",
+		"/icons/icon16.png"
+	],
 	openGraph: {
 		title: "DiscIt",
 		description: "A responsive disc golf disc search engine.",

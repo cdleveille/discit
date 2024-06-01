@@ -1,0 +1,82 @@
+{
+  "name": "DiscIt",
+  "short_name": "DiscIt",
+  "description": "A responsive disc golf disc search engine.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "fullscreen",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/icons/icon512-maskable.png",
+      "sizes": "512x512",
+      "type": "maskable"
+    },
+    {
+      "src": "/icons/icon512.png",
+      "sizes": "512x512",
+      "type": "any"
+    },
+    {
+      "src": "/icons/icon384.png",
+      "sizes": "384x384",
+      "type": "any"
+    },
+    {
+      "src": "/icons/icon256.png",
+      "sizes": "256x256",
+      "type": "any"
+    },
+    {
+      "src": "/icons/icon192-maskable.png",
+      "sizes": "192x192",
+      "type": "maskable"
+    },
+    {
+      "src": "/icons/icon192.png",
+      "sizes": "192x192",
+      "type": "any"
+    },
+    {
+      "src": "/icons/apple-icon.png",
+      "sizes": "180x180",
+      "type": "any"
+    },
+    {
+      "src": "/icons/icon152.png",
+      "sizes": "152x152",
+      "type": "any"
+    },
+    {
+      "src": "/icons/icon144.png",
+      "sizes": "144x144",
+      "type": "any"
+    },
+    {
+      "src": "/icons/icon128.png",
+      "sizes": "128x128",
+      "type": "any"
+    },
+    {
+      "src": "/icons/icon96.png",
+      "sizes": "96x96",
+      "type": "any"
+    },
+    {
+      "src": "/icons/icon72.png",
+      "sizes": "72x72",
+      "type": "any"
+    },
+    {
+      "src": "/icons/icon32.png",
+      "sizes": "32x32",
+      "type": "any"
+    },
+    {
+      "src": "/icons/icon16.png",
+      "sizes": "16x16",
+      "type": "any"
+    }
+  ]
+}

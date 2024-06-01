@@ -12,7 +12,7 @@ export const Header = () => {
 				<Auth />
 			</div>
 			<Stack direction="row" spacing={-2} alignItems="center" className="title">
-				<Image src="/discit.svg" alt="DiscIt" width={100} height={100} priority />
+				<Image src="/img/discit.svg" alt="DiscIt" width={100} height={100} priority />
 				<h1>DiscIt</h1>
 			</Stack>
 			<div className="hidden" style={{ width: "3rem" }}></div>
