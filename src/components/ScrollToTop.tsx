@@ -21,8 +21,8 @@ export const ScrollToTop = () => {
 
 	return (
 		<div className="scroll-to-top">
-			<IconButton aria-label="scroll-to-top" onClick={() => scrollToTop()} size="large">
-				<ArrowUpwardIcon />
+			<IconButton aria-label="scroll-to-top" onClick={() => scrollToTop()}>
+				<ArrowUpwardIcon fontSize="large" />
 			</IconButton>
 		</div>
 	);

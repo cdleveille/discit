@@ -1,15 +1,17 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useContext } from "react";
 
 import { DiscContext } from "@components";
+import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+import { IconButton, Stack } from "@mui/material";
 import { hexToRgba } from "@util";
 
 import type { DiscDetailProps } from "@types";
-
-export const DiscDetail = ({ name_slug }: DiscDetailProps) => {
-	const { discs } = useContext(DiscContext);
+export const DiscDetail = ({ name_slug, hideNavButtons }: DiscDetailProps) => {
+	const { discs, filteredDiscs } = useContext(DiscContext);
 	const disc = discs.find(disc => disc.name_slug === name_slug);
 	if (!disc) return null;
 
@@ -28,6 +30,9 @@ export const DiscDetail = ({ name_slug }: DiscDetailProps) => {
 	} = disc;
 
 	const borderColor = hexToRgba(color, 0.25);
+
+	const previousDiscNameSlug = filteredDiscs[filteredDiscs.indexOf(disc) - 1]?.name_slug;
+	const nextDiscNameSlug = filteredDiscs[filteredDiscs.indexOf(disc) + 1]?.name_slug;
 
 	return (
 		<div className="disc-detail-container">
@@ -51,6 +56,24 @@ export const DiscDetail = ({ name_slug }: DiscDetailProps) => {
 						<Image src={pic} alt={name} width={400} height={340} className="disc-detail-img" />
 					</div>
 				)}
+				<Stack direction="row" spacing="32vmin" style={{ display: hideNavButtons ? "none" : "flex" }}>
+					<Link
+						href={`/${previousDiscNameSlug}`}
+						className={`disc-detail-nav disc-detail-previous ${!previousDiscNameSlug ? "disabled" : ""}`}
+					>
+						<IconButton aria-label="previous" disabled={!previousDiscNameSlug}>
+							<NavigateBefore sx={{ width: "5vmin", height: "5vmin" }} />
+						</IconButton>
+					</Link>
+					<Link
+						href={`/${nextDiscNameSlug}`}
+						className={`disc-detail-nav disc-detail-next ${!nextDiscNameSlug ? "disabled" : ""}`}
+					>
+						<IconButton aria-label="next" disabled={!nextDiscNameSlug}>
+							<NavigateNext sx={{ width: "5vmin", height: "5vmin" }} />
+						</IconButton>
+					</Link>
+				</Stack>
 			</div>
 		</div>
 	);
