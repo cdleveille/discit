@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useContext } from "react";
 
-import { DiscContext, DiscModal } from "@components";
+import { DiscContext } from "@components";
 import { hexToRgba } from "@util";
 
 import type { DiscDetailProps } from "@types";
@@ -29,7 +29,7 @@ export const DiscDetail = ({ name_slug }: DiscDetailProps) => {
 	const borderColor = hexToRgba(color, 0.25);
 
 	return (
-		<DiscModal>
+		<div className="disc-detail-container">
 			<div
 				className="disc-detail"
 				onClick={e => e.stopPropagation()}
@@ -49,6 +49,6 @@ export const DiscDetail = ({ name_slug }: DiscDetailProps) => {
 					<Image src={pic} alt={name} width={400} height={340} className="disc-detail-img" />
 				</div>
 			</div>
-		</DiscModal>
+		</div>
 	);
 };

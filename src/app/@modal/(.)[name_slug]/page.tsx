@@ -1,5 +1,9 @@
-import { DiscDetail } from "@components";
+import { DiscDetail, DiscModal } from "@components";
 
 export default function DiscDetailPage({ params: { name_slug } }: { params: { name_slug: string } }) {
-	return <DiscDetail name_slug={name_slug} />;
+	return (
+		<DiscModal>
+			<DiscDetail name_slug={name_slug} />
+		</DiscModal>
+	);
 }
