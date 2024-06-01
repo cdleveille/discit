@@ -13,15 +13,15 @@ a {
 	text-decoration: none;
 }
 
-main {
+h1 {
+	font-size: 3rem;
+}
+
+.flex-column-center {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	padding: 0.5rem;
-}
-
-h1 {
-	font-size: 3rem;
 }
 
 .title {

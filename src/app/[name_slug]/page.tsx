@@ -7,5 +7,9 @@ export const generateStaticParams = async () => {
 };
 
 export default function DiscDetailPage({ params: { name_slug } }: { params: { name_slug: string } }) {
-	return <DiscDetail name_slug={name_slug} />;
+	return (
+		<main>
+			<DiscDetail name_slug={name_slug} />
+		</main>
+	);
 }
