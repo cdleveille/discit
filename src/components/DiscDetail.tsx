@@ -7,6 +7,7 @@ import { DiscContext } from "@components";
 import { hexToRgba } from "@util";
 
 import type { DiscDetailProps } from "@types";
+
 export const DiscDetail = ({ name_slug }: DiscDetailProps) => {
 	const { discs } = useContext(DiscContext);
 	const disc = discs.find(disc => disc.name_slug === name_slug);
