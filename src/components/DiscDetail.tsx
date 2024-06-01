@@ -45,9 +45,11 @@ export const DiscDetail = ({ name_slug }: DiscDetailProps) => {
 						{fade}
 					</div>
 				</div>
-				<div className="disc-detail-img-container">
-					<Image src={pic} alt={name} width={400} height={340} className="disc-detail-img" />
-				</div>
+				{pic && (
+					<div className="disc-detail-img-container">
+						<Image src={pic} alt={name} width={400} height={340} className="disc-detail-img" />
+					</div>
+				)}
 			</div>
 		</div>
 	);
