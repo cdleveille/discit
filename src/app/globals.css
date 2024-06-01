@@ -146,6 +146,20 @@ h1 {
 	height: 100%;
 }
 
+.disc-detail-not-found {
+	font-size: 6vmin;
+	font-weight: 500;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vmin;
+	height: 100vmin;
+	border-radius: 50%;
+	color: #444444;
+	background-color: #cccccc;
+	border: 1.5vmin solid #444444;
+}
+
 .filters {
 	display: flex;
 	flex-direction: row;
