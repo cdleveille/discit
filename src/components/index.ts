@@ -1,6 +1,6 @@
 export * from "./Auth";
 export * from "./Disc";
-export * from "./DiscContext";
+export * from "./DiscContextProvider";
 export * from "./DiscCount";
 export * from "./DiscDetail";
 export * from "./DiscGrid";

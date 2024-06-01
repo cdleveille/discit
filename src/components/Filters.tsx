@@ -2,7 +2,7 @@
 
 import { SyntheticEvent, useContext, useEffect, useState } from "react";
 
-import { DiscContext } from "@components";
+import { useDiscContext } from "@hooks";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import { Autocomplete, Checkbox, TextField } from "@mui/material";
@@ -18,7 +18,7 @@ export const Filters = () => {
 		stabilities: []
 	});
 
-	const { discs, setFilteredDiscs, filterValues, setFilterValues } = useContext(DiscContext);
+	const { discs, setFilteredDiscs, filterValues, setFilterValues } = useDiscContext();
 
 	useEffect(() => {
 		const { name, brands, categories, stabilities } = filterValues;

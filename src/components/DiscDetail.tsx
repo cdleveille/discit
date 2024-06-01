@@ -2,16 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
 
-import { DiscContext } from "@components";
+import { useDiscContext } from "@hooks";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import { IconButton, Stack } from "@mui/material";
 import { hexToRgba } from "@util";
 
 import type { DiscDetailProps } from "@types";
 export const DiscDetail = ({ name_slug, hideNavButtons }: DiscDetailProps) => {
-	const { discs, filteredDiscs } = useContext(DiscContext);
+	const { discs, filteredDiscs } = useDiscContext();
 	const disc = discs.find(disc => disc.name_slug === name_slug);
 	if (!disc) return null;
 

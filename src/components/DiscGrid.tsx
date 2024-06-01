@@ -1,14 +1,15 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { Disc, DiscContext } from "@components";
+import { Disc } from "@components";
 import { SCROLL_INCREMENT } from "@constants";
+import { useDiscContext } from "@hooks";
 
 export const DiscGrid = () => {
 	const [numDiscsToRender, setNumDiscsToRender] = useState(SCROLL_INCREMENT);
 
-	const { filteredDiscs } = useContext(DiscContext);
+	const { filteredDiscs } = useDiscContext();
 
 	useEffect(() => {
 		const discGrid = document.getElementById("disc-grid");
