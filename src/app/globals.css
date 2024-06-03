@@ -256,10 +256,11 @@ h1 {
 }
 
 .add-bag {
+	position: relative;
 	background-color: white;
 	width: calc(100vw - 2rem);
 	max-width: 32rem;
-	padding: 3rem 1rem 3rem 1rem;
+	padding: 3rem 1rem 3.5rem 1rem;
 	border-radius: 1rem;
 	border: 2px solid #757575;
 	min-width: 240px;

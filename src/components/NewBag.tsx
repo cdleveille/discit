@@ -7,7 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import { createBag } from "@actions";
 import { useAuth } from "@clerk/nextjs";
 import AddIcon from "@mui/icons-material/Add";
-import { Button, Stack, TextField } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { Button, IconButton, Stack, TextField } from "@mui/material";
 
 import type { Bag, NewBagProps } from "@types";
 
@@ -59,6 +60,13 @@ export const NewBag = ({ backOnSubmit }: NewBagProps) => {
 			onClick={event => event.stopPropagation()}
 		>
 			<Stack direction="column" spacing="3rem" justifyContent="center" alignItems="center" className="add-bag">
+				{backOnSubmit && (
+					<div style={{ position: "absolute", top: "0.75rem", right: "0.75rem" }}>
+						<IconButton aria-label="close" onClick={() => router.back()}>
+							<CloseIcon fontSize="large" />
+						</IconButton>
+					</div>
+				)}
 				<div className="add-bag-title">New Bag</div>
 				<div
 					style={{
