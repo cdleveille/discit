@@ -260,10 +260,15 @@ h1 {
 	background-color: white;
 	width: calc(100vw - 2rem);
 	max-width: 32rem;
-	padding: 3rem 1rem 3.5rem 1rem;
+	padding: 3.5rem 1rem 3.5rem 1rem;
 	border-radius: 1rem;
 	border: 2px solid #757575;
 	min-width: 240px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	row-gap: 3rem;
 }
 
 .add-bag-title {

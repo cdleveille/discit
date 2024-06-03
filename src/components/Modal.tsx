@@ -1,22 +1,33 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { useKeyPress } from "@hooks";
-import { Modal as MuiModal } from "@mui/material";
+import { Modal as MuiModal, Zoom } from "@mui/material";
 
 import type { ModalProps } from "@types";
 
 export function Modal({ children }: ModalProps) {
+	const [open, setOpen] = useState(true);
+
 	const router = useRouter();
-	const onClose = () => router.back();
+	const onClose = () => setOpen(false);
 	useKeyPress("Escape", onClose);
 
+	useEffect(() => {
+		if (open) return;
+		const timeout = setTimeout(() => router.back(), 200);
+		return () => clearTimeout(timeout);
+	}, [open, router]);
+
 	return (
-		<MuiModal open={true} disableEscapeKeyDown>
-			<div className="modal" onClick={onClose}>
-				{children}
-			</div>
+		<MuiModal open={open} disableEscapeKeyDown>
+			<Zoom in={open}>
+				<div className="modal" onClick={onClose}>
+					{children}
+				</div>
+			</Zoom>
 		</MuiModal>
 	);
 }

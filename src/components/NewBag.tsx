@@ -59,7 +59,7 @@ export const NewBag = ({ backOnSubmit }: NewBagProps) => {
 			}}
 			onClick={event => event.stopPropagation()}
 		>
-			<Stack direction="column" spacing="3rem" justifyContent="center" alignItems="center" className="add-bag">
+			<Stack className="add-bag">
 				{backOnSubmit && (
 					<div style={{ position: "absolute", top: "0.75rem", right: "0.75rem" }}>
 						<IconButton aria-label="close" onClick={() => router.back()}>

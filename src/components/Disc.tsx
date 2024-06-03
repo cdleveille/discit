@@ -7,6 +7,7 @@ import { Stack } from "@mui/material";
 import { hexToRgba } from "@util";
 
 import type { DiscProps } from "@types";
+
 export const Disc = ({ disc }: DiscProps) => {
 	const [isHovered, setIsHovered] = useState(false);
 

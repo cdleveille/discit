@@ -9,7 +9,7 @@ import { useDiscContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import Backpack from "@mui/icons-material/Backpack";
 import SearchIcon from "@mui/icons-material/Search";
-import { IconButton, Stack } from "@mui/material";
+import { IconButton, Stack, Zoom } from "@mui/material";
 
 export const Controls = () => {
 	const { isSignedIn } = useAuth();
@@ -18,7 +18,9 @@ export const Controls = () => {
 
 	return (
 		<Stack direction="row" justifyContent="center" alignItems="center" className="controls">
-			{isBagsView && isSignedIn && <div className="add-bag-btn"></div>}
+			<Zoom in={isBagsView && isSignedIn}>
+				<div className="add-bag-btn"></div>
+			</Zoom>
 			<Link href="/" className={!isBagsView ? "selected-view" : ""} onClick={() => setView(View.SEARCH)}>
 				<IconButton aria-label="search">
 					<SearchIcon fontSize="large" />
@@ -30,13 +32,13 @@ export const Controls = () => {
 					<Backpack fontSize="large" />
 				</IconButton>
 			</Link>
-			{isBagsView && isSignedIn && (
+			<Zoom in={isBagsView && isSignedIn}>
 				<Link href="/bag/new" className="add-bag-btn">
 					<IconButton aria-label="search">
 						<AddIcon fontSize="large" />
 					</IconButton>
 				</Link>
-			)}
+			</Zoom>
 		</Stack>
 	);
 };

@@ -18,7 +18,7 @@ export const Header = () => {
 			</Stack>
 			<div style={{ width: "3rem", height: "3rem" }} className="settings-btn">
 				<IconButton aria-label="settings">
-					<TuneIcon fontSize="large" />
+					<TuneIcon sx={{ fontSize: "2rem" }} />
 				</IconButton>
 			</div>
 		</Stack>
