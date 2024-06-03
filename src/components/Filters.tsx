@@ -299,7 +299,7 @@ export const Filters = () => {
 				renderInput={params => <TextField {...params} label="fade" placeholder="fade" />}
 				value={filterValues.fades}
 				onChange={(_e: SyntheticEvent, value: string[]) =>
-					setFilterValues(current => ({ ...current, speeds: value }))
+					setFilterValues(current => ({ ...current, fades: value }))
 				}
 			/>
 		</div>
