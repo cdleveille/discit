@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { createBag } from "@actions";
 import { useAuth } from "@clerk/nextjs";
@@ -18,6 +18,15 @@ export const NewBag = ({ backOnSubmit }: NewBagProps) => {
 	const { isSignedIn, userId } = useAuth();
 
 	const router = useRouter();
+
+	const inputRef = useRef<HTMLInputElement>();
+
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			inputRef?.current?.focus?.();
+		}, 100);
+		return () => clearTimeout(timeout);
+	}, []);
 
 	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setError("");
@@ -64,6 +73,7 @@ export const NewBag = ({ backOnSubmit }: NewBagProps) => {
 						<TextField
 							name="add-bag-name"
 							label="name"
+							placeholder="name"
 							type="text"
 							variant="outlined"
 							value={name}
@@ -72,6 +82,7 @@ export const NewBag = ({ backOnSubmit }: NewBagProps) => {
 							sx={{ width: "100%", maxWidth: "24rem" }}
 							autoFocus
 							spellCheck={false}
+							inputRef={inputRef}
 						/>
 					</div>
 					<div className="error" style={{ height: "1.25rem" }}>

@@ -21,19 +21,19 @@ export const Controls = () => {
 			{isBagsView && isSignedIn && <div className="add-bag-btn"></div>}
 			<Link href="/" className={!isBagsView ? "selected-view" : ""} onClick={() => setView(View.SEARCH)}>
 				<IconButton aria-label="search">
-					<SearchIcon />
+					<SearchIcon fontSize="large" />
 				</IconButton>
 			</Link>
 			<DiscCount />
 			<Link href="/?view=bags" className={isBagsView ? "selected-view" : ""} onClick={() => setView(View.BAGS)}>
 				<IconButton aria-label="bags">
-					<Backpack />
+					<Backpack fontSize="large" />
 				</IconButton>
 			</Link>
 			{isBagsView && isSignedIn && (
 				<Link href="/bag/new" className="add-bag-btn">
 					<IconButton aria-label="search">
-						<AddIcon />
+						<AddIcon fontSize="large" />
 					</IconButton>
 				</Link>
 			)}
