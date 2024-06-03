@@ -21,6 +21,8 @@ export type DiscDetailProps = {
 
 export type ModalProps = {
 	children: React.ReactNode;
+	borderRadius?: string;
+	showCloseBtn?: boolean;
 };
 
 export type NewBagProps = {

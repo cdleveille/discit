@@ -20,7 +20,7 @@ export default async function RootLayout({
 	signInModal: React.ReactNode;
 	newBagModal: React.ReactNode;
 }>) {
-	const [discs, bags] = await Promise.all([API.getDiscs(), API.getBags({ userId: undefined })]);
+	const [discs, bags] = await Promise.all([API.getDiscs(), API.getBags({})]);
 	return (
 		<ClerkProvider>
 			<DiscContextProvider discs={discs} bags={bags}>

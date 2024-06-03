@@ -26,23 +26,23 @@ export const Filters = () => {
 	const { discs, setFilteredDiscs, filterValues, setFilterValues, selectedBag, view } = useDiscContext();
 
 	useEffect(() => {
-		if (view === View.BAGS && !selectedBag) {
-			setFilteredDiscs([]);
-			return;
-		}
+		const bagDiscs = selectedBag ? discs.filter(disc => selectedBag.discs.includes(disc.id)) : [];
+		const baseDiscs = view === View.BAGS ? bagDiscs : discs;
 		const { name, brands, categories, stabilities, speeds, glides, turns, fades } = filterValues;
-		const discsFilteredByName = discs.filter(disc => !name || disc.name.toLowerCase().includes(name.toLowerCase()));
-		const discsFilteredByBrand = discs.filter(disc => brands.length === 0 || brands.includes(disc.brand));
-		const discsFilteredByCategory = discs.filter(
+		const discsFilteredByName = baseDiscs.filter(
+			disc => !name || disc.name.toLowerCase().includes(name.toLowerCase())
+		);
+		const discsFilteredByBrand = baseDiscs.filter(disc => brands.length === 0 || brands.includes(disc.brand));
+		const discsFilteredByCategory = baseDiscs.filter(
 			disc => categories.length === 0 || categories.includes(disc.category)
 		);
-		const discsFilteredByStability = discs.filter(
+		const discsFilteredByStability = baseDiscs.filter(
 			disc => stabilities.length === 0 || stabilities.includes(disc.stability)
 		);
-		const discsFilteredBySpeed = discs.filter(disc => speeds.length === 0 || speeds.includes(disc.speed));
-		const discsFilteredByGlide = discs.filter(disc => glides.length === 0 || glides.includes(disc.glide));
-		const discsFilteredByTurn = discs.filter(disc => turns.length === 0 || turns.includes(disc.turn));
-		const discsFilteredByFade = discs.filter(disc => fades.length === 0 || fades.includes(disc.fade));
+		const discsFilteredBySpeed = baseDiscs.filter(disc => speeds.length === 0 || speeds.includes(disc.speed));
+		const discsFilteredByGlide = baseDiscs.filter(disc => glides.length === 0 || glides.includes(disc.glide));
+		const discsFilteredByTurn = baseDiscs.filter(disc => turns.length === 0 || turns.includes(disc.turn));
+		const discsFilteredByFade = baseDiscs.filter(disc => fades.length === 0 || fades.includes(disc.fade));
 		const discsFiltered = getArrayIntersection(
 			discsFilteredByName,
 			discsFilteredByBrand,

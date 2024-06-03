@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { SignedIn, SignedOut, SignIn as ClerkSignIn, UserButton as ClerkUserButton } from "@clerk/nextjs";
 import { useDiscContext } from "@hooks";
 import Icon from "@mui/icons-material/AccountCircle";
-import { IconButton } from "@mui/material";
+import { CircularProgress, IconButton } from "@mui/material";
 
 export const UserButton = () => {
 	return (
@@ -19,12 +19,12 @@ export const UserButton = () => {
 				</Link>
 			</SignedOut>
 			<SignedIn>
+				<div className="auth-loading-spinner">
+					<CircularProgress />
+				</div>
 				<ClerkUserButton
 					appearance={{
 						elements: {
-							userButtonBox: {
-								animation: "fadeIn 0.25s"
-							},
 							userButtonAvatarBox: {
 								width: "3rem",
 								height: "3rem"
@@ -49,5 +49,21 @@ export const SignIn = () => {
 	const redirect = searchParams.get("redirect");
 	const redirectUrl = redirect ? `${decodeURI(redirect)}` : "";
 	const { view } = useDiscContext();
-	return <ClerkSignIn routing="hash" forceRedirectUrl={redirectUrl || `/${view === "bags" ? "?view=bags" : ""}`} />;
+	return (
+		<ClerkSignIn
+			appearance={{
+				elements: {
+					headerTitle: {
+						fontSize: "2rem"
+					},
+					headerSubtitle: {
+						fontSize: "1rem",
+						marginTop: "1rem"
+					}
+				}
+			}}
+			routing="hash"
+			forceRedirectUrl={redirectUrl || `/${view === "bags" ? "?view=bags" : ""}`}
+		/>
+	);
 };

@@ -2,7 +2,7 @@ import { Modal, SignIn } from "@components";
 
 export default function SignInModal() {
 	return (
-		<Modal>
+		<Modal borderRadius="1rem">
 			<SignIn />
 		</Modal>
 	);

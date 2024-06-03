@@ -121,11 +121,12 @@ h1 {
 }
 
 .disc-detail-container {
+	margin: -0.5rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	width: 100vw;
+	width: calc(100vw - 1rem);
 	height: 100vh;
 }
 
@@ -278,6 +279,12 @@ h1 {
 
 .error {
 	color: red;
+}
+
+.auth-loading-spinner {
+	position: absolute;
+	top: 1.25rem;
+	left: 1.25rem;
 }
 
 @keyframes fadeIn {

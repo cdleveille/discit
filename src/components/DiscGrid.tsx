@@ -13,7 +13,7 @@ export const DiscGrid = () => {
 	const [numDiscsToRender, setNumDiscsToRender] = useState(SCROLL_INCREMENT);
 
 	const { filteredDiscs, view, selectedBag } = useDiscContext();
-	const { isSignedIn, isLoaded } = useAuth();
+	const { isSignedIn } = useAuth();
 
 	useEffect(() => {
 		const discGrid = document.getElementById("disc-grid");
@@ -33,23 +33,19 @@ export const DiscGrid = () => {
 
 	const discsToRender = filteredDiscs.slice(0, numDiscsToRender);
 
-	if (view === View.BAGS) {
-		if (!isLoaded) return null;
-		if (!isSignedIn) {
-			return (
-				<Zoom in={true} appear={true}>
-					<div className="disc-grid-bag">
-						Please <Link href="/sign-in">sign in</Link> to add discs to a bag
-					</div>
-				</Zoom>
-			);
-		} else if (!selectedBag) {
-			return (
-				<Zoom in={true} appear={true}>
-					<div className="disc-grid-bag">No bags added yet</div>
-				</Zoom>
-			);
-		}
+	if (view === View.BAGS && !selectedBag) {
+		const innerHtml = !isSignedIn ? (
+			<>
+				Please <Link href="/sign-in">sign in</Link> to manage bags
+			</>
+		) : (
+			<>No bags added yet</>
+		);
+		return (
+			<Zoom in={true} appear={true}>
+				<div className="disc-grid-bag">{innerHtml}</div>
+			</Zoom>
+		);
 	}
 
 	return (

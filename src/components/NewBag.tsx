@@ -59,13 +59,13 @@ export const NewBag = ({ backOnSubmit }: NewBagProps) => {
 			}}
 		>
 			<Stack className="add-bag">
-				{backOnSubmit && (
+				{/* {backOnSubmit && (
 					<div style={{ position: "absolute", top: "0.75rem", right: "0.75rem" }}>
 						<IconButton aria-label="close" onClick={() => router.back()}>
 							<CloseIcon fontSize="large" />
 						</IconButton>
 					</div>
-				)}
+				)} */}
 				<div className="add-bag-title">New Bag</div>
 				<div
 					style={{
