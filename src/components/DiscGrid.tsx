@@ -7,6 +7,7 @@ import { useAuth } from "@clerk/nextjs";
 import { Disc } from "@components";
 import { SCROLL_INCREMENT, View } from "@constants";
 import { useDiscContext } from "@hooks";
+import { Zoom } from "@mui/material";
 
 export const DiscGrid = () => {
 	const [numDiscsToRender, setNumDiscsToRender] = useState(SCROLL_INCREMENT);
@@ -36,12 +37,18 @@ export const DiscGrid = () => {
 		if (!isLoaded) return null;
 		if (!isSignedIn) {
 			return (
-				<div className="disc-grid-bag">
-					Please <Link href="/sign-in">sign in</Link> to add discs to a bag
-				</div>
+				<Zoom in={true} appear={true}>
+					<div className="disc-grid-bag">
+						Please <Link href="/sign-in">sign in</Link> to add discs to a bag
+					</div>
+				</Zoom>
 			);
 		} else if (!selectedBag) {
-			return <div className="disc-grid-bag">No bags added yet</div>;
+			return (
+				<Zoom in={true} appear={true}>
+					<div className="disc-grid-bag">No bags added yet</div>
+				</Zoom>
+			);
 		}
 	}
 

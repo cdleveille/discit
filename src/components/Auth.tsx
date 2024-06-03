@@ -22,28 +22,16 @@ export const UserButton = () => {
 				<ClerkUserButton
 					appearance={{
 						elements: {
+							userButtonBox: {
+								animation: "fadeIn 0.25s"
+							},
 							userButtonAvatarBox: {
 								width: "3rem",
 								height: "3rem"
 							},
 							userButtonPopoverActionButtonIcon: {
 								width: "1.5rem",
-								height: "1.5rem",
-								color: "#999999"
-							},
-							userPreviewMainIdentifier: {
-								fontSize: "1.2rem",
-								color: "#444444"
-							},
-							userPreviewTextContainer: {
-								userSelect: "none"
-							},
-							userPreviewSecondaryIdentifier: {
-								fontSize: "1rem",
-								color: "#444444"
-							},
-							userButtonPopoverActionButtonText: {
-								fontSize: "1rem"
+								height: "1.5rem"
 							},
 							userButtonPopoverFooter: {
 								display: "none"

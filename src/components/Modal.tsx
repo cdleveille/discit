@@ -24,8 +24,8 @@ export function Modal({ children }: ModalProps) {
 	return (
 		<MuiModal open={open} disableEscapeKeyDown>
 			<Zoom in={open}>
-				<div className="modal" onClick={onClose}>
-					{children}
+				<div className="modal" onMouseDown={onClose}>
+					<div onMouseDown={e => e.stopPropagation()}>{children}</div>
 				</div>
 			</Zoom>
 		</MuiModal>

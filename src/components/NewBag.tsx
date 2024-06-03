@@ -57,7 +57,6 @@ export const NewBag = ({ backOnSubmit }: NewBagProps) => {
 					setError(error as string);
 				}
 			}}
-			onClick={event => event.stopPropagation()}
 		>
 			<Stack className="add-bag">
 				{backOnSubmit && (

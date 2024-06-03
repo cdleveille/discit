@@ -35,11 +35,7 @@ export const DiscDetail = ({ name_slug, hideNavButtons }: DiscDetailProps) => {
 
 	return (
 		<div className="disc-detail-container">
-			<div
-				className="disc-detail"
-				onClick={e => e.stopPropagation()}
-				style={{ color, backgroundColor, border: `1.5vmin solid ${borderColor}` }}
-			>
+			<div className="disc-detail" style={{ color, backgroundColor, border: `1.5vmin solid ${borderColor}` }}>
 				<div className="disc-detail-name">{name}</div>
 				<div className="disc-detail-info">
 					<div>{brand}</div>
