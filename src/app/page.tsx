@@ -1,19 +1,15 @@
 "use client";
 
-import { ClerkProvider } from "@clerk/nextjs";
-import { DiscCount, DiscGrid, Filters, Header, ScrollToTop } from "@components";
-import { config } from "@services";
+import { Controls, DiscGrid, Filters, Header, ScrollToTop } from "@components";
 
 export default function HomePage() {
 	return (
-		<ClerkProvider publishableKey={config.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-			<main className="flex-column-center">
-				<Header />
-				<Filters />
-				<DiscCount />
-				<DiscGrid />
-				<ScrollToTop />
-			</main>
-		</ClerkProvider>
+		<div className="flex-column-center">
+			<Header />
+			<Filters />
+			<Controls />
+			<DiscGrid />
+			<ScrollToTop />
+		</div>
 	);
 }

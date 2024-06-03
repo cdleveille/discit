@@ -1,6 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 
-import { RequestMethod } from "@constants";
+import { View } from "@constants";
+
+export * from "./request";
+export * from "./props";
 
 export type Config = {
 	API_URL: string;
@@ -8,15 +11,7 @@ export type Config = {
 	NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: string;
 };
 
-export type RequestMethodOption = keyof typeof RequestMethod;
-
-export type RequestParams = {
-	url: string;
-	method: RequestMethodOption;
-	accept?: string;
-	body?: unknown;
-	tags?: string[];
-};
+export type ViewOption = `${View}`;
 
 export type Disc = {
 	id: string;
@@ -38,12 +33,26 @@ export type Disc = {
 	background_color: string;
 };
 
+export type Bag = {
+	id: string;
+	name: string;
+	user_id: string;
+	discs: string[];
+};
+
 export type DiscContext = {
 	discs: Disc[];
+	setDiscs: Dispatch<SetStateAction<Disc[]>>;
 	filteredDiscs: Disc[];
 	setFilteredDiscs: Dispatch<SetStateAction<Disc[]>>;
+	bags: Bag[];
+	setBags: Dispatch<SetStateAction<Bag[]>>;
+	selectedBag: Bag | null;
+	setSelectedBag: Dispatch<SetStateAction<Bag | null>>;
 	filterValues: FilterValues;
 	setFilterValues: Dispatch<SetStateAction<FilterValues>>;
+	view: ViewOption;
+	setView: Dispatch<SetStateAction<ViewOption>>;
 };
 
 export type FilterOptions = {
@@ -58,22 +67,4 @@ export type FilterValues = {
 	brands: string[];
 	categories: string[];
 	stabilities: string[];
-};
-
-export type DiscContextProviderProps = {
-	discs: Disc[];
-	children: React.ReactNode;
-};
-
-export type DiscProps = {
-	disc: Disc;
-};
-
-export type DiscDetailProps = {
-	name_slug: string;
-	hideNavButtons?: boolean;
-};
-
-export type ModalProps = {
-	children: React.ReactNode;
 };

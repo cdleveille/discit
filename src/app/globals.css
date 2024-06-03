@@ -9,8 +9,21 @@
 	user-select: none;
 }
 
+html {
+	overflow-y: scroll;
+}
+
+body {
+	padding: 0.5rem;
+}
+
 a {
 	text-decoration: none;
+	color: #0000ee;
+}
+
+a:visited {
+	color: #0000ee;
 }
 
 h1 {
@@ -52,6 +65,13 @@ h1 {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, calc(var(--disc-size) + 1rem));
 	justify-content: center;
+}
+
+.disc-grid-bag {
+	color: #757575;
+	font-size: 1.25rem;
+	font-weight: 500;
+	margin-top: 2rem;
 }
 
 .disc-container {
@@ -100,8 +120,8 @@ h1 {
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 }
 
 .disc-detail {
@@ -174,7 +194,7 @@ h1 {
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
-	margin-bottom: 2rem;
+	margin-bottom: 1.5rem;
 	row-gap: 1rem;
 	column-gap: 0.5rem;
 }
@@ -183,10 +203,16 @@ h1 {
 	width: 20rem;
 }
 
+.disc-count-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 9.5rem;
+}
+
 .disc-count {
 	font-size: 1.25rem;
 	font-weight: 500;
-	margin-bottom: 1rem;
 }
 
 .disc-count:hover {
@@ -205,4 +231,40 @@ h1 {
 
 .disabled {
 	pointer-events: none;
+}
+
+.controls {
+	margin-bottom: 1rem;
+}
+
+.add-bag-btn {
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+	width: 40px;
+}
+
+.selected-view {
+	background-color: rgba(221, 221, 221, 0.6);
+	outline: 2px solid #757575;
+	border-radius: 50%;
+	pointer-events: none;
+}
+
+.add-bag {
+	background-color: white;
+	width: calc(100vw - 2rem);
+	max-width: 32rem;
+	padding: 3rem 1rem 3rem 1rem;
+	border-radius: 1rem;
+	border: 2px solid #757575;
+	min-width: 240px;
+}
+
+.add-bag-title {
+	font-size: 2.5rem;
+	font-weight: 600;
+}
+
+.error {
+	color: red;
 }

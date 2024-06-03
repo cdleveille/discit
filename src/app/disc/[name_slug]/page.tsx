@@ -7,9 +7,5 @@ export const generateStaticParams = async () => {
 };
 
 export default function DiscDetailPage({ params: { name_slug } }: { params: { name_slug: string } }) {
-	return (
-		<main>
-			<DiscDetail name_slug={name_slug} hideNavButtons />
-		</main>
-	);
+	return <DiscDetail name_slug={name_slug} hideNavButtons />;
 }

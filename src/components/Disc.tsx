@@ -29,7 +29,7 @@ export const Disc = ({ disc }: DiscProps) => {
 	return (
 		<div className="disc-container">
 			<Link
-				href={`/${name_slug}`}
+				href={`/disc/${name_slug}`}
 				passHref
 				className="disc"
 				style={{ color, backgroundColor, border: `5px solid ${borderColor}` }}

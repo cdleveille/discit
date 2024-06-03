@@ -1,27 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
-import { SignedIn, SignedOut, SignIn, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignIn as ClerkSignIn, UserButton as ClerkUserButton } from "@clerk/nextjs";
+import { useDiscContext } from "@hooks";
 import Icon from "@mui/icons-material/AccountCircle";
-import { IconButton, Modal } from "@mui/material";
+import { IconButton } from "@mui/material";
 
-export const Auth = () => {
-	const [showSignIn, setShowSignIn] = useState(false);
-
+export const UserButton = () => {
 	return (
 		<>
 			<SignedOut>
-				<IconButton
-					aria-label="sign-in"
-					onClick={() => setShowSignIn(true)}
-					sx={{ width: "3rem", height: "3rem" }}
-				>
-					<Icon color="disabled" sx={{ fontSize: "57px" }} />
-				</IconButton>
+				<Link href="/sign-in">
+					<IconButton aria-label="sign-in" sx={{ width: "3rem", height: "3rem" }}>
+						<Icon color="disabled" sx={{ fontSize: "57px" }} />
+					</IconButton>
+				</Link>
 			</SignedOut>
 			<SignedIn>
-				<UserButton
+				<ClerkUserButton
 					appearance={{
 						elements: {
 							userButtonAvatarBox: {
@@ -54,11 +52,14 @@ export const Auth = () => {
 					}}
 				/>
 			</SignedIn>
-			<Modal open={showSignIn} onClose={() => setShowSignIn(false)}>
-				<div className="absolute-centered">
-					<SignIn routing="hash" />
-				</div>
-			</Modal>
 		</>
 	);
+};
+
+export const SignIn = () => {
+	const searchParams = useSearchParams();
+	const redirect = searchParams.get("redirect");
+	const redirectUrl = redirect ? `${decodeURI(redirect)}` : "";
+	const { view } = useDiscContext();
+	return <ClerkSignIn routing="hash" forceRedirectUrl={redirectUrl || `/${view === "bags" ? "?view=bags" : ""}`} />;
 };

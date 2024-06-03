@@ -7,13 +7,9 @@ import { Modal as MuiModal } from "@mui/material";
 
 import type { ModalProps } from "@types";
 
-export function DiscModal({ children }: ModalProps) {
+export function Modal({ children }: ModalProps) {
 	const router = useRouter();
-
-	const onClose = () => {
-		router.back();
-	};
-
+	const onClose = () => router.back();
 	useKeyPress("Escape", onClose);
 
 	return (

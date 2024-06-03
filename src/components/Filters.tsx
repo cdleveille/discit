@@ -1,7 +1,8 @@
 "use client";
 
-import { SyntheticEvent, useContext, useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 
+import { View } from "@constants";
 import { useDiscContext } from "@hooks";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
@@ -18,9 +19,13 @@ export const Filters = () => {
 		stabilities: []
 	});
 
-	const { discs, setFilteredDiscs, filterValues, setFilterValues } = useDiscContext();
+	const { discs, setFilteredDiscs, filterValues, setFilterValues, selectedBag, view } = useDiscContext();
 
 	useEffect(() => {
+		if (view === View.BAGS && !selectedBag) {
+			setFilteredDiscs([]);
+			return;
+		}
 		const { name, brands, categories, stabilities } = filterValues;
 		const discsFilteredByName = discs.filter(disc => !name || disc.name.toLowerCase().includes(name.toLowerCase()));
 		const discsFilteredByBrand = discs.filter(disc => brands.length === 0 || brands.includes(disc.brand));
@@ -61,7 +66,7 @@ export const Filters = () => {
 			]
 		});
 		setFilteredDiscs(discsFiltered);
-	}, [discs, setFilteredDiscs, filterValues]);
+	}, [discs, setFilteredDiscs, filterValues, view, selectedBag]);
 
 	return (
 		<div className="filters">
@@ -70,6 +75,7 @@ export const Filters = () => {
 				options={filterOptions.names}
 				freeSolo
 				renderInput={params => <TextField {...params} label="name" placeholder="name" />}
+				value={filterValues.name}
 				onInputChange={(_e: SyntheticEvent, value: string) =>
 					setFilterValues(current => ({ ...current, name: value }))
 				}
@@ -87,6 +93,7 @@ export const Filters = () => {
 					</li>
 				)}
 				renderInput={params => <TextField {...params} label="brand" placeholder="brand" />}
+				value={filterValues.brands}
 				onChange={(_e: SyntheticEvent, value: string[]) =>
 					setFilterValues(current => ({ ...current, brands: value }))
 				}
@@ -104,6 +111,7 @@ export const Filters = () => {
 					</li>
 				)}
 				renderInput={params => <TextField {...params} label="category" placeholder="category" />}
+				value={filterValues.categories}
 				onChange={(_e: SyntheticEvent, value: string[]) =>
 					setFilterValues(current => ({ ...current, categories: value }))
 				}
@@ -121,6 +129,7 @@ export const Filters = () => {
 					</li>
 				)}
 				renderInput={params => <TextField {...params} label="stability" placeholder="stability" />}
+				value={filterValues.stabilities}
 				onChange={(_e: SyntheticEvent, value: string[]) =>
 					setFilterValues(current => ({ ...current, stabilities: value }))
 				}
