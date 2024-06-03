@@ -60,6 +60,10 @@ export type FilterOptions = {
 	brands: string[];
 	categories: string[];
 	stabilities: string[];
+	speeds: string[];
+	glides: string[];
+	turns: string[];
+	fades: string[];
 };
 
 export type FilterValues = {
@@ -67,4 +71,8 @@ export type FilterValues = {
 	brands: string[];
 	categories: string[];
 	stabilities: string[];
+	speeds: string[];
+	glides: string[];
+	turns: string[];
+	fades: string[];
 };

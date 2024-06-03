@@ -20,7 +20,11 @@ export const DiscContextProvider = ({ discs: _discs, bags: _bags, children }: Di
 		name: nameParam ?? "",
 		brands: [],
 		categories: [],
-		stabilities: []
+		stabilities: [],
+		speeds: [],
+		glides: [],
+		turns: [],
+		fades: []
 	});
 	const [view, setView] = useState<ViewOption>(viewParam ?? View.SEARCH);
 
