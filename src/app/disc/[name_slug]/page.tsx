@@ -1,8 +1,8 @@
 import { DiscDetail } from "@components";
-import { API } from "@services";
+import { getDiscs } from "@services";
 
 export const generateStaticParams = async () => {
-	const discs = await API.getDiscs();
+	const discs = await getDiscs();
 	return discs.map(({ name_slug }) => ({ params: { name_slug } }));
 };
 

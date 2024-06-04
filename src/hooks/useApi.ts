@@ -20,6 +20,7 @@ export const useApi = () => {
 			return res;
 		} catch (error) {
 			setError(error as string);
+			throw error;
 		}
 	};
 
