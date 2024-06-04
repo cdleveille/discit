@@ -286,13 +286,13 @@ h1 {
 }
 
 .add-to-bag-btn {
-	background-color: rgba(221, 221, 221, 0.6);
 	border-radius: 50%;
 	width: 6vmin;
 	height: 6vmin;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background-color: #aaaaaa;
 	color: rgb(108, 108, 108);
 }
 

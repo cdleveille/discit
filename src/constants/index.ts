@@ -1,3 +1,4 @@
+import type { FilterValues } from "@types";
 import { Metadata, Viewport } from "next";
 
 export enum RequestMethod {
@@ -13,6 +14,17 @@ export enum View {
 }
 
 export const SCROLL_INCREMENT = 100;
+
+export const INITIAL_FILTER_VALUES: FilterValues = {
+	name: "",
+	brands: [],
+	categories: [],
+	stabilities: [],
+	speeds: [],
+	glides: [],
+	turns: [],
+	fades: []
+};
 
 export const VIEWPORT: Viewport = {
 	themeColor: "#ffffff"

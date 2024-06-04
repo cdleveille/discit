@@ -50,27 +50,29 @@ export const DiscDetail = ({ name_slug, hideNavButtons, hideAddButton }: DiscDet
 				selectedBag &&
 				!hideAddButton &&
 				(isDiscInBag ? (
-					<IconButton
-						aria-label="remove"
-						className="add-to-bag-btn"
-						onClick={async () => {
-							await removeDiscFromBag({ bagId: selectedBag.id, discId: disc.id });
-						}}
-						disabled={isLoading}
-					>
-						<RemoveIcon sx={{ fontSize: "5vmin" }} />
-					</IconButton>
+					<div className="add-to-bag-btn">
+						<IconButton
+							aria-label="remove"
+							onClick={async () => {
+								await removeDiscFromBag({ bagId: selectedBag.id, discId: disc.id });
+							}}
+							disabled={isLoading}
+						>
+							<RemoveIcon sx={{ fontSize: "5vmin" }} />
+						</IconButton>
+					</div>
 				) : (
-					<IconButton
-						aria-label="add"
-						className="add-to-bag-btn"
-						onClick={async () => {
-							await addDiscToBag({ bagId: selectedBag.id, discId: disc.id });
-						}}
-						disabled={isLoading}
-					>
-						<AddIcon sx={{ fontSize: "5vmin" }} />
-					</IconButton>
+					<div className="add-to-bag-btn">
+						<IconButton
+							aria-label="add"
+							onClick={async () => {
+								await addDiscToBag({ bagId: selectedBag.id, discId: disc.id });
+							}}
+							disabled={isLoading}
+						>
+							<AddIcon sx={{ fontSize: "5vmin" }} />
+						</IconButton>
+					</div>
 				))}
 			<div className="disc-detail-name">{name}</div>
 			<div className="disc-detail-info">

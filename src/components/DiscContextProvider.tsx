@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { useAuth } from "@clerk/nextjs";
-import { View } from "@constants";
+import { INITIAL_FILTER_VALUES, View } from "@constants";
 import { DiscContext } from "@contexts";
 
 import type { Bag, DiscContextProviderProps, FilterValues, ViewOption } from "@types";
@@ -12,23 +12,13 @@ export const DiscContextProvider = ({ children, discs: _discs, bags: allBags }: 
 	const { userId } = useAuth();
 	const searchParams = useSearchParams();
 	const viewParam = searchParams.get("view") as ViewOption;
-	const nameParam = searchParams.get("name");
 
 	const [discs, setDiscs] = useState(_discs);
 	const [filteredDiscs, setFilteredDiscs] = useState(discs);
 
 	const [bags, setBags] = useState<Bag[]>([]);
 	const [selectedBag, setSelectedBag] = useState<Bag | null>(null);
-	const [filterValues, setFilterValues] = useState<FilterValues>({
-		name: nameParam ?? "",
-		brands: [],
-		categories: [],
-		stabilities: [],
-		speeds: [],
-		glides: [],
-		turns: [],
-		fades: []
-	});
+	const [filterValues, setFilterValues] = useState<FilterValues>(INITIAL_FILTER_VALUES);
 	const [view, setView] = useState<ViewOption>(viewParam ?? View.SEARCH);
 
 	useEffect(() => {
@@ -40,6 +30,10 @@ export const DiscContextProvider = ({ children, discs: _discs, bags: allBags }: 
 	useEffect(() => {
 		setSelectedBag(bags[bags.length - 1] ?? null);
 	}, [bags]);
+
+	useEffect(() => {
+		setFilterValues(INITIAL_FILTER_VALUES);
+	}, [view]);
 
 	return (
 		<DiscContext.Provider
