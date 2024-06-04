@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { Stack } from "@mui/material";
+import { Stack, Zoom } from "@mui/material";
 import { hexToRgba } from "@util";
 
 import type { DiscProps } from "@types";
@@ -40,14 +40,16 @@ export const Disc = ({ disc }: DiscProps) => {
 				<Stack spacing="0.25rem">
 					<div className="disc-name">{name}</div>
 					{isHovered && (
-						<Stack className="disc-info" spacing="0.25rem">
-							<div>{brand}</div>
-							<div>{category}</div>
-							<div>{stability}</div>
-							<div>
-								{speed}&nbsp;|&nbsp;{glide}&nbsp;|&nbsp;{turn}&nbsp;|&nbsp;{fade}
-							</div>
-						</Stack>
+						<Zoom in={true} appear={true}>
+							<Stack className="disc-info" spacing="0.25rem">
+								<div>{brand}</div>
+								<div>{category}</div>
+								<div>{stability}</div>
+								<div>
+									{speed}&nbsp;|&nbsp;{glide}&nbsp;|&nbsp;{turn}&nbsp;|&nbsp;{fade}
+								</div>
+							</Stack>
+						</Zoom>
 					)}
 				</Stack>
 			</Link>

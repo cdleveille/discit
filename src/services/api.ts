@@ -34,7 +34,7 @@ export const API = {
 		}),
 	addDiscToBag: async ({ bagId, discId }: AddDiscToBagParams) =>
 		requestJson<Bag>({
-			path: "/bag/add-disc",
+			path: "bag/add-disc",
 			method: RequestMethod.PUT,
 			body: { id: bagId, disc_id: discId },
 			cache: "no-cache"
@@ -54,13 +54,16 @@ export const API = {
 		})
 };
 
-const requestJson = async <T = unknown>({ path, method, body, tags, cache = "force-cache" }: RequestParams) => {
-	const res = await fetch(`${config.API_URL}/${path}`, {
+const request = async ({ path, method, body, tags, cache = "force-cache" }: RequestParams) =>
+	fetch(`${config.API_URL}/${path}`, {
 		method,
 		headers: { Authorization: `Bearer ${config.API_KEY}` },
 		body: JSON.stringify(body),
 		next: { tags },
 		cache
 	});
+
+const requestJson = async <T = unknown>({ path, method, body, tags, cache = "force-cache" }: RequestParams) => {
+	const res = await request({ path, method, body, tags, cache });
 	return res.json() as Promise<T>;
 };

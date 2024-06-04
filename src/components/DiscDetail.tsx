@@ -3,18 +3,25 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { addDiscToBag, removeDiscFromBag } from "@actions";
+import { useAuth } from "@clerk/nextjs";
 import { useDiscContext } from "@hooks";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import { IconButton, Stack } from "@mui/material";
 import { hexToRgba } from "@util";
 
 import type { DiscDetailProps } from "@types";
-export const DiscDetail = ({ name_slug, hideNavButtons }: DiscDetailProps) => {
-	const { discs, filteredDiscs } = useDiscContext();
+
+export const DiscDetail = ({ name_slug, hideNavButtons, hideAddButton }: DiscDetailProps) => {
+	const { isSignedIn } = useAuth();
+	const { discs, filteredDiscs, selectedBag } = useDiscContext();
 	const disc = discs.find(disc => disc.name_slug === name_slug);
 	if (!disc) return null;
 
 	const {
+		id,
 		name,
 		brand,
 		category,
@@ -33,8 +40,32 @@ export const DiscDetail = ({ name_slug, hideNavButtons }: DiscDetailProps) => {
 	const previousDiscNameSlug = filteredDiscs[filteredDiscs.indexOf(disc) - 1]?.name_slug;
 	const nextDiscNameSlug = filteredDiscs[filteredDiscs.indexOf(disc) + 1]?.name_slug;
 
+	const isDiscInBag = selectedBag?.discs.includes(id) ?? false;
+
 	return (
 		<div className="disc-detail" style={{ color, backgroundColor, border: `1.5vmin solid ${borderColor}` }}>
+			{isSignedIn &&
+				selectedBag &&
+				!hideAddButton &&
+				(isDiscInBag ? (
+					<div
+						className="add-to-bag-btn"
+						onClick={async () => {
+							await removeDiscFromBag({ bagId: selectedBag.id, discId: disc.id });
+						}}
+					>
+						<RemoveIcon sx={{ fontSize: "5vmin" }} />
+					</div>
+				) : (
+					<div
+						className="add-to-bag-btn"
+						onClick={async () => {
+							await addDiscToBag({ bagId: selectedBag.id, discId: disc.id });
+						}}
+					>
+						<AddIcon sx={{ fontSize: "5vmin" }} />
+					</div>
+				))}
 			<div className="disc-detail-name">{name}</div>
 			<div className="disc-detail-info">
 				<div>{brand}</div>

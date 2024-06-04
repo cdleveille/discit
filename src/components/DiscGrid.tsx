@@ -69,11 +69,14 @@ export const DiscGrid = () => {
 		<>
 			<Stack spacing="3rem" alignItems="center" width="100%">
 				{view === View.BAGS && (
-					<Stack direction="row" className="disc-count" onClick={handleBagListClick}>
-						<ArrowDropUpIcon sx={{ visibility: "hidden" }} />
-						<div>{selectedBag?.name}</div>
-						{isBagListOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-					</Stack>
+					<>
+						<Stack direction="row" className="disc-count" onClick={handleBagListClick}>
+							<ArrowDropUpIcon sx={{ visibility: "hidden" }} />
+							<div>{selectedBag?.name}</div>
+							{isBagListOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+						</Stack>
+						<div className="disc-grid-bag">No discs added yet</div>
+					</>
 				)}
 				<div id="disc-grid">
 					{discsToRender.map(disc => (

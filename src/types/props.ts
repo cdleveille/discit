@@ -17,6 +17,7 @@ export type DiscProps = {
 export type DiscDetailProps = {
 	name_slug: string;
 	hideNavButtons?: boolean;
+	hideAddButton?: boolean;
 };
 
 export type ModalProps = {

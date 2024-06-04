@@ -67,7 +67,6 @@ h1 {
 
 #disc-grid {
 	width: 100%;
-	min-height: 20rem;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, calc(var(--disc-size) + 1rem));
 	justify-content: center;
@@ -263,7 +262,6 @@ h1 {
 	max-width: 32rem;
 	padding: 3.5rem 1rem 3.5rem 1rem;
 	border-radius: 1rem;
-	border: 2px solid #757575;
 	min-width: 240px;
 }
 
@@ -285,6 +283,21 @@ h1 {
 .bag-list-item:hover {
 	cursor: pointer;
 	background-color: rgba(221, 221, 221, 0.6);
+}
+
+.add-to-bag-btn {
+	background-color: rgba(221, 221, 221, 0.6);
+	border-radius: 50%;
+	width: 6vmin;
+	height: 6vmin;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: rgb(108, 108, 108);
+}
+
+.add-to-bag-btn:hover {
+	cursor: pointer;
 }
 
 @keyframes fadeIn {
