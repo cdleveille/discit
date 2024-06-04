@@ -10,7 +10,7 @@ export enum RequestMethod {
 
 export enum View {
 	SEARCH = "search",
-	BAGS = "bags"
+	BAG = "bag"
 }
 
 export const SCROLL_INCREMENT = 100;

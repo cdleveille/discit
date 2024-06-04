@@ -23,11 +23,11 @@ export const Filters = () => {
 	});
 
 	const { discs, setFilteredDiscs, filterValues, setFilterValues, selectedBag } = useAppContext();
-	const { isBagsView } = useView();
+	const { isBagView } = useView();
 
 	useEffect(() => {
 		const bagDiscs = selectedBag ? discs.filter(disc => selectedBag.discs.includes(disc.id)) : [];
-		const baseDiscs = isBagsView ? bagDiscs : discs;
+		const baseDiscs = isBagView ? bagDiscs : discs;
 		const { name, brands, categories, stabilities, speeds, glides, turns, fades } = filterValues;
 		const discsFilteredByName = baseDiscs.filter(
 			disc => !name || disc.name.toLowerCase().includes(name.toLowerCase())
@@ -162,7 +162,7 @@ export const Filters = () => {
 			]
 		});
 		setFilteredDiscs(discsFiltered);
-	}, [discs, setFilteredDiscs, filterValues, selectedBag, isBagsView]);
+	}, [discs, setFilteredDiscs, filterValues, selectedBag, isBagView]);
 
 	return (
 		<div className="filters">

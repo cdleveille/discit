@@ -12,15 +12,15 @@ export const useView = () => {
 	const pathname = usePathname();
 	const view = searchParams.get("view") as ViewOption | null;
 
-	const [isBagsView, setIsBagsView] = useState(pathname === "/" && view === View.BAGS);
+	const [isBagView, setIsBagView] = useState(pathname === "/" && view === View.BAG);
 
 	useEffect(() => {
 		if (pathname !== "/") return;
-		if (view === View.BAGS) return setIsBagsView(true);
-		setIsBagsView(false);
+		if (view === View.BAG) return setIsBagView(true);
+		setIsBagView(false);
 	}, [pathname, view]);
 
-	const isSearchView = !isBagsView;
+	const isSearchView = !isBagView;
 
-	return { view, isSearchView, isBagsView };
+	return { view, isSearchView, isBagView };
 };

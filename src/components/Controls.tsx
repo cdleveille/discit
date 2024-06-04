@@ -10,7 +10,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { IconButton, Stack } from "@mui/material";
 
 export const Controls = () => {
-	const { isSearchView, isBagsView } = useView();
+	const { isSearchView, isBagView } = useView();
 
 	return (
 		<Stack direction="row" justifyContent="center" alignItems="center" className="controls">
@@ -20,8 +20,8 @@ export const Controls = () => {
 				</IconButton>
 			</Link>
 			<DiscCount />
-			<Link href={`?view=${View.BAGS}`} className={isBagsView ? "selected-view" : ""}>
-				<IconButton aria-label="bags">
+			<Link href={`?view=${View.BAG}`} className={isBagView ? "selected-view" : ""}>
+				<IconButton aria-label="bag">
 					<Backpack fontSize="large" />
 				</IconButton>
 			</Link>

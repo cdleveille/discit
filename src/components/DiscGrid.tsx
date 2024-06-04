@@ -17,7 +17,7 @@ export const DiscGrid = () => {
 	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 
 	const { filteredDiscs, selectedBag } = useAppContext();
-	const { view, isBagsView } = useView();
+	const { isBagView } = useView();
 	const { isSignedIn } = useAuth();
 
 	const handleBagListClick = (event: React.MouseEvent<HTMLDivElement>) => setAnchorEl(event.currentTarget);
@@ -42,7 +42,7 @@ export const DiscGrid = () => {
 
 	const discsToRender = filteredDiscs.slice(0, numDiscsToRender);
 
-	if (isBagsView && !selectedBag) {
+	if (isBagView && !selectedBag) {
 		const innerHtml = !isSignedIn ? (
 			<div style={{ marginTop: "1rem" }}>
 				Please <Link href="/sign-in">sign in</Link> to manage bags
@@ -67,7 +67,7 @@ export const DiscGrid = () => {
 	return (
 		<>
 			<Stack spacing="3rem" alignItems="center" width="100%">
-				{isBagsView && (
+				{isBagView && (
 					<>
 						<Stack direction="row" className="disc-count" onClick={handleBagListClick}>
 							<ArrowDropUpIcon sx={{ visibility: "hidden" }} />
