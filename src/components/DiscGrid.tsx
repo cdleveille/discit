@@ -75,7 +75,7 @@ export const DiscGrid = () => {
 							<div>{selectedBag?.name}</div>
 							{isBagListOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
 						</Stack>
-						<div className="disc-grid-bag">No discs added yet</div>
+						{filteredDiscs.length === 0 && <div className="disc-grid-bag">No discs added yet</div>}
 					</>
 				)}
 				<div id="disc-grid">
