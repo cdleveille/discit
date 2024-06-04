@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import { createBag } from "@actions";
 import { useAuth } from "@clerk/nextjs";
+import { useApi } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import { Button, Stack, TextField } from "@mui/material";
 
@@ -14,6 +14,8 @@ import type { Bag, NewBagProps } from "@types";
 export const NewBag = ({ backOnSubmit }: NewBagProps) => {
 	const [name, setName] = useState("");
 	const [error, setError] = useState("");
+
+	const { isLoading, createBag } = useApi();
 
 	const { isSignedIn, userId } = useAuth();
 
@@ -93,7 +95,7 @@ export const NewBag = ({ backOnSubmit }: NewBagProps) => {
 					variant="contained"
 					endIcon={<AddIcon />}
 					sx={{ fontSize: "1.25rem", padding: "0.5rem 2rem" }}
-					disabled={name.length === 0}
+					disabled={name.length === 0 || isLoading}
 					type="submit"
 				>
 					Add

@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { DiscContextProvider } from "@components";
 import { METADATA, VIEWPORT } from "@constants";
-import { API } from "@services";
+import { getBags, getDiscs } from "@services/api";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +20,7 @@ export default async function RootLayout({
 	signInModal: React.ReactNode;
 	newBagModal: React.ReactNode;
 }>) {
-	const [discs, bags] = await Promise.all([API.getDiscs(), API.getBags({})]);
+	const [discs, bags] = await Promise.all([getDiscs(), getBags({ userId: null })]);
 	return (
 		<ClerkProvider>
 			<DiscContextProvider discs={discs} bags={bags}>

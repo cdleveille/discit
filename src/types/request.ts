@@ -12,7 +12,7 @@ export type RequestParams = {
 export type RequestMethodOption = `${RequestMethod}`;
 
 export type GetBagParams = {
-	userId?: string;
+	userId: string | null;
 };
 
 export type CreateBagParams = {

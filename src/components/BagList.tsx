@@ -2,8 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import { deleteBag } from "@actions";
-import { useDiscContext } from "@hooks";
+import { useApi, useDiscContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton, List, ListItem, ListItemText } from "@mui/material";
@@ -11,7 +10,9 @@ import { BagListProps } from "@types";
 
 export const BagList = ({ onClose }: BagListProps) => {
 	const router = useRouter();
+	const { isLoading, deleteBag } = useApi();
 	const { bags, selectedBag, setSelectedBag } = useDiscContext();
+
 	if (!selectedBag || !bags || bags.length === 0) return null;
 
 	return (
@@ -27,6 +28,7 @@ export const BagList = ({ onClose }: BagListProps) => {
 								e.stopPropagation();
 								await deleteBag({ bagId: bag.id });
 							}}
+							disabled={isLoading}
 						>
 							<DeleteIcon />
 						</IconButton>

@@ -3,9 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { addDiscToBag, removeDiscFromBag } from "@actions";
 import { useAuth } from "@clerk/nextjs";
-import { useDiscContext } from "@hooks";
+import { useApi, useDiscContext } from "@hooks";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -17,6 +16,9 @@ import type { DiscDetailProps } from "@types";
 export const DiscDetail = ({ name_slug, hideNavButtons, hideAddButton }: DiscDetailProps) => {
 	const { isSignedIn } = useAuth();
 	const { discs, filteredDiscs, selectedBag } = useDiscContext();
+
+	const { isLoading, addDiscToBag, removeDiscFromBag } = useApi();
+
 	const disc = discs.find(disc => disc.name_slug === name_slug);
 	if (!disc) return null;
 
@@ -48,23 +50,27 @@ export const DiscDetail = ({ name_slug, hideNavButtons, hideAddButton }: DiscDet
 				selectedBag &&
 				!hideAddButton &&
 				(isDiscInBag ? (
-					<div
+					<IconButton
+						aria-label="remove"
 						className="add-to-bag-btn"
 						onClick={async () => {
 							await removeDiscFromBag({ bagId: selectedBag.id, discId: disc.id });
 						}}
+						disabled={isLoading}
 					>
 						<RemoveIcon sx={{ fontSize: "5vmin" }} />
-					</div>
+					</IconButton>
 				) : (
-					<div
+					<IconButton
+						aria-label="add"
 						className="add-to-bag-btn"
 						onClick={async () => {
 							await addDiscToBag({ bagId: selectedBag.id, discId: disc.id });
 						}}
+						disabled={isLoading}
 					>
 						<AddIcon sx={{ fontSize: "5vmin" }} />
-					</div>
+					</IconButton>
 				))}
 			<div className="disc-detail-name">{name}</div>
 			<div className="disc-detail-info">
