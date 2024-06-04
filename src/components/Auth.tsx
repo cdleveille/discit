@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 import { SignedIn, SignedOut, SignIn as ClerkSignIn, UserButton as ClerkUserButton } from "@clerk/nextjs";
-import { useView } from "@hooks";
 import Icon from "@mui/icons-material/AccountCircle";
 import { CircularProgress, IconButton } from "@mui/material";
 
@@ -57,5 +56,7 @@ export const SignIn = () => (
 			}
 		}}
 		routing="hash"
+		forceRedirectUrl={"/?view=bag"}
+		afterSignOutUrl={"/"}
 	/>
 );

@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { View } from "@constants";
@@ -8,6 +8,7 @@ import { View } from "@constants";
 import type { ViewOption } from "@types";
 
 export const useView = () => {
+	const router = useRouter();
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
 	const view = searchParams.get("view") as ViewOption | null;
@@ -16,9 +17,13 @@ export const useView = () => {
 
 	useEffect(() => {
 		if (pathname !== "/") return;
-		if (view === View.BAG) return setIsBagView(true);
+		if (view === View.BAG) {
+			setIsBagView(true);
+			router.refresh();
+			return;
+		}
 		setIsBagView(false);
-	}, [pathname, view]);
+	}, [pathname, router, view]);
 
 	const isSearchView = !isBagView;
 
