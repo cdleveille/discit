@@ -34,3 +34,20 @@ export const hexToRgba = (hex: string, opacity: number) => {
 	// Return the RGBA color
 	return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 };
+
+export const sessionStorage = {
+	getItem: <T = unknown>(key: string) => {
+		if (!isClient) return null;
+		const data = window?.sessionStorage.getItem(key);
+		if (data) return JSON.parse(data) as T;
+		return null;
+	},
+	setItem: (key: string, data: unknown) => {
+		if (!isClient) return;
+		window?.sessionStorage.setItem(key, JSON.stringify(data));
+	},
+	removeItem: (key: string) => {
+		if (!isClient) return;
+		window?.sessionStorage.removeItem(key);
+	}
+};

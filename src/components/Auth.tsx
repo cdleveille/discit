@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 
 import { SignedIn, SignedOut, SignIn as ClerkSignIn, UserButton as ClerkUserButton } from "@clerk/nextjs";
-import { useAppContext } from "@hooks";
+import { useView } from "@hooks";
 import Icon from "@mui/icons-material/AccountCircle";
 import { CircularProgress, IconButton } from "@mui/material";
 
@@ -44,26 +43,19 @@ export const UserButton = () => {
 	);
 };
 
-export const SignIn = () => {
-	const searchParams = useSearchParams();
-	const redirect = searchParams.get("redirect");
-	const redirectUrl = redirect ? `${decodeURI(redirect)}` : "";
-	const { view } = useAppContext();
-	return (
-		<ClerkSignIn
-			appearance={{
-				elements: {
-					headerTitle: {
-						fontSize: "2rem"
-					},
-					headerSubtitle: {
-						fontSize: "1rem",
-						marginTop: "1rem"
-					}
+export const SignIn = () => (
+	<ClerkSignIn
+		appearance={{
+			elements: {
+				headerTitle: {
+					fontSize: "2rem"
+				},
+				headerSubtitle: {
+					fontSize: "1rem",
+					marginTop: "1rem"
 				}
-			}}
-			routing="hash"
-			forceRedirectUrl={redirectUrl || `/${view === "bags" ? "?view=bags" : ""}`}
-		/>
-	);
-};
+			}
+		}}
+		routing="hash"
+	/>
+);

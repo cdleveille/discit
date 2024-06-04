@@ -2,8 +2,7 @@
 
 import { SyntheticEvent, useEffect, useState } from "react";
 
-import { View } from "@constants";
-import { useAppContext } from "@hooks";
+import { useAppContext, useView } from "@hooks";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import { Autocomplete, Checkbox, TextField } from "@mui/material";
@@ -23,11 +22,12 @@ export const Filters = () => {
 		fades: []
 	});
 
-	const { discs, setFilteredDiscs, filterValues, setFilterValues, selectedBag, view } = useAppContext();
+	const { discs, setFilteredDiscs, filterValues, setFilterValues, selectedBag } = useAppContext();
+	const { isBagsView } = useView();
 
 	useEffect(() => {
 		const bagDiscs = selectedBag ? discs.filter(disc => selectedBag.discs.includes(disc.id)) : [];
-		const baseDiscs = view === View.BAGS ? bagDiscs : discs;
+		const baseDiscs = isBagsView ? bagDiscs : discs;
 		const { name, brands, categories, stabilities, speeds, glides, turns, fades } = filterValues;
 		const discsFilteredByName = baseDiscs.filter(
 			disc => !name || disc.name.toLowerCase().includes(name.toLowerCase())
@@ -162,7 +162,7 @@ export const Filters = () => {
 			]
 		});
 		setFilteredDiscs(discsFiltered);
-	}, [discs, setFilteredDiscs, filterValues, view, selectedBag]);
+	}, [discs, setFilteredDiscs, filterValues, selectedBag, isBagsView]);
 
 	return (
 		<div className="filters">
@@ -230,7 +230,7 @@ export const Filters = () => {
 					setFilterValues(current => ({ ...current, stabilities: value }))
 				}
 			/>
-			<Autocomplete
+			{/* <Autocomplete
 				className="filter"
 				multiple
 				options={filterOptions.speeds}
@@ -301,7 +301,7 @@ export const Filters = () => {
 				onChange={(_e: SyntheticEvent, value: string[]) =>
 					setFilterValues(current => ({ ...current, fades: value }))
 				}
-			/>
+			/> */}
 		</div>
 	);
 };

@@ -51,8 +51,6 @@ export type AppContext = {
 	setSelectedBag: Dispatch<SetStateAction<Bag | null>>;
 	filterValues: FilterValues;
 	setFilterValues: Dispatch<SetStateAction<FilterValues>>;
-	view: ViewOption;
-	setView: Dispatch<SetStateAction<ViewOption>>;
 };
 
 export type FilterOptions = {
