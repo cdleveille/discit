@@ -3,7 +3,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { DiscContextProvider } from "@components";
+import { AppContextProvider } from "@components";
 import { METADATA, VIEWPORT } from "@constants";
 import { getBags, getDiscs } from "@services/api";
 
@@ -23,7 +23,7 @@ export default async function RootLayout({
 	const [discs, bags] = await Promise.all([getDiscs(), getBags({ userId: null })]);
 	return (
 		<ClerkProvider>
-			<DiscContextProvider discs={discs} bags={bags}>
+			<AppContextProvider discs={discs} bags={bags}>
 				<html lang="en">
 					<body className={inter.className}>
 						{children}
@@ -32,7 +32,7 @@ export default async function RootLayout({
 						{newBagModal}
 					</body>
 				</html>
-			</DiscContextProvider>
+			</AppContextProvider>
 		</ClerkProvider>
 	);
 }

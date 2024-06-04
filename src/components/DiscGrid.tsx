@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { BagList, Disc } from "@components";
 import { SCROLL_INCREMENT, View } from "@constants";
-import { useDiscContext } from "@hooks";
+import { useAppContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -16,7 +16,7 @@ export const DiscGrid = () => {
 	const [numDiscsToRender, setNumDiscsToRender] = useState(SCROLL_INCREMENT);
 	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 
-	const { filteredDiscs, view, selectedBag } = useDiscContext();
+	const { filteredDiscs, view, selectedBag } = useAppContext();
 	const { isSignedIn } = useAuth();
 
 	const handleBagListClick = (event: React.MouseEvent<HTMLDivElement>) => setAnchorEl(event.currentTarget);

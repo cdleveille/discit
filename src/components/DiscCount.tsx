@@ -1,12 +1,12 @@
 "use-client";
 
-import { useDiscContext } from "@hooks";
+import { useAppContext } from "@hooks";
 
 export const DiscCount = () => {
 	const {
 		filteredDiscs: { length },
 		setDiscs
-	} = useDiscContext();
+	} = useAppContext();
 
 	return (
 		<div className="disc-count-container">

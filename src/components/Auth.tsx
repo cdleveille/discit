@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 import { SignedIn, SignedOut, SignIn as ClerkSignIn, UserButton as ClerkUserButton } from "@clerk/nextjs";
-import { useDiscContext } from "@hooks";
+import { useAppContext } from "@hooks";
 import Icon from "@mui/icons-material/AccountCircle";
 import { CircularProgress, IconButton } from "@mui/material";
 
@@ -48,7 +48,7 @@ export const SignIn = () => {
 	const searchParams = useSearchParams();
 	const redirect = searchParams.get("redirect");
 	const redirectUrl = redirect ? `${decodeURI(redirect)}` : "";
-	const { view } = useDiscContext();
+	const { view } = useAppContext();
 	return (
 		<ClerkSignIn
 			appearance={{

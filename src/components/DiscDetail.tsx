@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useAuth } from "@clerk/nextjs";
-import { useApi, useDiscContext } from "@hooks";
+import { useApi, useAppContext } from "@hooks";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -15,7 +15,7 @@ import type { DiscDetailProps } from "@types";
 
 export const DiscDetail = ({ name_slug, hideNavButtons, hideAddButton }: DiscDetailProps) => {
 	const { isSignedIn } = useAuth();
-	const { discs, filteredDiscs, selectedBag } = useDiscContext();
+	const { discs, filteredDiscs, selectedBag } = useAppContext();
 
 	const { isLoading, addDiscToBag, removeDiscFromBag } = useApi();
 

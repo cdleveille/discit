@@ -4,13 +4,13 @@ import Link from "next/link";
 
 import { DiscCount } from "@components";
 import { View } from "@constants";
-import { useDiscContext } from "@hooks";
+import { useAppContext } from "@hooks";
 import Backpack from "@mui/icons-material/Backpack";
 import SearchIcon from "@mui/icons-material/Search";
 import { IconButton, Stack } from "@mui/material";
 
 export const Controls = () => {
-	const { view, setView } = useDiscContext();
+	const { view, setView } = useAppContext();
 	const isBagsView = view === View.BAGS;
 
 	return (

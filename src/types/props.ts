@@ -1,6 +1,6 @@
 import { Bag, Disc } from "@types";
 
-export type DiscContextProviderProps = {
+export type AppContextProviderProps = {
 	children: React.ReactNode;
 	discs: Disc[];
 	bags: Bag[];

@@ -40,7 +40,7 @@ export type Bag = {
 	discs: string[];
 };
 
-export type DiscContext = {
+export type AppContext = {
 	discs: Disc[];
 	setDiscs: Dispatch<SetStateAction<Disc[]>>;
 	filteredDiscs: Disc[];

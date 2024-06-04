@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 
 import { useAuth } from "@clerk/nextjs";
 import { INITIAL_FILTER_VALUES, View } from "@constants";
-import { DiscContext } from "@contexts";
+import { AppContext } from "@contexts";
 
-import type { Bag, DiscContextProviderProps, FilterValues, ViewOption } from "@types";
-export const DiscContextProvider = ({ children, discs: _discs, bags: allBags }: DiscContextProviderProps) => {
+import type { AppContextProviderProps, Bag, FilterValues, ViewOption } from "@types";
+
+export const AppContextProvider = ({ children, discs: _discs, bags: allBags }: AppContextProviderProps) => {
 	const { userId } = useAuth();
 	const searchParams = useSearchParams();
 	const viewParam = searchParams.get("view") as ViewOption;
@@ -36,7 +37,7 @@ export const DiscContextProvider = ({ children, discs: _discs, bags: allBags }: 
 	}, [view]);
 
 	return (
-		<DiscContext.Provider
+		<AppContext.Provider
 			value={{
 				discs,
 				setDiscs,
@@ -53,6 +54,6 @@ export const DiscContextProvider = ({ children, discs: _discs, bags: allBags }: 
 			}}
 		>
 			{children}
-		</DiscContext.Provider>
+		</AppContext.Provider>
 	);
 };

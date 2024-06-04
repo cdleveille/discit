@@ -1,4 +1,4 @@
 export * from "./useApi";
-export * from "./useDiscContext";
+export * from "./useAppContext";
 export * from "./useKeyPress";
 export * from "./useSessionStorage";

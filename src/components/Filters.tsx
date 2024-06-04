@@ -3,7 +3,7 @@
 import { SyntheticEvent, useEffect, useState } from "react";
 
 import { View } from "@constants";
-import { useDiscContext } from "@hooks";
+import { useAppContext } from "@hooks";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import { Autocomplete, Checkbox, TextField } from "@mui/material";
@@ -23,7 +23,7 @@ export const Filters = () => {
 		fades: []
 	});
 
-	const { discs, setFilteredDiscs, filterValues, setFilterValues, selectedBag, view } = useDiscContext();
+	const { discs, setFilteredDiscs, filterValues, setFilterValues, selectedBag, view } = useAppContext();
 
 	useEffect(() => {
 		const bagDiscs = selectedBag ? discs.filter(disc => selectedBag.discs.includes(disc.id)) : [];
