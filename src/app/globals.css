@@ -67,6 +67,7 @@ h1 {
 
 #disc-grid {
 	width: 100%;
+	min-height: 20rem;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, calc(var(--disc-size) + 1rem));
 	justify-content: center;
@@ -76,7 +77,6 @@ h1 {
 	color: #757575;
 	font-size: 1.25rem;
 	font-weight: 500;
-	margin-top: 2rem;
 }
 
 .disc-container {
@@ -213,7 +213,7 @@ h1 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 9.5rem;
+	width: 9rem;
 }
 
 .disc-count {
@@ -265,11 +265,6 @@ h1 {
 	border-radius: 1rem;
 	border: 2px solid #757575;
 	min-width: 240px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	row-gap: 3rem;
 }
 
 .add-bag-title {
@@ -285,6 +280,11 @@ h1 {
 	position: absolute;
 	top: 1.25rem;
 	left: 1.25rem;
+}
+
+.bag-list-item:hover {
+	cursor: pointer;
+	background-color: rgba(221, 221, 221, 0.6);
 }
 
 @keyframes fadeIn {

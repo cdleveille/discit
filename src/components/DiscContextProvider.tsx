@@ -8,7 +8,7 @@ import { View } from "@constants";
 import { DiscContext } from "@contexts";
 
 import type { Bag, DiscContextProviderProps, FilterValues, ViewOption } from "@types";
-export const DiscContextProvider = ({ discs: _discs, bags: allBags, children }: DiscContextProviderProps) => {
+export const DiscContextProvider = ({ children, discs: _discs, bags: allBags }: DiscContextProviderProps) => {
 	const { userId } = useAuth();
 	const searchParams = useSearchParams();
 	const viewParam = searchParams.get("view") as ViewOption;
@@ -36,6 +36,10 @@ export const DiscContextProvider = ({ discs: _discs, bags: allBags, children }: 
 		setBags(userBags);
 		setSelectedBag(userBags[0] ?? null);
 	}, [userId, allBags]);
+
+	useEffect(() => {
+		setSelectedBag(bags[bags.length - 1] ?? null);
+	}, [bags]);
 
 	return (
 		<DiscContext.Provider

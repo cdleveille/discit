@@ -1,9 +1,9 @@
 import { Bag, Disc } from "@types";
 
 export type DiscContextProviderProps = {
+	children: React.ReactNode;
 	discs: Disc[];
 	bags: Bag[];
-	children: React.ReactNode;
 };
 
 export type ClientContextProviderProps = {
@@ -27,4 +27,8 @@ export type ModalProps = {
 
 export type NewBagProps = {
 	backOnSubmit?: boolean;
+};
+
+export type BagListProps = {
+	onClose: () => void;
 };
