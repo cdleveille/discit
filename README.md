@@ -6,7 +6,8 @@ A responsive disc golf disc search engine.
 
 ## Architecture
 
-![image](https://github.com/cdleveille/discit/assets/1410481/bbb44ef4-9bc9-47e8-aede-5381bff57dc8)
+![image](https://github.com/cdleveille/discit/assets/1410481/9149c718-1810-43b3-9bf7-8e09e674aeb0)
+
 
 ## See Also
 
