@@ -67,10 +67,10 @@ export const DiscGrid = () => {
 
 	return (
 		<>
-			<Stack spacing="3rem" alignItems="center" width="100%">
+			<Stack spacing="2rem" alignItems="center" width="100%">
 				{isBagView && (
 					<>
-						<Stack direction="row" className="disc-count" onClick={handleBagListClick}>
+						<Stack direction="row" className="bag-list-dropdown" onClick={handleBagListClick}>
 							<ArrowDropUpIcon sx={{ visibility: "hidden" }} />
 							<div>{selectedBag?.name}</div>
 							{isBagListOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}

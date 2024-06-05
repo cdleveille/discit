@@ -275,6 +275,15 @@ h1 {
 	left: 1rem;
 }
 
+.bag-list-dropdown {
+	font-size: 1.25rem;
+	font-weight: 500;
+}
+
+.bag-list-dropdown:hover {
+	cursor: pointer;
+}
+
 .bag-list-item:hover {
 	cursor: pointer;
 	background-color: rgba(221, 221, 221, 0.6);
