@@ -1,7 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 import { useApi, useAppContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -10,9 +8,8 @@ import { IconButton, List, ListItem, ListItemText } from "@mui/material";
 import type { BagListProps } from "@types";
 
 export const BagList = ({ onClose }: BagListProps) => {
-	const router = useRouter();
 	const { isLoading, deleteBag } = useApi();
-	const { bags, selectedBag, setSelectedBag } = useAppContext();
+	const { bags, selectedBag, setSelectedBag, showNewBagModal } = useAppContext();
 
 	if (!selectedBag || !bags || bags.length === 0) return null;
 
@@ -56,7 +53,7 @@ export const BagList = ({ onClose }: BagListProps) => {
 				className="bag-list-item"
 				onClick={() => {
 					onClose();
-					router.push("/bag/new");
+					showNewBagModal();
 				}}
 			>
 				<ListItemText
