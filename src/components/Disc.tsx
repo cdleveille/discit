@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 
+import { useAppContext } from "@hooks";
 import { Stack, Zoom } from "@mui/material";
 import { hexToRgba } from "@util";
 
@@ -11,9 +11,10 @@ import type { DiscProps } from "@types";
 export const Disc = ({ disc }: DiscProps) => {
 	const [isHovered, setIsHovered] = useState(false);
 
+	const { showDiscDetailModal } = useAppContext();
+
 	const {
 		name,
-		name_slug,
 		brand,
 		category,
 		stability,
@@ -29,13 +30,12 @@ export const Disc = ({ disc }: DiscProps) => {
 
 	return (
 		<div className="disc-container">
-			<Link
-				href={`/disc/${name_slug}`}
-				passHref
+			<div
 				className="disc"
 				style={{ color, backgroundColor, border: `5px solid ${borderColor}` }}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
+				onClick={() => showDiscDetailModal(disc)}
 			>
 				<Stack spacing="0.25rem">
 					<div className="disc-name">{name}</div>
@@ -52,7 +52,7 @@ export const Disc = ({ disc }: DiscProps) => {
 						</Zoom>
 					)}
 				</Stack>
-			</Link>
+			</div>
 		</div>
 	);
 };

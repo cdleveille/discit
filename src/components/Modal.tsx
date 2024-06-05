@@ -1,43 +1,42 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { useKeyPress } from "@hooks";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Modal as MuiModal, Zoom } from "@mui/material";
 
 import type { ModalProps } from "@types";
 
-export function Modal({ children, borderRadius, showCloseBtn }: ModalProps) {
-	const [open, setOpen] = useState(true);
-
-	const router = useRouter();
-	const onClose = () => setOpen(false);
-	useKeyPress("Escape", onClose);
+export const Modal = ({ children, open, onClose, showCloseBtn }: ModalProps) => {
+	const [isZoomed, setIsZoomed] = useState(true);
 
 	useEffect(() => {
-		if (open) return;
-		const timeout = setTimeout(() => router.back(), 200);
+		if (isZoomed) return;
+		const timeout = setTimeout(() => {
+			onClose();
+			setIsZoomed(true);
+		}, 150);
 		return () => clearTimeout(timeout);
-	}, [open, router]);
+	}, [onClose, isZoomed]);
+
+	const onRequestClose = () => setIsZoomed(false);
 
 	return (
-		<MuiModal open={open} disableEscapeKeyDown onMouseDown={onClose}>
-			<Zoom in={open}>
-				<div className="modal" onMouseDown={onClose}>
-					<div onMouseDown={e => e.stopPropagation()} style={{ borderRadius, position: "relative" }}>
+		<MuiModal open={open} onClose={onRequestClose} sx={{ outline: "none" }} style={{ outline: "none" }}>
+			<div className="absolute-centered" style={{ borderRadius: "50%", outline: "none" }}>
+				<Zoom in={isZoomed}>
+					<div style={{ position: "relative", borderRadius: "50%", outline: "none" }}>
 						{showCloseBtn && (
-							<div style={{ position: "absolute", top: "0.75rem", right: "0.75rem", zIndex: 1 }}>
-								<IconButton aria-label="close" onClick={onClose}>
+							<div style={{ position: "absolute", top: "0.75rem", right: "0.75rem", zIndex: 1000 }}>
+								<IconButton aria-label="close" onClick={onRequestClose}>
 									<CloseIcon fontSize="large" />
 								</IconButton>
 							</div>
 						)}
 						{children}
 					</div>
-				</div>
-			</Zoom>
+				</Zoom>
+			</div>
 		</MuiModal>
 	);
-}
+};

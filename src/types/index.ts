@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 import { View } from "@constants";
 
@@ -51,6 +51,9 @@ export type AppContext = {
 	setSelectedBag: Dispatch<SetStateAction<Bag | null>>;
 	filterValues: FilterValues;
 	setFilterValues: Dispatch<SetStateAction<FilterValues>>;
+	showSignInModal: () => void;
+	showDiscDetailModal: (disc: Disc) => void;
+	showNewBagModal: () => void;
 };
 
 export type FilterOptions = {

@@ -15,19 +15,18 @@ export type DiscProps = {
 };
 
 export type DiscDetailProps = {
-	name_slug: string;
-	hideNavButtons?: boolean;
-	hideAddButton?: boolean;
+	disc: Disc;
 };
 
 export type ModalProps = {
 	children: React.ReactNode;
-	borderRadius?: string;
+	open: boolean;
+	onClose: () => void;
 	showCloseBtn?: boolean;
 };
 
 export type NewBagProps = {
-	backOnSubmit?: boolean;
+	onComplete: () => void;
 };
 
 export type BagListProps = {

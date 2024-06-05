@@ -10,27 +10,16 @@ import { getBags, getDiscs } from "@services/api";
 const inter = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({
-	children,
-	discModal,
-	signInModal,
-	newBagModal
+	children
 }: Readonly<{
 	children: React.ReactNode;
-	discModal: React.ReactNode;
-	signInModal: React.ReactNode;
-	newBagModal: React.ReactNode;
 }>) {
 	const [discs, bags] = await Promise.all([getDiscs(), getBags({ userId: null })]);
 	return (
 		<ClerkProvider>
 			<AppContextProvider discs={discs} bags={bags}>
 				<html lang="en">
-					<body className={inter.className}>
-						{children}
-						{discModal}
-						{signInModal}
-						{newBagModal}
-					</body>
+					<body className={inter.className}>{children}</body>
 				</html>
 			</AppContextProvider>
 		</ClerkProvider>

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { useAuth } from "@clerk/nextjs";
@@ -16,7 +15,7 @@ export const DiscGrid = () => {
 	const [numDiscsToRender, setNumDiscsToRender] = useState(SCROLL_INCREMENT);
 	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 
-	const { filteredDiscs, selectedBag } = useAppContext();
+	const { filteredDiscs, selectedBag, showSignInModal, showNewBagModal } = useAppContext();
 	const { isBagView } = useView();
 	const { isSignedIn } = useAuth();
 
@@ -45,15 +44,17 @@ export const DiscGrid = () => {
 	if (isBagView && !selectedBag) {
 		const innerHtml = !isSignedIn ? (
 			<div style={{ marginTop: "1rem" }}>
-				Please <Link href="/sign-in">sign in</Link> to manage bags
+				Please{" "}
+				<span className="text-link" onClick={() => showSignInModal()}>
+					sign in
+				</span>{" "}
+				to manage bags
 			</div>
 		) : (
 			<Stack spacing="1.5rem" alignItems="center">
-				<Link href="/bag/new">
-					<IconButton aria-label="search">
-						<AddIcon fontSize="large" />
-					</IconButton>
-				</Link>
+				<IconButton aria-label="search" onClick={() => showNewBagModal()}>
+					<AddIcon fontSize="large" />
+				</IconButton>
 				<div>No bags added yet</div>
 			</Stack>
 		);

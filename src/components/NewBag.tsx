@@ -11,7 +11,7 @@ import { Button, Stack, TextField } from "@mui/material";
 
 import type { Bag, NewBagProps } from "@types";
 
-export const NewBag = ({ backOnSubmit }: NewBagProps) => {
+export const NewBag = ({ onComplete }: NewBagProps) => {
 	const [name, setName] = useState("");
 	const [error, setError] = useState("");
 
@@ -53,7 +53,7 @@ export const NewBag = ({ backOnSubmit }: NewBagProps) => {
 					if (res.error) throw res.error;
 					setName("");
 					setError("");
-					if (backOnSubmit) router.back();
+					onComplete();
 				} catch (error) {
 					setError(error as string);
 				}

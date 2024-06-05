@@ -6,7 +6,6 @@ export * from "./Disc";
 export * from "./DiscCount";
 export * from "./DiscDetail";
 export * from "./DiscGrid";
-export * from "./DiscNotFound";
 export * from "./Filters";
 export * from "./Header";
 export * from "./Modal";
