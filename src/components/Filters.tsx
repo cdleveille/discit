@@ -173,7 +173,7 @@ export const Filters = () => {
 					className="filter"
 					options={filterOptions.names}
 					freeSolo
-					renderInput={params => <TextField {...params} label="name" placeholder="name" />}
+					renderInput={params => <TextField {...params} label="Name" placeholder="Name" />}
 					value={filterValues.name}
 					onInputChange={(_e: SyntheticEvent, value: string) =>
 						setFilterValues(current => ({ ...current, name: value }))
@@ -198,7 +198,7 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="brand" placeholder="brand" />}
+					renderInput={params => <TextField {...params} label="Brand" placeholder="Brand" />}
 					value={filterValues.brands}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, brands: value }))
@@ -223,7 +223,7 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="category" placeholder="category" />}
+					renderInput={params => <TextField {...params} label="Category" placeholder="Category" />}
 					value={filterValues.categories}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, categories: value }))
@@ -248,7 +248,7 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="stability" placeholder="stability" />}
+					renderInput={params => <TextField {...params} label="Stability" placeholder="Stability" />}
 					value={filterValues.stabilities}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, stabilities: value }))
@@ -273,7 +273,7 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="speed" placeholder="speed" />}
+					renderInput={params => <TextField {...params} label="Speed" placeholder="Speed" />}
 					value={filterValues.speeds}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, speeds: value }))
@@ -298,7 +298,7 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="glide" placeholder="glide" />}
+					renderInput={params => <TextField {...params} label="Glide" placeholder="Glide" />}
 					value={filterValues.glides}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, glides: value }))
@@ -323,7 +323,7 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="turn" placeholder="turn" />}
+					renderInput={params => <TextField {...params} label="Turn" placeholder="Turn" />}
 					value={filterValues.turns}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, turns: value }))
@@ -348,7 +348,7 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="fade" placeholder="fade" />}
+					renderInput={params => <TextField {...params} label="Fade" placeholder="Fade" />}
 					value={filterValues.fades}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, fades: value }))
