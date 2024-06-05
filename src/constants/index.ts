@@ -1,6 +1,6 @@
 import { Metadata, Viewport } from "next";
 
-import type { FilterValues } from "@types";
+import type { FilterValues, FiltersEnabled } from "@types";
 
 export enum RequestMethod {
 	GET = "GET",
@@ -25,6 +25,17 @@ export const INITIAL_FILTER_VALUES: FilterValues = {
 	glides: [],
 	turns: [],
 	fades: []
+};
+
+export const INITIAL_FILTERS_ENABLED: FiltersEnabled = {
+	name: true,
+	brand: true,
+	category: true,
+	stability: true,
+	speed: false,
+	glide: false,
+	turn: false,
+	fade: false
 };
 
 export const VIEWPORT: Viewport = {

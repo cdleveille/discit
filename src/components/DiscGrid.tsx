@@ -46,14 +46,14 @@ export const DiscGrid = () => {
 		const innerHtml = !isSignedIn ? (
 			<div style={{ marginTop: "1rem" }}>
 				Please{" "}
-				<span className="text-link" onClick={() => showSignInModal()}>
+				<span className="text-link" onClick={showSignInModal}>
 					sign in
 				</span>{" "}
 				to manage bags
 			</div>
 		) : (
 			<Stack spacing="1.5rem" alignItems="center">
-				<IconButton aria-label="search" onClick={() => showNewBagModal()}>
+				<IconButton aria-label="search" onClick={showNewBagModal}>
 					<AddIcon fontSize="large" />
 				</IconButton>
 				<div>No bags added yet</div>

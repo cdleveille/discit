@@ -51,9 +51,12 @@ export type AppContext = {
 	setSelectedBag: Dispatch<SetStateAction<Bag | null>>;
 	filterValues: FilterValues;
 	setFilterValues: Dispatch<SetStateAction<FilterValues>>;
+	filtersEnabled: FiltersEnabled;
+	setFiltersEnabled: Dispatch<SetStateAction<FiltersEnabled>>;
 	showSignInModal: () => void;
 	showDiscDetailModal: (disc: Disc) => void;
 	showNewBagModal: () => void;
+	showSettingsModal: () => void;
 	view: ViewOption;
 	setView: Dispatch<SetStateAction<ViewOption>>;
 };
@@ -78,4 +81,15 @@ export type FilterValues = {
 	glides: string[];
 	turns: string[];
 	fades: string[];
+};
+
+export type FiltersEnabled = {
+	name: boolean;
+	brand: boolean;
+	category: boolean;
+	stability: boolean;
+	speed: boolean;
+	glide: boolean;
+	turn: boolean;
+	fade: boolean;
 };

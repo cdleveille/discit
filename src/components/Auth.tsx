@@ -11,11 +11,7 @@ export const UserButton = () => {
 	return (
 		<>
 			<SignedOut>
-				<IconButton
-					aria-label="sign-in"
-					sx={{ width: "3rem", height: "3rem" }}
-					onClick={() => showSignInModal()}
-				>
+				<IconButton aria-label="sign-in" sx={{ width: "3rem", height: "3rem" }} onClick={showSignInModal}>
 					<Icon color="disabled" sx={{ fontSize: "57px" }} />
 				</IconButton>
 			</SignedOut>

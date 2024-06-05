@@ -227,12 +227,6 @@ h1 {
 	margin-bottom: 1rem;
 }
 
-.add-bag-btn {
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
-	width: 40px;
-}
-
 .selected-view {
 	background-color: rgba(221, 221, 221, 0.6);
 	outline: 2px solid #757575;
@@ -240,7 +234,7 @@ h1 {
 	pointer-events: none;
 }
 
-.add-bag {
+.form {
 	position: relative;
 	background-color: white;
 	width: calc(100vw - 2rem);
@@ -250,9 +244,15 @@ h1 {
 	min-width: 240px;
 }
 
-.add-bag-title {
+.form-title {
 	font-size: 2.5rem;
 	font-weight: 600;
+}
+
+.add-bag-btn {
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+	width: 40px;
 }
 
 .error {

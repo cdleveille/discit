@@ -50,8 +50,8 @@ export const NewBag = ({ onComplete }: NewBagProps) => {
 				toast.success(`Added ${name}`);
 			}}
 		>
-			<Stack className="add-bag" justifyContent="center" alignItems="center" spacing="3rem">
-				<div className="add-bag-title">New Bag</div>
+			<Stack className="form" justifyContent="center" alignItems="center" spacing="3rem">
+				<div className="form-title">New Bag</div>
 				<div
 					style={{
 						width: "100%",
@@ -63,7 +63,6 @@ export const NewBag = ({ onComplete }: NewBagProps) => {
 				>
 					<div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
 						<TextField
-							name="add-bag-name"
 							label="name"
 							placeholder="name"
 							type="text"

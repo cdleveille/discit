@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 
 import { useAuth } from "@clerk/nextjs";
-import { DiscDetail, Modal, NewBag, SignIn } from "@components";
-import { INITIAL_FILTER_VALUES, View } from "@constants";
+import { DiscDetail, Modal, NewBag, Settings, SignIn } from "@components";
+import { INITIAL_FILTER_VALUES, INITIAL_FILTERS_ENABLED, View } from "@constants";
 import { AppContext } from "@contexts";
 import { useQueryString } from "@hooks";
 
-import type { AppContextProviderProps, Bag, Disc, FilterValues, ModalProps, ViewOption } from "@types";
+import type { AppContextProviderProps, Bag, Disc, ModalProps, ViewOption } from "@types";
 
 export const AppContextProvider = ({
 	children,
@@ -24,7 +24,9 @@ export const AppContextProvider = ({
 
 	const [bags, setBags] = useState<Bag[]>([]);
 	const [selectedBag, setSelectedBag] = useState<Bag | null>(null);
-	const [filterValues, setFilterValues] = useState<FilterValues>(INITIAL_FILTER_VALUES);
+
+	const [filterValues, setFilterValues] = useState(INITIAL_FILTER_VALUES);
+	const [filtersEnabled, setFiltersEnabled] = useState(INITIAL_FILTERS_ENABLED);
 
 	const [view, setView] = useState<ViewOption>(initialView ?? View.SEARCH);
 
@@ -72,6 +74,11 @@ export const AppContextProvider = ({
 		setModalContent(<NewBag onComplete={onModalClose} />);
 	};
 
+	const showSettingsModal = () => {
+		setModalProps({ showCloseBtn: true });
+		setModalContent(<Settings />);
+	};
+
 	const [modalContent, setModalContent] = useState<React.ReactNode>(
 		initialDisc ? <DiscDetail disc={initialDisc} /> : null
 	);
@@ -90,9 +97,12 @@ export const AppContextProvider = ({
 				setSelectedBag,
 				filterValues,
 				setFilterValues,
+				filtersEnabled,
+				setFiltersEnabled,
 				showSignInModal,
 				showDiscDetailModal,
 				showNewBagModal,
+				showSettingsModal,
 				view,
 				setView
 			}}

@@ -8,7 +8,7 @@ import { IconButton } from "@mui/material";
 export const ScrollToTop = () => {
 	const [isVisible, setIsVisible] = useState(false);
 
-	const scrollToTop = (behavior: ScrollBehavior = "smooth") => window.scrollTo({ top: 0, behavior });
+	const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
 	useEffect(() => {
 		scrollToTop();
@@ -21,7 +21,7 @@ export const ScrollToTop = () => {
 
 	return (
 		<div className="scroll-to-top">
-			<IconButton aria-label="scroll-to-top" onClick={() => scrollToTop()}>
+			<IconButton aria-label="scroll-to-top" onClick={scrollToTop}>
 				<ArrowUpwardIcon fontSize="large" />
 			</IconButton>
 		</div>

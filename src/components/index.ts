@@ -11,3 +11,4 @@ export * from "./Header";
 export * from "./Modal";
 export * from "./NewBag";
 export * from "./ScrollToTop";
+export * from "./Settings";
