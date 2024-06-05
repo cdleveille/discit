@@ -19,7 +19,7 @@ export const useQueryString = () => {
 	);
 
 	const updateQueryString = (key: string, value?: string | null) =>
-		router.push(pathname + "?" + createQueryString(key, value), { scroll: false });
+		router.replace(pathname + "?" + createQueryString(key, value), { scroll: false });
 
 	return { updateQueryString };
 };
