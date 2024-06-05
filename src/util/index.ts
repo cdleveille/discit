@@ -58,6 +58,8 @@ export const getErrorMessage = (error: unknown) => {
 		message = error.message;
 	} else if (error && typeof error === "object" && "message" in error) {
 		message = String(error.message);
+	} else if (error && typeof error === "object" && "error" in error) {
+		message = String(error.error);
 	} else if (typeof error === "string") {
 		message = error;
 	} else {
