@@ -6,7 +6,8 @@ import { useApi, useAppContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton, List, ListItem, ListItemText } from "@mui/material";
-import { BagListProps } from "@types";
+
+import type { BagListProps } from "@types";
 
 export const BagList = ({ onClose }: BagListProps) => {
 	const router = useRouter();

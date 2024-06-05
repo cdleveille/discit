@@ -1,5 +1,6 @@
-import type { FilterValues } from "@types";
 import { Metadata, Viewport } from "next";
+
+import type { FilterValues } from "@types";
 
 export enum RequestMethod {
 	GET = "GET",

@@ -2,7 +2,8 @@
 
 import { SyntheticEvent, useEffect, useState } from "react";
 
-import { useAppContext, useView } from "@hooks";
+import { View } from "@constants";
+import { useAppContext } from "@hooks";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import { Autocomplete, Checkbox, TextField } from "@mui/material";
@@ -22,8 +23,8 @@ export const Filters = () => {
 		fades: []
 	});
 
-	const { discs, setFilteredDiscs, filterValues, setFilterValues, selectedBag } = useAppContext();
-	const { isBagView } = useView();
+	const { discs, setFilteredDiscs, filterValues, setFilterValues, selectedBag, view } = useAppContext();
+	const isBagView = view === View.BAG;
 
 	useEffect(() => {
 		const bagDiscs = selectedBag ? discs.filter(disc => selectedBag.discs.includes(disc.id)) : [];

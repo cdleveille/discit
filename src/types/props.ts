@@ -1,9 +1,11 @@
-import { Bag, Disc } from "@types";
+import type { Bag, Disc, ViewOption } from "@types";
 
 export type AppContextProviderProps = {
 	children: React.ReactNode;
 	discs: Disc[];
 	bags: Bag[];
+	initialView?: ViewOption;
+	initialDiscSlug?: string;
 };
 
 export type ClientContextProviderProps = {

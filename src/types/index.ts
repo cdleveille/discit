@@ -54,6 +54,8 @@ export type AppContext = {
 	showSignInModal: () => void;
 	showDiscDetailModal: (disc: Disc) => void;
 	showNewBagModal: () => void;
+	view: ViewOption;
+	setView: Dispatch<SetStateAction<ViewOption>>;
 };
 
 export type FilterOptions = {

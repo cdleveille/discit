@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 
 import { useAuth } from "@clerk/nextjs";
 import { BagList, Disc } from "@components";
-import { SCROLL_INCREMENT } from "@constants";
-import { useAppContext, useView } from "@hooks";
+import { SCROLL_INCREMENT, View } from "@constants";
+import { useAppContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -15,8 +15,7 @@ export const DiscGrid = () => {
 	const [numDiscsToRender, setNumDiscsToRender] = useState(SCROLL_INCREMENT);
 	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 
-	const { filteredDiscs, selectedBag, showSignInModal, showNewBagModal } = useAppContext();
-	const { isBagView } = useView();
+	const { filteredDiscs, selectedBag, showSignInModal, showNewBagModal, view } = useAppContext();
 	const { isSignedIn } = useAuth();
 
 	const handleBagListClick = (event: React.MouseEvent<HTMLDivElement>) => setAnchorEl(event.currentTarget);
@@ -40,6 +39,8 @@ export const DiscGrid = () => {
 	const renderMoreDiscs = () => setNumDiscsToRender(current => current + SCROLL_INCREMENT);
 
 	const discsToRender = filteredDiscs.slice(0, numDiscsToRender);
+
+	const isBagView = view === View.BAG;
 
 	if (isBagView && !selectedBag) {
 		const innerHtml = !isSignedIn ? (
