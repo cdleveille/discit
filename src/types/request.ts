@@ -33,3 +33,11 @@ export type RemoveDiscFromBagParams = {
 export type DeleteBagParams = {
 	bagId: string;
 };
+
+export type ApiErrorUnknown = {
+	error?: unknown;
+};
+
+export type ApiError = {
+	error?: string;
+};

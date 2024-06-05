@@ -1,5 +1,7 @@
 "use client";
 
+import toast from "react-hot-toast";
+
 import { useApi, useAppContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -8,7 +10,7 @@ import { IconButton, List, ListItem, ListItemText } from "@mui/material";
 import type { BagListProps } from "@types";
 
 export const BagList = ({ onClose }: BagListProps) => {
-	const { isLoading, deleteBag } = useApi();
+	const { isLoading, error, deleteBag } = useApi();
 	const { bags, selectedBag, setSelectedBag, showNewBagModal } = useAppContext();
 
 	if (!selectedBag || !bags || bags.length === 0) return null;
@@ -24,7 +26,12 @@ export const BagList = ({ onClose }: BagListProps) => {
 							aria-label="delete"
 							onClick={async e => {
 								e.stopPropagation();
-								await deleteBag({ bagId: bag.id });
+								const res = await deleteBag({ bagId: bag.id });
+								if (res.error) {
+									toast.error("Error deleting bag");
+									return;
+								}
+								toast.success(`Deleted ${bag.name}`);
 							}}
 							disabled={isLoading}
 						>

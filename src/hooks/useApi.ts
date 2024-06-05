@@ -2,10 +2,24 @@
 
 import { useState } from "react";
 
+import { log } from "@services";
 import * as API from "@services/api";
+import { getErrorMessage } from "@util";
 
-import type { AddDiscToBagParams, CreateBagParams, DeleteBagParams, RemoveDiscFromBagParams } from "@types";
+import type {
+	ApiError,
+	AddDiscToBagParams,
+	CreateBagParams,
+	DeleteBagParams,
+	RemoveDiscFromBagParams,
+	ApiErrorUnknown
+} from "@types";
 
+/**
+ * Do NOT use the 'error' state variable to check for errors.
+ * Instead, use the 'error' property on the response object.
+ * The state variable should be used ONLY to display the error message.
+ */
 export const useApi = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
@@ -14,13 +28,16 @@ export const useApi = () => {
 		try {
 			setError("");
 			setIsLoading(true);
-			const res = (await op()) as T & { error?: string };
-			if (res.error) setError(res.error);
-			setIsLoading(false);
-			return res;
+			const res = (await op()) as T & ApiErrorUnknown;
+			if (res.error) throw res.error;
+			return res as T & ApiError;
 		} catch (error) {
-			setError(error as string);
-			throw error;
+			const message = getErrorMessage(error);
+			setError(message);
+			log.error(message);
+			return { error: message } as T & ApiError;
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -34,5 +51,5 @@ export const useApi = () => {
 
 	const deleteBag = ({ bagId }: DeleteBagParams) => asyncWrapper(() => API.deleteBag({ bagId }));
 
-	return { isLoading, error, createBag, addDiscToBag, removeDiscFromBag, deleteBag };
+	return { isLoading, error, setError, createBag, addDiscToBag, removeDiscFromBag, deleteBag };
 };

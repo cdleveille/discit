@@ -1,25 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 import { useAuth } from "@clerk/nextjs";
 import { useApi } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import { Button, Stack, TextField } from "@mui/material";
 
-import type { Bag, NewBagProps } from "@types";
+import type { NewBagProps } from "@types";
 
 export const NewBag = ({ onComplete }: NewBagProps) => {
 	const [name, setName] = useState("");
-	const [error, setError] = useState("");
 
-	const { isLoading, createBag } = useApi();
+	const { isLoading, createBag, error, setError } = useApi();
 
 	const { isSignedIn, userId } = useAuth();
-
-	const router = useRouter();
 
 	const inputRef = useRef<HTMLInputElement>();
 
@@ -47,16 +44,10 @@ export const NewBag = ({ onComplete }: NewBagProps) => {
 	return (
 		<form
 			action={async () => {
-				try {
-					const action = createBag.bind(null, { userId, bagName: name });
-					const res = (await action()) as Bag & { error?: string };
-					if (res.error) throw res.error;
-					setName("");
-					setError("");
-					onComplete();
-				} catch (error) {
-					setError(error as string);
-				}
+				const res = await createBag({ userId, bagName: name });
+				if (res.error) return;
+				onComplete();
+				toast.success(`Added ${name}`);
 			}}
 		>
 			<Stack className="add-bag" justifyContent="center" alignItems="center" spacing="3rem">

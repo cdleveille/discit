@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 import { useAuth } from "@clerk/nextjs";
 import { useApi, useAppContext } from "@hooks";
@@ -14,7 +15,7 @@ import type { DiscDetailProps } from "@types";
 export const DiscDetail = ({ disc }: DiscDetailProps) => {
 	const { isSignedIn } = useAuth();
 	const { selectedBag } = useAppContext();
-	const { isLoading, addDiscToBag, removeDiscFromBag } = useApi();
+	const { isLoading, error, addDiscToBag, removeDiscFromBag } = useApi();
 
 	if (!disc) return null;
 
@@ -46,7 +47,12 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 						<IconButton
 							aria-label="remove"
 							onClick={async () => {
-								await removeDiscFromBag({ bagId: selectedBag.id, discId: disc.id });
+								const res = await removeDiscFromBag({ bagId: selectedBag.id, discId: disc.id });
+								if (res.error) {
+									toast.error("Error removing disc from bag");
+									return;
+								}
+								toast.success(`${name} removed from ${selectedBag.name}`);
 							}}
 							disabled={isLoading}
 						>
@@ -58,7 +64,12 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 						<IconButton
 							aria-label="add"
 							onClick={async () => {
-								await addDiscToBag({ bagId: selectedBag.id, discId: disc.id });
+								const res = await addDiscToBag({ bagId: selectedBag.id, discId: disc.id });
+								if (res.error) {
+									toast.error("Error adding disc to bag");
+									return;
+								}
+								toast.success(`${name} added to ${selectedBag.name}`);
 							}}
 							disabled={isLoading}
 						>
