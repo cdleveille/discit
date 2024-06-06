@@ -10,7 +10,7 @@ import { IconButton, List, ListItem, ListItemText } from "@mui/material";
 import type { BagListProps } from "@types";
 
 export const BagList = ({ onClose }: BagListProps) => {
-	const { isLoading, error, deleteBag } = useApi();
+	const { isLoading, deleteBag } = useApi();
 	const { bags, selectedBag, setSelectedBag, showNewBagModal } = useAppContext();
 
 	if (!selectedBag || !bags || bags.length === 0) return null;

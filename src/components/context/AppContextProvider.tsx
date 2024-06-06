@@ -42,15 +42,6 @@ export const AppContextProvider = ({
 		setSelectedBag(bags[bags.length - 1] ?? null);
 	}, [bags]);
 
-	useEffect(() => {
-		if (view === View.BAG) {
-			updateQueryString("view", "bag");
-			return;
-		}
-		updateQueryString("view", null);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [view]);
-
 	const onModalClose = () => {
 		setModalContent(null);
 		setModalProps({});
