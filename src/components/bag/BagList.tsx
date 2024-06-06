@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useApi, useAppContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton, List, ListItem, ListItemText } from "@mui/material";
+import { Divider, IconButton, List, ListItem, ListItemText } from "@mui/material";
 
 import type { BagListProps } from "@types";
 
@@ -18,38 +18,41 @@ export const BagList = ({ onClose }: BagListProps) => {
 	return (
 		<List>
 			{bags.map(bag => (
-				<ListItem
-					key={bag.id}
-					secondaryAction={
-						<IconButton
-							edge="end"
-							aria-label="delete"
-							onClick={async e => {
-								e.stopPropagation();
-								onClose();
-								const res = await deleteBag({ bagId: bag.id });
-								if (res.error) {
-									toast.error("Error deleting bag");
-									return;
-								}
-								toast.success(`Deleted ${bag.name}`);
-							}}
-							disabled={isLoading}
-						>
-							<DeleteIcon />
-						</IconButton>
-					}
-					className="bag-list-item"
-					onClick={() => {
-						onClose();
-						setSelectedBag(bag);
-					}}
-				>
-					<ListItemText
-						sx={{ padding: "0.25rem 1rem 0.25rem 0.25rem", minWidth: "10rem" }}
-						primary={bag.name}
-					/>
-				</ListItem>
+				<>
+					<ListItem
+						key={bag.id}
+						secondaryAction={
+							<IconButton
+								edge="end"
+								aria-label="delete"
+								onClick={async e => {
+									e.stopPropagation();
+									onClose();
+									const res = await deleteBag({ bagId: bag.id });
+									if (res.error) {
+										toast.error("Error deleting bag");
+										return;
+									}
+									toast.success(`Deleted ${bag.name}`);
+								}}
+								disabled={isLoading}
+							>
+								<DeleteIcon />
+							</IconButton>
+						}
+						className="bag-list-item"
+						onClick={() => {
+							onClose();
+							setSelectedBag(bag);
+						}}
+					>
+						<ListItemText
+							sx={{ padding: "0.25rem 1rem 0.25rem 0.25rem", minWidth: "10rem" }}
+							primary={bag.name}
+						/>
+					</ListItem>
+					<Divider />
+				</>
 			))}
 			<ListItem
 				key="new-bag"

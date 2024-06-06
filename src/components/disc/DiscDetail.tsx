@@ -73,6 +73,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 						<AddIcon sx={{ fontSize: "2rem" }} />
 					</IconButton>
 				))}
+			{!isSignedIn || (!selectedBag && <div style={{ height: "3rem" }}></div>)}
 			<div className="disc-detail-name">{name}</div>
 			<div className="disc-detail-info">
 				<div>{brand}</div>
