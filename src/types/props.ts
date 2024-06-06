@@ -34,3 +34,10 @@ export type NewBagProps = {
 export type BagListProps = {
 	onClose: () => void;
 };
+
+export type IconButtonProps = {
+	isTransparent?: boolean;
+	isSolid?: boolean;
+	isSelected?: boolean;
+	className?: string;
+};

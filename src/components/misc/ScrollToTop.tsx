@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { IconButton } from "@components";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { IconButton } from "@mui/material";
 
 export const ScrollToTop = () => {
 	const [isVisible, setIsVisible] = useState(false);
@@ -20,10 +20,8 @@ export const ScrollToTop = () => {
 	if (!isVisible) return null;
 
 	return (
-		<div className="scroll-to-top">
-			<IconButton aria-label="scroll-to-top" onClick={scrollToTop}>
-				<ArrowUpwardIcon fontSize="large" />
-			</IconButton>
-		</div>
+		<IconButton className="scroll-to-top" aria-label="scroll-to-top" onClick={scrollToTop}>
+			<ArrowUpwardIcon sx={{ fontSize: "2rem" }} />
+		</IconButton>
 	);
 };

@@ -4,10 +4,10 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 
 import { useAuth } from "@clerk/nextjs";
+import { IconButton } from "@components";
 import { useApi, useAppContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { IconButton } from "@mui/material";
 import { hexToRgba } from "@util";
 
 import type { DiscDetailProps } from "@types";
@@ -43,39 +43,35 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 			{isSignedIn &&
 				selectedBag &&
 				(isDiscInBag ? (
-					<div className="add-to-bag-btn">
-						<IconButton
-							aria-label="remove"
-							onClick={async () => {
-								const res = await removeDiscFromBag({ bagId: selectedBag.id, discId: disc.id });
-								if (res.error) {
-									toast.error("Error removing disc from bag");
-									return;
-								}
-								toast.success(`${name} removed from ${selectedBag.name}`);
-							}}
-							disabled={isLoading}
-						>
-							<RemoveIcon sx={{ fontSize: "5vmin" }} />
-						</IconButton>
-					</div>
+					<IconButton
+						aria-label="remove"
+						onClick={async () => {
+							const res = await removeDiscFromBag({ bagId: selectedBag.id, discId: disc.id });
+							if (res.error) {
+								toast.error("Error removing disc from bag");
+								return;
+							}
+							toast.success(`${name} removed from ${selectedBag.name}`);
+						}}
+						disabled={isLoading}
+					>
+						<RemoveIcon sx={{ fontSize: "2rem" }} />
+					</IconButton>
 				) : (
-					<div className="add-to-bag-btn">
-						<IconButton
-							aria-label="add"
-							onClick={async () => {
-								const res = await addDiscToBag({ bagId: selectedBag.id, discId: disc.id });
-								if (res.error) {
-									toast.error("Error adding disc to bag");
-									return;
-								}
-								toast.success(`${name} added to ${selectedBag.name}`);
-							}}
-							disabled={isLoading}
-						>
-							<AddIcon sx={{ fontSize: "5vmin" }} />
-						</IconButton>
-					</div>
+					<IconButton
+						aria-label="add"
+						onClick={async () => {
+							const res = await addDiscToBag({ bagId: selectedBag.id, discId: disc.id });
+							if (res.error) {
+								toast.error("Error adding disc to bag");
+								return;
+							}
+							toast.success(`${name} added to ${selectedBag.name}`);
+						}}
+						disabled={isLoading}
+					>
+						<AddIcon sx={{ fontSize: "2rem" }} />
+					</IconButton>
 				))}
 			<div className="disc-detail-name">{name}</div>
 			<div className="disc-detail-info">

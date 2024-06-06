@@ -8,6 +8,7 @@ export * from "./disc/DiscGrid";
 export * from "./misc/Controls";
 export * from "./misc/Filters";
 export * from "./misc/Header";
+export * from "./misc/IconButton";
 export * from "./misc/Modal";
 export * from "./misc/ScrollToTop";
 export * from "./user/Auth";

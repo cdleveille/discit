@@ -53,21 +53,10 @@ h1 {
 	user-select: none;
 }
 
-.settings-btn {
-	background-color: rgba(221, 221, 221, 0.6);
-	border-radius: 50%;
-}
-
 .scroll-to-top {
-	background-color: rgba(221, 221, 221, 0.6);
-	border-radius: 50%;
 	position: fixed;
 	bottom: 0.5rem;
 	right: 0.5rem;
-}
-
-.scroll-to-top:hover {
-	background-color: rgba(221, 221, 221, 0.8);
 }
 
 #disc-grid {
@@ -155,30 +144,6 @@ h1 {
 	height: 100%;
 }
 
-.disc-detail-not-found {
-	font-size: 6vmin;
-	font-weight: 500;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100vmin;
-	height: 100vmin;
-	border-radius: 50%;
-	color: #444444;
-	background-color: #cccccc;
-	border: 1.5vmin solid #444444;
-}
-
-.disc-detail-nav {
-	background-color: rgba(221, 221, 221, 0.6);
-	border-radius: 50%;
-	width: 6vmin;
-	height: 6vmin;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
 .filters {
 	display: flex;
 	flex-direction: row;
@@ -227,13 +192,6 @@ h1 {
 	margin-bottom: 1rem;
 }
 
-.selected-view {
-	background-color: rgba(221, 221, 221, 0.6);
-	outline: 2px solid #757575;
-	border-radius: 50%;
-	pointer-events: none;
-}
-
 .form {
 	position: relative;
 	background-color: white;
@@ -249,12 +207,6 @@ h1 {
 	font-weight: 600;
 }
 
-.add-bag-btn {
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
-	width: 40px;
-}
-
 .error {
 	color: red;
 }
@@ -266,6 +218,7 @@ h1 {
 }
 
 .bag-list-dropdown {
+	padding-top: 0.85rem;
 	font-size: 1.25rem;
 	font-weight: 500;
 }
@@ -292,6 +245,31 @@ h1 {
 
 .add-to-bag-btn:hover {
 	cursor: pointer;
+}
+
+.icon-btn {
+	background-color: rgba(221, 221, 221, 0.6);
+	color: #757575;
+	border-radius: 50%;
+	width: 3rem;
+	height: 3rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.icon-btn-transparent {
+	background-color: rgba(221, 221, 221, 0);
+}
+
+.icon-btn-solid {
+	background-color: #ebebeb;
+}
+
+.icon-btn-selected {
+	background-color: #bebebe;
+	outline: 2px solid #757575;
+	pointer-events: none;
 }
 
 @keyframes fadeIn {

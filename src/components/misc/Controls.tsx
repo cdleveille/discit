@@ -1,11 +1,11 @@
 "use client";
 
-import { DiscCount } from "@components";
+import { DiscCount, IconButton } from "@components";
 import { View } from "@constants";
 import { useAppContext, useQueryString } from "@hooks";
 import Backpack from "@mui/icons-material/Backpack";
 import SearchIcon from "@mui/icons-material/Search";
-import { IconButton, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 
 export const Controls = () => {
 	const { view, setView } = useAppContext();
@@ -15,29 +15,27 @@ export const Controls = () => {
 
 	return (
 		<Stack direction="row" justifyContent="center" alignItems="center" className="controls">
-			<div
-				className={isSearchView ? "selected-view" : ""}
+			<IconButton
+				aria-label="search"
+				className={isSearchView ? "icon-btn-selected" : ""}
 				onClick={() => {
 					setView(View.SEARCH);
 					updateQueryString("view", null);
 				}}
 			>
-				<IconButton aria-label="search">
-					<SearchIcon fontSize="large" />
-				</IconButton>
-			</div>
+				<SearchIcon sx={{ fontSize: "2rem" }} />
+			</IconButton>
 			<DiscCount />
-			<div
-				className={isBagView ? "selected-view" : ""}
+			<IconButton
+				aria-label="bag"
+				className={isBagView ? "icon-btn-selected" : ""}
 				onClick={() => {
 					setView(View.BAG);
 					updateQueryString("view", "bag");
 				}}
 			>
-				<IconButton aria-label="bag">
-					<Backpack fontSize="large" />
-				</IconButton>
-			</div>
+				<Backpack sx={{ fontSize: "2rem" }} />
+			</IconButton>
 		</Stack>
 	);
 };
