@@ -26,6 +26,7 @@ export const BagList = ({ onClose }: BagListProps) => {
 							aria-label="delete"
 							onClick={async e => {
 								e.stopPropagation();
+								onClose();
 								const res = await deleteBag({ bagId: bag.id });
 								if (res.error) {
 									toast.error("Error deleting bag");
@@ -40,8 +41,8 @@ export const BagList = ({ onClose }: BagListProps) => {
 					}
 					className="bag-list-item"
 					onClick={() => {
-						setSelectedBag(bag);
 						onClose();
+						setSelectedBag(bag);
 					}}
 				>
 					<ListItemText

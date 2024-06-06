@@ -106,22 +106,23 @@ h1 {
 .disc-detail {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	text-align: center;
 	border-radius: 50%;
 	width: 100vmin;
 	height: 100vmin;
-	row-gap: 4vmin;
+	row-gap: 2vmin;
+	padding-top: 2vmin;
 }
 
 .disc-detail-name {
-	font-size: 6vmin;
+	font-size: 8vmin;
 	font-weight: 500;
 }
 
 .disc-detail-info {
-	font-size: 3vmin;
+	font-size: 4vmin;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
