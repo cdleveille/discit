@@ -30,7 +30,11 @@ export const DiscGrid = () => {
 		setIsBagListOpen(false);
 	};
 
-	useEffect(() => setNumDiscsToRender(SCROLL_INCREMENT), [filteredDiscs]);
+	const firstDisc = filteredDiscs[0];
+
+	useEffect(() => {
+		setNumDiscsToRender(SCROLL_INCREMENT);
+	}, [filteredDiscs.length, firstDisc]);
 
 	const renderMoreDiscs = () => setNumDiscsToRender(current => current + SCROLL_INCREMENT);
 
