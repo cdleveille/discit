@@ -67,3 +67,8 @@ export const getErrorMessage = (error: unknown) => {
 	}
 	return message;
 };
+
+export const copyToClipboard = (text: string) => {
+	if (!isClient) return;
+	navigator.clipboard.writeText(text);
+};

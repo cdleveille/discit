@@ -10,7 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { hexToRgba } from "@util";
+import { copyToClipboard, hexToRgba } from "@util";
 
 import type { DiscDetailProps } from "@types";
 export const DiscDetail = ({ disc }: DiscDetailProps) => {
@@ -44,13 +44,21 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 	const isDiscInBag = selectedBag?.discs.includes(id) ?? false;
 
 	return (
-		<div className="disc-detail" style={{ color, backgroundColor, border: `1.5vmin solid ${borderColor}` }}>
+		<div
+			className="disc-detail"
+			style={{ color, backgroundColor, border: `1.5vmin solid ${borderColor}` }}
+			onClick={() => {
+				copyToClipboard(window.location.href);
+				toast.success("Copied link");
+			}}
+		>
 			{isSignedIn &&
 				selectedBag &&
 				(isDiscInBag ? (
 					<IconButton
 						aria-label="remove"
-						onClick={async () => {
+						onClick={async e => {
+							e.stopPropagation();
 							const res = await removeDiscFromBag({ bagId: selectedBag.id, discId: disc.id });
 							if (res.error) {
 								toast.error("Error removing disc from bag");
@@ -65,7 +73,8 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 				) : (
 					<IconButton
 						aria-label="add"
-						onClick={async () => {
+						onClick={async e => {
+							e.stopPropagation();
 							const res = await addDiscToBag({ bagId: selectedBag.id, discId: disc.id });
 							if (res.error) {
 								toast.error("Error adding disc to bag");
@@ -96,7 +105,10 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 			)}
 			<IconButton
 				aria-label="previous"
-				onClick={showPreviousDisc}
+				onClick={e => {
+					e.stopPropagation();
+					showPreviousDisc();
+				}}
 				onKey={{ keyCode: "ArrowLeft", action: showPreviousDisc }}
 				disabled={!previousDisc}
 				className="absolute-centered-vertically"
@@ -106,7 +118,10 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 			</IconButton>
 			<IconButton
 				aria-label="next"
-				onClick={showNextDisc}
+				onClick={e => {
+					e.stopPropagation();
+					showNextDisc();
+				}}
 				onKey={{ keyCode: "ArrowRight", action: showNextDisc }}
 				disabled={!nextDisc}
 				className="absolute-centered-vertically"

@@ -116,6 +116,10 @@ h1 {
 	padding-top: 2vmin;
 }
 
+.disc-detail:hover {
+	cursor: pointer;
+}
+
 .disc-detail-name {
 	font-size: 8vmin;
 	font-weight: 500;
