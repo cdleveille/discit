@@ -40,4 +40,8 @@ export type IconButtonProps = {
 	isSolid?: boolean;
 	isSelected?: boolean;
 	className?: string;
+	onKey?: {
+		keyCode: string;
+		action: () => void;
+	};
 };

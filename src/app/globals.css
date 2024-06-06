@@ -185,6 +185,15 @@ h1 {
 	transform: translateX(-50%) translateY(-50%);
 }
 
+.absolute-centered-vertically {
+	position: absolute;
+	top: 50%;
+	-moz-transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
 .disabled {
 	pointer-events: none;
 }

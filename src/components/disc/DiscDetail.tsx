@@ -7,17 +7,22 @@ import { useAuth } from "@clerk/nextjs";
 import { IconButton } from "@components";
 import { useApi, useAppContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { hexToRgba } from "@util";
 
 import type { DiscDetailProps } from "@types";
-
 export const DiscDetail = ({ disc }: DiscDetailProps) => {
 	const { isSignedIn } = useAuth();
-	const { selectedBag } = useAppContext();
-	const { isLoading, error, addDiscToBag, removeDiscFromBag } = useApi();
+	const { filteredDiscs, selectedBag, showDiscDetailModal } = useAppContext();
+	const { isLoading, addDiscToBag, removeDiscFromBag } = useApi();
 
-	if (!disc) return null;
+	const previousDisc = filteredDiscs[filteredDiscs.indexOf(disc) - 1];
+	const nextDisc = filteredDiscs[filteredDiscs.indexOf(disc) + 1];
+
+	const showPreviousDisc = () => previousDisc && showDiscDetailModal(previousDisc);
+	const showNextDisc = () => nextDisc && showDiscDetailModal(nextDisc);
 
 	const {
 		id,
@@ -89,6 +94,26 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 					<Image src={pic} alt={name} width={400} height={340} className="disc-detail-img" />
 				</div>
 			)}
+			<IconButton
+				aria-label="previous"
+				onClick={showPreviousDisc}
+				onKey={{ keyCode: "ArrowLeft", action: showPreviousDisc }}
+				disabled={!previousDisc}
+				className="absolute-centered-vertically"
+				style={{ left: "3vmin" }}
+			>
+				<NavigateBeforeIcon sx={{ fontSize: "2rem" }} />
+			</IconButton>
+			<IconButton
+				aria-label="next"
+				onClick={showNextDisc}
+				onKey={{ keyCode: "ArrowRight", action: showNextDisc }}
+				disabled={!nextDisc}
+				className="absolute-centered-vertically"
+				style={{ right: "3vmin" }}
+			>
+				<NavigateNextIcon sx={{ fontSize: "2rem" }} />
+			</IconButton>
 		</div>
 	);
 };
