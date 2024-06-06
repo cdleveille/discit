@@ -51,7 +51,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 								toast.error("Error removing disc from bag");
 								return;
 							}
-							toast.success(`${name} removed from ${selectedBag.name}`);
+							toast.success(`Removed ${name} from ${selectedBag.name}`);
 						}}
 						disabled={isLoading}
 					>
@@ -66,7 +66,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 								toast.error("Error adding disc to bag");
 								return;
 							}
-							toast.success(`${name} added to ${selectedBag.name}`);
+							toast.success(`Added ${name} to ${selectedBag.name}`);
 						}}
 						disabled={isLoading}
 					>

@@ -8,18 +8,15 @@ export const useQueryString = () => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 
-	const createQueryString = useCallback(
-		(name: string, value?: string | null) => {
+	const updateQueryString = useCallback(
+		(key: string, value: string | null) => {
 			const params = new URLSearchParams(searchParams.toString());
-			if (value) params.set(name, value);
-			else params.delete(name);
-			return params.toString();
+			if (value) params.set(key, value);
+			else params.delete(key);
+			router.replace(pathname + "?" + params.toString(), { scroll: false });
 		},
-		[searchParams]
+		[pathname, router, searchParams]
 	);
-
-	const updateQueryString = (key: string, value?: string | null) =>
-		router.replace(pathname + "?" + createQueryString(key, value), { scroll: false });
 
 	return { updateQueryString };
 };

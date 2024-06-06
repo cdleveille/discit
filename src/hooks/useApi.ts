@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { log } from "@services";
 import * as API from "@services/api";
@@ -22,11 +22,11 @@ import type {
  */
 export const useApi = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState("");
+	const [error, setError] = useState<string | null>(null);
 
-	const asyncWrapper = async <T = unknown>(op: () => Promise<T>) => {
+	const asyncTemplate = useCallback(async <T>(op: () => Promise<T>) => {
 		try {
-			setError("");
+			setError(null);
 			setIsLoading(true);
 			const res = (await op()) as T & ApiErrorUnknown;
 			if (res.error) throw res.error;
@@ -39,17 +39,28 @@ export const useApi = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	};
+	}, []);
 
-	const createBag = ({ userId, bagName }: CreateBagParams) => asyncWrapper(() => API.createBag({ userId, bagName }));
+	const createBag = useCallback(
+		async ({ userId, bagName }: CreateBagParams) => asyncTemplate(() => API.createBag({ userId, bagName })),
+		[asyncTemplate]
+	);
 
-	const addDiscToBag = ({ bagId, discId }: AddDiscToBagParams) =>
-		asyncWrapper(() => API.addDiscToBag({ bagId, discId }));
+	const addDiscToBag = useCallback(
+		async ({ bagId, discId }: AddDiscToBagParams) => asyncTemplate(() => API.addDiscToBag({ bagId, discId })),
+		[asyncTemplate]
+	);
 
-	const removeDiscFromBag = ({ bagId, discId }: RemoveDiscFromBagParams) =>
-		asyncWrapper(() => API.removeDiscFromBag({ bagId, discId }));
+	const removeDiscFromBag = useCallback(
+		async ({ bagId, discId }: RemoveDiscFromBagParams) =>
+			asyncTemplate(() => API.removeDiscFromBag({ bagId, discId })),
+		[asyncTemplate]
+	);
 
-	const deleteBag = ({ bagId }: DeleteBagParams) => asyncWrapper(() => API.deleteBag({ bagId }));
+	const deleteBag = useCallback(
+		async ({ bagId }: DeleteBagParams) => asyncTemplate(() => API.deleteBag({ bagId })),
+		[asyncTemplate]
+	);
 
 	return { isLoading, error, setError, createBag, addDiscToBag, removeDiscFromBag, deleteBag };
 };
