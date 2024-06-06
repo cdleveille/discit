@@ -1,7 +1,7 @@
-import { url } from "inspector";
 import { Metadata, Viewport } from "next";
 
 import type { FilterValues, FiltersEnabled } from "@types";
+
 export enum RequestMethod {
 	GET = "GET",
 	POST = "POST",
