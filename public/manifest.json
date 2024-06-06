@@ -2,81 +2,69 @@
   "name": "DiscIt",
   "short_name": "DiscIt",
   "description": "A responsive disc golf disc search engine.",
-  "start_url": "/",
-  "scope": "/",
   "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
+  "start_url": "/",
+  "orientation": "any",
   "icons": [
     {
-      "src": "/icons/icon512-maskable.png",
+      "src": "/img/icon512-maskable.png",
       "sizes": "512x512",
-      "type": "maskable"
+      "purpose": "maskable"
     },
     {
-      "src": "/icons/icon512.png",
-      "sizes": "512x512",
-      "type": "any"
+      "src": "/img/icon512.png",
+      "sizes": "512x512"
     },
     {
-      "src": "/icons/icon384.png",
-      "sizes": "384x384",
-      "type": "any"
+      "src": "/img/icon384.png",
+      "sizes": "384x384"
     },
     {
-      "src": "/icons/icon256.png",
-      "sizes": "256x256",
-      "type": "any"
+      "src": "/img/icon256.png",
+      "sizes": "256x256"
     },
     {
-      "src": "/icons/icon192-maskable.png",
+      "src": "/img/icon192-maskable.png",
       "sizes": "192x192",
-      "type": "maskable"
+      "purpose": "maskable"
     },
     {
-      "src": "/icons/icon192.png",
-      "sizes": "192x192",
-      "type": "any"
+      "src": "/img/icon192.png",
+      "sizes": "192x192"
     },
     {
-      "src": "/icons/apple-icon.png",
-      "sizes": "180x180",
-      "type": "any"
+      "src": "/img/apple-icon.png",
+      "sizes": "180x180"
     },
     {
-      "src": "/icons/icon152.png",
-      "sizes": "152x152",
-      "type": "any"
+      "src": "/img/icon152.png",
+      "sizes": "152x152"
     },
     {
-      "src": "/icons/icon144.png",
-      "sizes": "144x144",
-      "type": "any"
+      "src": "/img/icon144.png",
+      "sizes": "144x144"
     },
     {
-      "src": "/icons/icon128.png",
-      "sizes": "128x128",
-      "type": "any"
+      "src": "/img/icon128.png",
+      "sizes": "128x128"
     },
     {
-      "src": "/icons/icon96.png",
-      "sizes": "96x96",
-      "type": "any"
+      "src": "/img/icon96.png",
+      "sizes": "96x96"
     },
     {
-      "src": "/icons/icon72.png",
-      "sizes": "72x72",
-      "type": "any"
+      "src": "/img/icon72.png",
+      "sizes": "72x72"
     },
     {
-      "src": "/icons/icon32.png",
-      "sizes": "32x32",
-      "type": "any"
+      "src": "/img/icon32.png",
+      "sizes": "32x32"
     },
     {
-      "src": "/icons/icon16.png",
-      "sizes": "16x16",
-      "type": "any"
+      "src": "/img/icon16.png",
+      "sizes": "16x16"
     }
   ]
 }
