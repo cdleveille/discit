@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import useInfiniteScroll from "react-infinite-scroll-hook";
 
 import { useAuth } from "@clerk/nextjs";
 import { BagList, Disc, IconButton } from "@components";
@@ -23,30 +24,29 @@ export const DiscGrid = () => {
 		setAnchorEl(event.currentTarget);
 		setIsBagListOpen(true);
 	};
+
 	const handleBagListClose = () => {
 		setAnchorEl(null);
 		setIsBagListOpen(false);
 	};
 
-	useEffect(() => {
-		const discGrid = document.getElementById("disc-grid");
-		const renderMoreDiscsIfAtBottom = () => {
-			if (!discGrid) return;
-			const scrollDiff =
-				discGrid.offsetTop + discGrid.clientHeight - window.innerHeight - document.documentElement.scrollTop;
-			if (scrollDiff <= 1 && numDiscsToRender < filteredDiscs.length) renderMoreDiscs();
-		};
-		window.addEventListener("scroll", renderMoreDiscsIfAtBottom);
-		return () => window.removeEventListener("scroll", renderMoreDiscsIfAtBottom);
-	}, [filteredDiscs.length, numDiscsToRender]);
-
 	useEffect(() => setNumDiscsToRender(SCROLL_INCREMENT), [filteredDiscs]);
 
 	const renderMoreDiscs = () => setNumDiscsToRender(current => current + SCROLL_INCREMENT);
 
+	const hasMoreDiscsToRender = numDiscsToRender < filteredDiscs.length;
+
 	const discsToRender = filteredDiscs.slice(0, numDiscsToRender);
 
 	const isBagView = view === View.BAG;
+
+	const [sentryRef] = useInfiniteScroll({
+		loading: false,
+		hasNextPage: hasMoreDiscsToRender,
+		disabled: !hasMoreDiscsToRender,
+		onLoadMore: renderMoreDiscs,
+		rootMargin: "0px 0px 16px 0px"
+	});
 
 	if (isBagView && !selectedBag) {
 		const innerHtml = !isSignedIn ? (
@@ -85,11 +85,14 @@ export const DiscGrid = () => {
 						{filteredDiscs.length === 0 && <div className="disc-grid-bag">No discs added yet</div>}
 					</>
 				)}
-				<div id="disc-grid">
-					{discsToRender.map(disc => (
-						<Disc key={disc.id} disc={disc} />
-					))}
-				</div>
+				<>
+					<div id="disc-grid">
+						{discsToRender.map(disc => (
+							<Disc key={disc.id} disc={disc} />
+						))}
+					</div>
+					{hasMoreDiscsToRender && <div ref={sentryRef}></div>}
+				</>
 			</Stack>
 			<Popover
 				open={isBagListOpen}
