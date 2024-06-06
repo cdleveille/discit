@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -15,8 +14,7 @@ export const NewBag = ({ onComplete }: NewBagProps) => {
 	const [name, setName] = useState("");
 
 	const { isLoading, createBag, error, setError } = useApi();
-
-	const { isSignedIn, userId } = useAuth();
+	const { userId } = useAuth();
 
 	const inputRef = useRef<HTMLInputElement>();
 
@@ -34,16 +32,13 @@ export const NewBag = ({ onComplete }: NewBagProps) => {
 		setName(name);
 	};
 
-	if (!isSignedIn)
-		return (
-			<div className="disc-grid-bag">
-				Please <Link href={`/sign-in?redirect=${encodeURI("/bag/new")}`}>sign in</Link> to add a new bag
-			</div>
-		);
-
 	return (
 		<form
 			action={async () => {
+				if (!userId) {
+					setError("You must be signed in to add a new bag");
+					return;
+				}
 				const res = await createBag({ userId, bagName: name });
 				if (res.error) return;
 				onComplete();

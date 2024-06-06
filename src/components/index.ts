@@ -13,3 +13,4 @@ export * from "./misc/Modal";
 export * from "./misc/ScrollToTop";
 export * from "./user/Auth";
 export * from "./user/Settings";
+export * from "./user/SettingsButton";
