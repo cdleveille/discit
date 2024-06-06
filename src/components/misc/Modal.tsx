@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 
+import { IconButton } from "@components";
 import CloseIcon from "@mui/icons-material/Close";
-import { IconButton, Modal as MuiModal, Zoom } from "@mui/material";
+import { Modal as MuiModal, Zoom } from "@mui/material";
 
 import type { ModalProps } from "@types";
 
@@ -33,11 +34,14 @@ export const Modal = ({ children, open, onClose, showCloseBtn }: ModalProps) => 
 				<Zoom in={isZoomed}>
 					<div style={{ position: "relative", borderRadius: "50%", outline: "none" }}>
 						{showCloseBtn && (
-							<div style={{ position: "absolute", top: "0.75rem", right: "0.75rem", zIndex: 1000 }}>
-								<IconButton aria-label="close" onClick={onRequestClose}>
-									<CloseIcon fontSize="large" />
-								</IconButton>
-							</div>
+							<IconButton
+								aria-label="close"
+								onClick={onRequestClose}
+								style={{ position: "absolute", top: "0.75rem", right: "0.75rem", zIndex: 1000 }}
+								isTransparent
+							>
+								<CloseIcon fontSize="large" />
+							</IconButton>
 						)}
 						{children}
 					</div>
