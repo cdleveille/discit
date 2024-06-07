@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import { useAuth } from "@clerk/nextjs";
-import { BagForm, DiscDetail, Modal, Settings, SignIn } from "@components";
+import { BagDelete, BagForm, DiscDetail, Modal, Settings, SignIn } from "@components";
 import { INITIAL_FILTER_VALUES, INITIAL_FILTERS_ENABLED, View } from "@constants";
 import { AppContext } from "@contexts";
 import { useApi, useQueryString } from "@hooks";
@@ -12,7 +12,6 @@ import AddIcon from "@mui/icons-material/Add";
 import CheckIcon from "@mui/icons-material/Check";
 
 import type { AppContextProviderProps, Bag, Disc, ModalProps, ViewOption } from "@types";
-
 export const AppContextProvider = ({
 	children,
 	discs: _discs,
@@ -34,7 +33,7 @@ export const AppContextProvider = ({
 	const [view, setView] = useState<ViewOption>(initialView ?? View.SEARCH);
 
 	const { userId } = useAuth();
-	const { createBag, editBagName } = useApi();
+	const { createBag, editBagName, deleteBag } = useApi();
 	const { updateQueryString } = useQueryString();
 
 	useEffect(() => {
@@ -44,9 +43,7 @@ export const AppContextProvider = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userId]);
 
-	useEffect(() => {
-		setBags(_bags);
-	}, [_bags]);
+	useEffect(() => setBags(_bags), [_bags]);
 
 	const onModalClose = () => {
 		setModalContent(null);
@@ -96,8 +93,27 @@ export const AppContextProvider = ({
 					onModalClose();
 					const res = await editBagName({ bagId, bagName });
 					if (res.error) return;
-					toast.success(`Saved ${res.name}`);
+					toast.success(`Renamed to ${res.name}`);
 					setSelectedBag(res);
+				}}
+			/>
+		);
+	};
+
+	const showBagDeleteModal = (bag: Bag) => {
+		setModalProps({ showCloseBtn: true });
+		setModalContent(
+			<BagDelete
+				bag={bag}
+				onSubmit={async () => {
+					onModalClose();
+					const selectedBagDeleted = selectedBag?.id === bag.id;
+					const deletedBagIndex = bags.indexOf(bag);
+					const res = await deleteBag({ bagId: bag.id });
+					if (res.error) return toast.error("Error deleting bag");
+					toast.success(`Deleted ${bag.name}`);
+					if (selectedBagDeleted)
+						setSelectedBag(bags[deletedBagIndex - 1] ?? bags[deletedBagIndex + 1] ?? null);
 				}}
 			/>
 		);
@@ -132,6 +148,7 @@ export const AppContextProvider = ({
 				showDiscDetailModal,
 				showNewBagModal,
 				showEditBagModal,
+				showBagDeleteModal,
 				showSettingsModal,
 				view,
 				setView

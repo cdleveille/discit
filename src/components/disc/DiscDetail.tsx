@@ -59,10 +59,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 						aria-label="remove"
 						onClick={async () => {
 							const res = await removeDiscFromBag({ bagId: selectedBag.id, discId: disc.id });
-							if (res.error) {
-								toast.error("Error removing disc from bag");
-								return;
-							}
+							if (res.error) return toast.error("Error removing disc from bag");
 							toast.success(`Removed ${name} from ${selectedBag.name}`);
 						}}
 						disabled={isLoading}
@@ -74,10 +71,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 						aria-label="add"
 						onClick={async () => {
 							const res = await addDiscToBag({ bagId: selectedBag.id, discId: disc.id });
-							if (res.error) {
-								toast.error("Error adding disc to bag");
-								return;
-							}
+							if (res.error) return toast.error("Error adding disc to bag");
 							toast.success(`Added ${name} to ${selectedBag.name}`);
 						}}
 						disabled={isLoading}

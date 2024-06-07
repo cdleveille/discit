@@ -35,6 +35,11 @@ export type BagFormProps = {
 	onComplete: (args: { userId: string; bagName: string }) => void;
 };
 
+export type BagDeleteProps = {
+	bag: Bag;
+	onSubmit: () => void;
+};
+
 export type BagListProps = {
 	onClose: () => void;
 };

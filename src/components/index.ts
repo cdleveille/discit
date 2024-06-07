@@ -1,3 +1,4 @@
+export * from "./bag/BagDelete";
 export * from "./bag/BagForm";
 export * from "./bag/BagList";
 export * from "./context/AppContextProvider";
