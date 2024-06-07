@@ -56,6 +56,7 @@ export type AppContext = {
 	showSignInModal: () => void;
 	showDiscDetailModal: (disc: Disc) => void;
 	showNewBagModal: () => void;
+	showEditBagModal: (bag: Bag) => void;
 	showSettingsModal: () => void;
 	view: ViewOption;
 	setView: Dispatch<SetStateAction<ViewOption>>;

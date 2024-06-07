@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 import { useAuth } from "@clerk/nextjs";
-import { DiscDetail, Modal, NewBag, Settings, SignIn } from "@components";
+import { BagForm, DiscDetail, Modal, Settings, SignIn } from "@components";
 import { INITIAL_FILTER_VALUES, INITIAL_FILTERS_ENABLED, View } from "@constants";
 import { AppContext } from "@contexts";
-import { useQueryString } from "@hooks";
+import { useApi, useQueryString } from "@hooks";
+import AddIcon from "@mui/icons-material/Add";
+import CheckIcon from "@mui/icons-material/Check";
 
 import type { AppContextProviderProps, Bag, Disc, ModalProps, ViewOption } from "@types";
 
@@ -20,7 +23,7 @@ export const AppContextProvider = ({
 	const initialDisc = initialDiscSlug ? _discs.find(disc => disc.name_slug === initialDiscSlug) ?? null : null;
 
 	const [discs, setDiscs] = useState(_discs);
-	const [filteredDiscs, setFilteredDiscs] = useState(_discs);
+	const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>(initialView === View.BAG ? [] : _discs);
 
 	const [bags, setBags] = useState<Bag[]>([]);
 	const [selectedBag, setSelectedBag] = useState<Bag | null>(null);
@@ -31,16 +34,19 @@ export const AppContextProvider = ({
 	const [view, setView] = useState<ViewOption>(initialView ?? View.SEARCH);
 
 	const { userId } = useAuth();
+	const { createBag, editBagName } = useApi();
 	const { updateQueryString } = useQueryString();
 
 	useEffect(() => {
 		const userBags = userId ? _bags.filter(({ user_id }) => user_id === userId) : [];
 		setBags(userBags);
-	}, [userId, _bags]);
+		setSelectedBag(userBags[0] ?? null);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [userId]);
 
 	useEffect(() => {
-		setSelectedBag(bags[bags.length - 1] ?? null);
-	}, [bags]);
+		setBags(_bags);
+	}, [_bags]);
 
 	const onModalClose = () => {
 		setModalContent(null);
@@ -62,7 +68,39 @@ export const AppContextProvider = ({
 
 	const showNewBagModal = () => {
 		setModalProps({ showCloseBtn: true });
-		setModalContent(<NewBag onComplete={onModalClose} />);
+		setModalContent(
+			<BagForm
+				title="New Bag"
+				submitLabel="Add"
+				endIcon={<AddIcon />}
+				onComplete={async ({ userId, bagName }) => {
+					onModalClose();
+					const res = await createBag({ userId, bagName });
+					if (res.error) return;
+					toast.success(`Added ${res.name}`);
+					setSelectedBag(res);
+				}}
+			/>
+		);
+	};
+
+	const showEditBagModal = ({ id: bagId, name }: Bag) => {
+		setModalProps({ showCloseBtn: true });
+		setModalContent(
+			<BagForm
+				title="Edit Bag"
+				initialName={name}
+				submitLabel="Save"
+				endIcon={<CheckIcon />}
+				onComplete={async ({ bagName }) => {
+					onModalClose();
+					const res = await editBagName({ bagId, bagName });
+					if (res.error) return;
+					toast.success(`Saved ${res.name}`);
+					setSelectedBag(res);
+				}}
+			/>
+		);
 	};
 
 	const showSettingsModal = () => {
@@ -93,6 +131,7 @@ export const AppContextProvider = ({
 				showSignInModal,
 				showDiscDetailModal,
 				showNewBagModal,
+				showEditBagModal,
 				showSettingsModal,
 				view,
 				setView

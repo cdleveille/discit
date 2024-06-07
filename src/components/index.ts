@@ -1,5 +1,5 @@
+export * from "./bag/BagForm";
 export * from "./bag/BagList";
-export * from "./bag/NewBag";
 export * from "./context/AppContextProvider";
 export * from "./disc/Disc";
 export * from "./disc/DiscCount";

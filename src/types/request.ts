@@ -20,6 +20,11 @@ export type CreateBagParams = {
 	bagName: string;
 };
 
+export type EditBagNameParams = {
+	bagId: string;
+	bagName: string;
+};
+
 export type AddDiscToBagParams = {
 	bagId: string;
 	discId: string;

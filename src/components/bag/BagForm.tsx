@@ -1,19 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
 
 import { useAuth } from "@clerk/nextjs";
 import { useApi } from "@hooks";
-import AddIcon from "@mui/icons-material/Add";
-import { Button, Stack, TextField } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
+import { Button, IconButton, Stack, TextField } from "@mui/material";
 
-import type { NewBagProps } from "@types";
+import type { BagFormProps } from "@types";
+export const BagForm = ({ title, initialName, submitLabel = "Submit", endIcon, onComplete }: BagFormProps) => {
+	const [name, setName] = useState(initialName ?? "");
 
-export const NewBag = ({ onComplete }: NewBagProps) => {
-	const [name, setName] = useState("");
-
-	const { isLoading, createBag, error, setError } = useApi();
+	const { isLoading, error, setError } = useApi();
 	const { userId } = useAuth();
 
 	const inputRef = useRef<HTMLInputElement>();
@@ -34,19 +32,13 @@ export const NewBag = ({ onComplete }: NewBagProps) => {
 
 	return (
 		<form
-			action={async () => {
-				if (!userId) {
-					setError("You must be signed in to add a new bag");
-					return;
-				}
-				const res = await createBag({ userId, bagName: name });
-				if (res.error) return;
-				onComplete();
-				toast.success(`Added ${name}`);
+			action={() => {
+				if (!userId) return setError("Please sign in to manage bags");
+				onComplete({ userId, bagName: name });
 			}}
 		>
 			<Stack className="form" justifyContent="center" alignItems="center" spacing="3rem">
-				<div className="form-title">New Bag</div>
+				<div className="form-title">{title}</div>
 				<div
 					style={{
 						width: "100%",
@@ -69,6 +61,16 @@ export const NewBag = ({ onComplete }: NewBagProps) => {
 							autoFocus
 							spellCheck={false}
 							inputRef={inputRef}
+							InputProps={{
+								endAdornment: (
+									<IconButton
+										sx={{ visibility: name ? "visible" : "hidden" }}
+										onClick={() => setName("")}
+									>
+										<ClearIcon />
+									</IconButton>
+								)
+							}}
 						/>
 					</div>
 					<div className="error" style={{ height: "1.25rem" }}>
@@ -78,12 +80,12 @@ export const NewBag = ({ onComplete }: NewBagProps) => {
 				<Button
 					size="large"
 					variant="contained"
-					endIcon={<AddIcon />}
+					endIcon={endIcon}
 					sx={{ fontSize: "1.25rem", padding: "0.5rem 2rem" }}
 					disabled={name.length === 0 || isLoading}
 					type="submit"
 				>
-					Add
+					{submitLabel}
 				</Button>
 			</Stack>
 		</form>

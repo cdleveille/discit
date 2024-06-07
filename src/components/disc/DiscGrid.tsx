@@ -8,8 +8,8 @@ import { BagList, Disc, IconButton } from "@components";
 import { SCROLL_INCREMENT, View } from "@constants";
 import { useAppContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import ArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { Popover, Stack, Zoom } from "@mui/material";
 
 export const DiscGrid = () => {
@@ -82,9 +82,8 @@ export const DiscGrid = () => {
 				{isBagView && (
 					<>
 						<Stack direction="row" className="bag-list-dropdown" onClick={handleBagListClick}>
-							<ArrowDropUpIcon sx={{ visibility: "hidden" }} />
+							{isBagListOpen ? <ArrowDownIcon /> : <ArrowRightIcon />}
 							<div>{selectedBag?.name}</div>
-							{isBagListOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
 						</Stack>
 						{filteredDiscs.length === 0 && <div className="disc-grid-bag">No discs added yet</div>}
 					</>

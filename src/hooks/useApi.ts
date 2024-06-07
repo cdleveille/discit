@@ -7,12 +7,13 @@ import * as API from "@services/api";
 import { getErrorMessage } from "@util";
 
 import type {
-	ApiError,
 	AddDiscToBagParams,
+	ApiError,
+	ApiErrorUnknown,
 	CreateBagParams,
 	DeleteBagParams,
-	RemoveDiscFromBagParams,
-	ApiErrorUnknown
+	EditBagNameParams,
+	RemoveDiscFromBagParams
 } from "@types";
 
 /**
@@ -24,7 +25,7 @@ export const useApi = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const asyncTemplate = useCallback(async <T>(op: () => Promise<T>) => {
+	const asyncTemplate = useCallback(async <T = unknown>(op: () => Promise<T>) => {
 		try {
 			setError(null);
 			setIsLoading(true);
@@ -46,6 +47,11 @@ export const useApi = () => {
 		[asyncTemplate]
 	);
 
+	const editBagName = useCallback(
+		async ({ bagId, bagName }: EditBagNameParams) => asyncTemplate(() => API.editBagName({ bagId, bagName })),
+		[asyncTemplate]
+	);
+
 	const addDiscToBag = useCallback(
 		async ({ bagId, discId }: AddDiscToBagParams) => asyncTemplate(() => API.addDiscToBag({ bagId, discId })),
 		[asyncTemplate]
@@ -62,5 +68,5 @@ export const useApi = () => {
 		[asyncTemplate]
 	);
 
-	return { isLoading, error, setError, createBag, addDiscToBag, removeDiscFromBag, deleteBag };
+	return { isLoading, error, setError, createBag, editBagName, addDiscToBag, removeDiscFromBag, deleteBag };
 };

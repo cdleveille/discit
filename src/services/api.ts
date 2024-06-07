@@ -6,26 +6,27 @@ import { RequestMethod } from "@constants";
 import { config } from "@services";
 
 import type {
-	CreateBagParams,
 	AddDiscToBagParams,
-	RemoveDiscFromBagParams,
-	DeleteBagParams,
-	RequestParams,
 	Bag,
+	CreateBagParams,
+	DeleteBagParams,
 	Disc,
-	GetBagParams
+	EditBagNameParams,
+	GetBagParams,
+	RemoveDiscFromBagParams,
+	RequestParams
 } from "@types";
 
 export const getDiscs = async () =>
 	requestJson<Disc[]>({
-		path: "disc",
+		path: "/disc",
 		method: RequestMethod.GET,
 		tags: ["disc"]
 	});
 
 export const getBags = async ({ userId }: GetBagParams) =>
 	requestJson<Bag[]>({
-		path: `bag${userId ? `?user_id=${userId}` : ""}`,
+		path: `/bag${userId ? `?user_id=${userId}` : ""}`,
 		method: RequestMethod.GET,
 		tags: ["bag"]
 	});
@@ -33,9 +34,19 @@ export const getBags = async ({ userId }: GetBagParams) =>
 export const createBag = async ({ userId, bagName }: CreateBagParams) => {
 	revalidateTag("bag");
 	return requestJson<Bag>({
-		path: "bag/create",
+		path: "/bag/create",
 		method: RequestMethod.POST,
 		body: { user_id: userId, name: bagName },
+		cache: "no-cache"
+	});
+};
+
+export const editBagName = async ({ bagId, bagName }: EditBagNameParams) => {
+	revalidateTag("bag");
+	return requestJson<Bag>({
+		path: "/bag/update-name",
+		method: RequestMethod.PUT,
+		body: { id: bagId, name: bagName },
 		cache: "no-cache"
 	});
 };
@@ -43,7 +54,7 @@ export const createBag = async ({ userId, bagName }: CreateBagParams) => {
 export const addDiscToBag = async ({ bagId, discId }: AddDiscToBagParams) => {
 	revalidateTag("bag");
 	return requestJson<Bag>({
-		path: "bag/add-disc",
+		path: "/bag/add-disc",
 		method: RequestMethod.PUT,
 		body: { id: bagId, disc_id: discId },
 		cache: "no-cache"
@@ -53,7 +64,7 @@ export const addDiscToBag = async ({ bagId, discId }: AddDiscToBagParams) => {
 export const removeDiscFromBag = async ({ bagId, discId }: RemoveDiscFromBagParams) => {
 	revalidateTag("bag");
 	return requestJson<Bag>({
-		path: "bag/remove-disc",
+		path: "/bag/remove-disc",
 		method: RequestMethod.PUT,
 		body: { id: bagId, disc_id: discId },
 		cache: "no-cache"
@@ -63,14 +74,14 @@ export const removeDiscFromBag = async ({ bagId, discId }: RemoveDiscFromBagPara
 export const deleteBag = async ({ bagId }: DeleteBagParams) => {
 	revalidateTag("bag");
 	return requestJson<Bag>({
-		path: `bag/delete/${bagId}`,
+		path: `/bag/delete/${bagId}`,
 		method: RequestMethod.DELETE,
 		cache: "no-cache"
 	});
 };
 
 const request = ({ path, method, body, tags, cache = "force-cache" }: RequestParams) =>
-	fetch(`${config.API_URL}/${path}`, {
+	fetch(`${config.API_URL}${path}`, {
 		method,
 		headers: { Authorization: `Bearer ${config.API_KEY}` },
 		body: JSON.stringify(body),

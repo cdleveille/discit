@@ -232,6 +232,7 @@ h1 {
 }
 
 .bag-list-dropdown {
+	padding-right: 0.5rem;
 	padding-top: 0.85rem;
 	font-size: 1.25rem;
 	font-weight: 500;

@@ -27,8 +27,12 @@ export type ModalProps = {
 	showCloseBtn?: boolean;
 };
 
-export type NewBagProps = {
-	onComplete: () => void;
+export type BagFormProps = {
+	title: string;
+	initialName?: string;
+	submitLabel?: string;
+	endIcon?: React.ReactNode;
+	onComplete: (args: { userId: string; bagName: string }) => void;
 };
 
 export type BagListProps = {
