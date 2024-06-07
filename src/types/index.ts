@@ -46,7 +46,6 @@ export type AppContext = {
 	filteredDiscs: Disc[];
 	setFilteredDiscs: Dispatch<SetStateAction<Disc[]>>;
 	bags: Bag[];
-	setBags: Dispatch<SetStateAction<Bag[]>>;
 	selectedBag: Bag | null;
 	setSelectedBag: Dispatch<SetStateAction<Bag | null>>;
 	filterValues: FilterValues;

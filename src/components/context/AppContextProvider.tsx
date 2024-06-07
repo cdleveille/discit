@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-import { useAuth } from "@clerk/nextjs";
 import { BagDelete, BagForm, DiscDetail, Modal, Settings, SignIn } from "@components";
 import { INITIAL_FILTER_VALUES, INITIAL_FILTERS_ENABLED, View } from "@constants";
 import { AppContext } from "@contexts";
@@ -12,10 +11,11 @@ import AddIcon from "@mui/icons-material/Add";
 import SaveIcon from "@mui/icons-material/Save";
 
 import type { AppContextProviderProps, Bag, Disc, ModalProps, ViewOption } from "@types";
+
 export const AppContextProvider = ({
 	children,
 	discs: _discs,
-	bags: _bags,
+	bags,
 	initialView,
 	initialDiscSlug
 }: AppContextProviderProps) => {
@@ -23,45 +23,29 @@ export const AppContextProvider = ({
 
 	const [discs, setDiscs] = useState(_discs);
 	const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>(initialView === View.BAG ? [] : _discs);
-
-	const [bags, setBags] = useState<Bag[]>([]);
-	const [selectedBag, setSelectedBag] = useState<Bag | null>(null);
-
+	const [selectedBag, setSelectedBag] = useState<Bag | null>(bags[0] ?? null);
 	const [filterValues, setFilterValues] = useState(INITIAL_FILTER_VALUES);
 	const [filtersEnabled, setFiltersEnabled] = useState(INITIAL_FILTERS_ENABLED);
-
 	const [view, setView] = useState<ViewOption>(initialView ?? View.SEARCH);
 
-	const { userId } = useAuth();
 	const { createBag, editBagName, deleteBag } = useApi();
 	const { updateQueryString } = useQueryString();
 
-	const { _bags: bagsPrevious } = usePrevious({ _bags, selectedBag }) ?? {};
+	const { bags: bagsPrevious } = usePrevious({ bags }) ?? {};
 
 	useEffect(() => {
-		if (!userId || !_bags || _bags.length === 0) {
-			setBags([]);
-			setSelectedBag(null);
-			return;
-		}
-		const userBags = _bags.filter(({ user_id }) => user_id === userId);
-		const userBagsPrevious = bagsPrevious?.filter(({ user_id }) => user_id === userId);
-		setBags(userBags);
-		if (
-			userBags.length <= 1 ||
-			!selectedBag ||
-			!userBagsPrevious ||
-			userBagsPrevious.length === 0 ||
-			userBags.length < userBagsPrevious.length
-		) {
-			// <=1 bags OR removed a bag: set selected bag to first bag, else null
-			setSelectedBag(userBags[0] ?? null);
-		} else if (userBags.length > userBagsPrevious.length) {
-			// added a bag: set selected bag to last bag
-			setSelectedBag(userBags[userBags.length - 1] ?? null);
+		if (bags.length <= 1 || !selectedBag || !bagsPrevious || bagsPrevious.length === 0) {
+			// <=1 bags left: select first bag, else null
+			setSelectedBag(bags[0] ?? null);
+		} else if (bags.length > bagsPrevious.length) {
+			// added a bag: select last bag
+			setSelectedBag(bags[bags.length - 1]);
+		} else if (bags.length < bagsPrevious.length) {
+			// removed the selected bag: select first bag
+			if (!bags.some(bag => bag.id === selectedBag.id)) setSelectedBag(bags[0]);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userId, _bags]);
+	}, [bags]);
 
 	const onModalClose = () => {
 		setModalContent(null);
@@ -149,7 +133,6 @@ export const AppContextProvider = ({
 				filteredDiscs,
 				setFilteredDiscs,
 				bags,
-				setBags,
 				selectedBag,
 				setSelectedBag,
 				filterValues,

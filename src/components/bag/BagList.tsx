@@ -18,9 +18,8 @@ export const BagList = ({ onClose }: BagListProps) => {
 	return (
 		<List>
 			{bags.map(bag => (
-				<>
+				<div key={bag.id}>
 					<ListItem
-						key={bag.id}
 						secondaryAction={
 							<Stack direction="row" spacing="1rem">
 								<IconButton aria-label="edit" onClick={() => showEditBagModal(bag)}>
@@ -48,7 +47,7 @@ export const BagList = ({ onClose }: BagListProps) => {
 						<ListItemText sx={{ padding: "0.25rem 7rem 0.25rem 0.25rem" }} primary={bag.name} />
 					</ListItem>
 					<Divider />
-				</>
+				</div>
 			))}
 			<ListItem
 				key="new-bag"
