@@ -47,7 +47,6 @@ export const AppContextProvider = ({
 		const userBags = _bags.filter(({ user_id }) => user_id === userId);
 		const userBagsPrevious = bagsPrevious?.filter(({ user_id }) => user_id === userId);
 		setBags(userBags);
-
 		if (
 			userBags.length <= 1 ||
 			!selectedBag ||
@@ -61,7 +60,6 @@ export const AppContextProvider = ({
 			// added a bag: set selected bag to last bag
 			setSelectedBag(userBags[userBags.length - 1] ?? null);
 		}
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userId, _bags]);
 
@@ -125,13 +123,9 @@ export const AppContextProvider = ({
 				bag={bag}
 				onSubmit={async () => {
 					onModalClose();
-					// const selectedBagDeleted = selectedBag?.id === bag.id;
-					// const deletedBagIndex = bags.indexOf(bag);
 					const res = await deleteBag({ bagId: bag.id });
 					if (res.error) return toast.error("Error deleting bag");
 					toast.success(`Deleted ${bag.name}`);
-					// if (selectedBagDeleted)
-					// 	setSelectedBag(bags[deletedBagIndex - 1] ?? bags[deletedBagIndex + 1] ?? null);
 				}}
 			/>
 		);

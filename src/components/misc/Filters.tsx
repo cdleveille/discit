@@ -195,16 +195,18 @@ export const Filters = () => {
 					disableCloseOnSelect
 					getOptionLabel={option => option}
 					renderOption={(props, option, { selected }) => (
-						<li {...props} key={filterOptions.brands.indexOf(option)}>
+						<li {...props} key={option}>
 							<Checkbox
 								icon={icon}
 								checkedIcon={checkedIcon}
 								style={{ marginRight: 8 }}
 								checked={selected}
+								key={option}
 							/>
 							{option}
 						</li>
 					)}
+					getOptionKey={option => option}
 					renderInput={params => (
 						<TextField
 							{...params}
@@ -227,12 +229,13 @@ export const Filters = () => {
 					disableCloseOnSelect
 					getOptionLabel={option => option}
 					renderOption={(props, option, { selected }) => (
-						<li {...props} key={filterOptions.categories.indexOf(option)}>
+						<li {...props} key={option}>
 							<Checkbox
 								icon={icon}
 								checkedIcon={checkedIcon}
 								style={{ marginRight: 8 }}
 								checked={selected}
+								key={option}
 							/>
 							{option}
 						</li>
@@ -259,12 +262,13 @@ export const Filters = () => {
 					disableCloseOnSelect
 					getOptionLabel={option => option}
 					renderOption={(props, option, { selected }) => (
-						<li {...props} key={filterOptions.stabilities.indexOf(option)}>
+						<li {...props} key={option}>
 							<Checkbox
 								icon={icon}
 								checkedIcon={checkedIcon}
 								style={{ marginRight: 8 }}
 								checked={selected}
+								key={option}
 							/>
 							{option}
 						</li>
@@ -291,12 +295,13 @@ export const Filters = () => {
 					disableCloseOnSelect
 					getOptionLabel={option => option}
 					renderOption={(props, option, { selected }) => (
-						<li {...props} key={filterOptions.speeds.indexOf(option)}>
+						<li {...props} key={option}>
 							<Checkbox
 								icon={icon}
 								checkedIcon={checkedIcon}
 								style={{ marginRight: 8 }}
 								checked={selected}
+								key={option}
 							/>
 							{option}
 						</li>
@@ -323,12 +328,13 @@ export const Filters = () => {
 					disableCloseOnSelect
 					getOptionLabel={option => option}
 					renderOption={(props, option, { selected }) => (
-						<li {...props} key={filterOptions.glides.indexOf(option)}>
+						<li {...props} key={option}>
 							<Checkbox
 								icon={icon}
 								checkedIcon={checkedIcon}
 								style={{ marginRight: 8 }}
 								checked={selected}
+								key={option}
 							/>
 							{option}
 						</li>
@@ -355,12 +361,13 @@ export const Filters = () => {
 					disableCloseOnSelect
 					getOptionLabel={option => option}
 					renderOption={(props, option, { selected }) => (
-						<li {...props} key={filterOptions.turns.indexOf(option)}>
+						<li {...props} key={option}>
 							<Checkbox
 								icon={icon}
 								checkedIcon={checkedIcon}
 								style={{ marginRight: 8 }}
 								checked={selected}
+								key={option}
 							/>
 							{option}
 						</li>
@@ -387,12 +394,13 @@ export const Filters = () => {
 					disableCloseOnSelect
 					getOptionLabel={option => option}
 					renderOption={(props, option, { selected }) => (
-						<li {...props} key={filterOptions.fades.indexOf(option)}>
+						<li {...props} key={option}>
 							<Checkbox
 								icon={icon}
 								checkedIcon={checkedIcon}
 								style={{ marginRight: 8 }}
 								checked={selected}
+								key={option}
 							/>
 							{option}
 						</li>
