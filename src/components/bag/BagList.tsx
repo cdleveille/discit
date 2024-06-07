@@ -26,7 +26,6 @@ export const BagList = ({ onClose }: BagListProps) => {
 								edge="end"
 								aria-label="delete"
 								onClick={async e => {
-									e.stopPropagation();
 									onClose();
 									const res = await deleteBag({ bagId: bag.id });
 									if (res.error) {
@@ -37,7 +36,7 @@ export const BagList = ({ onClose }: BagListProps) => {
 								}}
 								disabled={isLoading}
 							>
-								<DeleteIcon />
+								<DeleteIcon sx={{ fontSize: "1.5rem" }} />
 							</IconButton>
 						}
 						className="bag-list-item"
@@ -58,7 +57,7 @@ export const BagList = ({ onClose }: BagListProps) => {
 				key="new-bag"
 				secondaryAction={
 					<IconButton edge="end" aria-label="add">
-						<AddIcon />
+						<AddIcon sx={{ fontSize: "1.5rem" }} />
 					</IconButton>
 				}
 				className="bag-list-item"

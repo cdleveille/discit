@@ -57,8 +57,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 				(isDiscInBag ? (
 					<IconButton
 						aria-label="remove"
-						onClick={async e => {
-							e.stopPropagation();
+						onClick={async () => {
 							const res = await removeDiscFromBag({ bagId: selectedBag.id, discId: disc.id });
 							if (res.error) {
 								toast.error("Error removing disc from bag");
@@ -73,8 +72,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 				) : (
 					<IconButton
 						aria-label="add"
-						onClick={async e => {
-							e.stopPropagation();
+						onClick={async () => {
 							const res = await addDiscToBag({ bagId: selectedBag.id, discId: disc.id });
 							if (res.error) {
 								toast.error("Error adding disc to bag");
@@ -105,27 +103,21 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 			)}
 			<IconButton
 				aria-label="previous"
-				onClick={e => {
-					e.stopPropagation();
-					showPreviousDisc();
-				}}
+				onClick={showPreviousDisc}
 				onKey={{ keyCode: "ArrowLeft", action: showPreviousDisc }}
 				disabled={!previousDisc}
 				className="absolute-centered-vertically"
-				style={{ left: "3vmin" }}
+				style={{ left: "3vmin", cursor: !previousDisc ? "auto" : "pointer" }}
 			>
 				<NavigateBeforeIcon sx={{ fontSize: "2rem" }} />
 			</IconButton>
 			<IconButton
 				aria-label="next"
-				onClick={e => {
-					e.stopPropagation();
-					showNextDisc();
-				}}
+				onClick={showNextDisc}
 				onKey={{ keyCode: "ArrowRight", action: showNextDisc }}
 				disabled={!nextDisc}
 				className="absolute-centered-vertically"
-				style={{ right: "3vmin" }}
+				style={{ right: "3vmin", cursor: !nextDisc ? "auto" : "pointer" }}
 			>
 				<NavigateNextIcon sx={{ fontSize: "2rem" }} />
 			</IconButton>

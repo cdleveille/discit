@@ -22,7 +22,11 @@ export const IconButton = ({
 	const selected = isSelected ? "icon-btn-selected" : "";
 
 	return (
-		<div className={`icon-btn ${className} ${transparent} ${solid} ${selected}`} style={style}>
+		<div
+			className={`icon-btn ${className} ${transparent} ${solid} ${selected}`}
+			style={style}
+			onClick={e => e.stopPropagation()}
+		>
 			<MuiIconButton {...props}>{children}</MuiIconButton>
 		</div>
 	);
