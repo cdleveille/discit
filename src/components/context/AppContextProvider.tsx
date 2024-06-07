@@ -9,7 +9,7 @@ import { INITIAL_FILTER_VALUES, INITIAL_FILTERS_ENABLED, View } from "@constants
 import { AppContext } from "@contexts";
 import { useApi, useQueryString } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
-import CheckIcon from "@mui/icons-material/Check";
+import SaveIcon from "@mui/icons-material/Save";
 
 import type { AppContextProviderProps, Bag, Disc, ModalProps, ViewOption } from "@types";
 export const AppContextProvider = ({
@@ -88,7 +88,7 @@ export const AppContextProvider = ({
 				title="Edit Bag"
 				initialName={name}
 				submitLabel="Save"
-				endIcon={<CheckIcon />}
+				endIcon={<SaveIcon />}
 				onComplete={async ({ bagName }) => {
 					onModalClose();
 					const res = await editBagName({ bagId, bagName });

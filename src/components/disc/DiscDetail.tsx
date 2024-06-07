@@ -49,7 +49,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 			style={{ color, backgroundColor, border: `1.5vmin solid ${borderColor}` }}
 			onClick={() => {
 				copyToClipboard(window.location.href);
-				toast.success("Copied link");
+				toast.success("Link copied");
 			}}
 		>
 			{isSignedIn &&

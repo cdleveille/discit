@@ -173,7 +173,14 @@ export const Filters = () => {
 					className="filter"
 					options={filterOptions.names}
 					freeSolo
-					renderInput={params => <TextField {...params} label="Name" placeholder="Name" />}
+					renderInput={params => (
+						<TextField
+							{...params}
+							label="Name"
+							placeholder="Name"
+							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+						/>
+					)}
 					value={filterValues.name}
 					onInputChange={(_e: SyntheticEvent, value: string) =>
 						setFilterValues(current => ({ ...current, name: value }))
@@ -198,7 +205,14 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="Brand" placeholder="Brand" />}
+					renderInput={params => (
+						<TextField
+							{...params}
+							label="Brand"
+							placeholder="Brand"
+							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+						/>
+					)}
 					value={filterValues.brands}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, brands: value }))
@@ -223,7 +237,14 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="Category" placeholder="Category" />}
+					renderInput={params => (
+						<TextField
+							{...params}
+							label="Category"
+							placeholder="Category"
+							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+						/>
+					)}
 					value={filterValues.categories}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, categories: value }))
@@ -248,7 +269,14 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="Stability" placeholder="Stability" />}
+					renderInput={params => (
+						<TextField
+							{...params}
+							label="Stability"
+							placeholder="Stability"
+							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+						/>
+					)}
 					value={filterValues.stabilities}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, stabilities: value }))
@@ -273,7 +301,14 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="Speed" placeholder="Speed" />}
+					renderInput={params => (
+						<TextField
+							{...params}
+							label="Speed"
+							placeholder="Speed"
+							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+						/>
+					)}
 					value={filterValues.speeds}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, speeds: value }))
@@ -298,7 +333,14 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="Glide" placeholder="Glide" />}
+					renderInput={params => (
+						<TextField
+							{...params}
+							label="Glide"
+							placeholder="Glide"
+							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+						/>
+					)}
 					value={filterValues.glides}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, glides: value }))
@@ -323,7 +365,14 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="Turn" placeholder="Turn" />}
+					renderInput={params => (
+						<TextField
+							{...params}
+							label="Turn"
+							placeholder="Turn"
+							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+						/>
+					)}
 					value={filterValues.turns}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, turns: value }))
@@ -348,7 +397,14 @@ export const Filters = () => {
 							{option}
 						</li>
 					)}
-					renderInput={params => <TextField {...params} label="Fade" placeholder="Fade" />}
+					renderInput={params => (
+						<TextField
+							{...params}
+							label="Fade"
+							placeholder="Fade"
+							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+						/>
+					)}
 					value={filterValues.fades}
 					onChange={(_e: SyntheticEvent, value: string[]) =>
 						setFilterValues(current => ({ ...current, fades: value }))
