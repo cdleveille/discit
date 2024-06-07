@@ -40,9 +40,15 @@ export const AppContextProvider = ({
 		} else if (bags.length > bagsPrevious.length) {
 			// added a bag: select last bag
 			setSelectedBag(bags[bags.length - 1]);
-		} else if (bags.length < bagsPrevious.length) {
-			// removed the selected bag: select first bag
-			if (!bags.some(bag => bag.id === selectedBag.id)) setSelectedBag(bags[0]);
+		} else if (!bags.some(bag => bag.id === selectedBag.id)) {
+			if (bags.length < bagsPrevious.length) {
+				// removed selected bag: select first bag
+				setSelectedBag(bags[0]);
+			} else if (bags.length === bagsPrevious.length) {
+				// updated selected bag: re-select currently selected bag
+				const index = bags.map(bag => bag.id).indexOf(selectedBag.id);
+				setSelectedBag(bags[index]);
+			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [bags]);
@@ -95,6 +101,9 @@ export const AppContextProvider = ({
 					const res = await editBagName({ bagId, bagName });
 					if (res.error) return;
 					toast.success(`Renamed to ${res.name}`);
+					if (selectedBag?.id === bagId) {
+						//
+					}
 				}}
 			/>
 		);
