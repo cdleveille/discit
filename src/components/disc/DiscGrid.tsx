@@ -80,13 +80,15 @@ export const DiscGrid = () => {
 		<>
 			<Stack spacing="2rem" alignItems="center" width="100%">
 				{isBagView && (
-					<>
-						<Stack direction="row" className="bag-list-dropdown" onClick={handleBagListClick}>
-							{isBagListOpen ? <ArrowDownIcon /> : <ArrowRightIcon />}
-							<div>{selectedBag?.name}</div>
+					<Zoom in={true} appear={true}>
+						<Stack spacing="2rem" alignItems="center" width="100%">
+							<Stack direction="row" className="bag-list-dropdown" onClick={handleBagListClick}>
+								{isBagListOpen ? <ArrowDownIcon /> : <ArrowRightIcon />}
+								<div>{selectedBag?.name}</div>
+							</Stack>
+							{filteredDiscs.length === 0 && <div className="disc-grid-bag">No discs added yet</div>}
 						</Stack>
-						{filteredDiscs.length === 0 && <div className="disc-grid-bag">No discs added yet</div>}
-					</>
+					</Zoom>
 				)}
 				<>
 					<div id="disc-grid">

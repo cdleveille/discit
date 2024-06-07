@@ -7,7 +7,7 @@ import { useAuth } from "@clerk/nextjs";
 import { BagDelete, BagForm, DiscDetail, Modal, Settings, SignIn } from "@components";
 import { INITIAL_FILTER_VALUES, INITIAL_FILTERS_ENABLED, View } from "@constants";
 import { AppContext } from "@contexts";
-import { useApi, useQueryString } from "@hooks";
+import { useApi, usePrevious, useQueryString } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import SaveIcon from "@mui/icons-material/Save";
 
@@ -36,14 +36,34 @@ export const AppContextProvider = ({
 	const { createBag, editBagName, deleteBag } = useApi();
 	const { updateQueryString } = useQueryString();
 
-	useEffect(() => {
-		const userBags = userId ? _bags.filter(({ user_id }) => user_id === userId) : [];
-		setBags(userBags);
-		setSelectedBag(userBags[0] ?? null);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userId]);
+	const { _bags: bagsPrevious } = usePrevious({ _bags, selectedBag }) ?? {};
 
-	useEffect(() => setBags(_bags), [_bags]);
+	useEffect(() => {
+		if (!userId || !_bags || _bags.length === 0) {
+			setBags([]);
+			setSelectedBag(null);
+			return;
+		}
+		const userBags = _bags.filter(({ user_id }) => user_id === userId);
+		const userBagsPrevious = bagsPrevious?.filter(({ user_id }) => user_id === userId);
+		setBags(userBags);
+
+		if (
+			userBags.length <= 1 ||
+			!selectedBag ||
+			!userBagsPrevious ||
+			userBagsPrevious.length === 0 ||
+			userBags.length < userBagsPrevious.length
+		) {
+			// <=1 bags OR removed a bag: set selected bag to first bag, else null
+			setSelectedBag(userBags[0] ?? null);
+		} else if (userBags.length > userBagsPrevious.length) {
+			// added a bag: set selected bag to last bag
+			setSelectedBag(userBags[userBags.length - 1] ?? null);
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [userId, _bags]);
 
 	const onModalClose = () => {
 		setModalContent(null);
@@ -75,7 +95,6 @@ export const AppContextProvider = ({
 					const res = await createBag({ userId, bagName });
 					if (res.error) return;
 					toast.success(`Added ${res.name}`);
-					setSelectedBag(res);
 				}}
 			/>
 		);
@@ -94,7 +113,6 @@ export const AppContextProvider = ({
 					const res = await editBagName({ bagId, bagName });
 					if (res.error) return;
 					toast.success(`Renamed to ${res.name}`);
-					setSelectedBag(res);
 				}}
 			/>
 		);
@@ -107,13 +125,13 @@ export const AppContextProvider = ({
 				bag={bag}
 				onSubmit={async () => {
 					onModalClose();
-					const selectedBagDeleted = selectedBag?.id === bag.id;
-					const deletedBagIndex = bags.indexOf(bag);
+					// const selectedBagDeleted = selectedBag?.id === bag.id;
+					// const deletedBagIndex = bags.indexOf(bag);
 					const res = await deleteBag({ bagId: bag.id });
 					if (res.error) return toast.error("Error deleting bag");
 					toast.success(`Deleted ${bag.name}`);
-					if (selectedBagDeleted)
-						setSelectedBag(bags[deletedBagIndex - 1] ?? bags[deletedBagIndex + 1] ?? null);
+					// if (selectedBagDeleted)
+					// 	setSelectedBag(bags[deletedBagIndex - 1] ?? bags[deletedBagIndex + 1] ?? null);
 				}}
 			/>
 		);
