@@ -41,14 +41,12 @@ export const AppContextProvider = ({
 			// added a bag: select last bag
 			setSelectedBag(bags[bags.length - 1]);
 		} else if (!bags.some(bag => bag.id === selectedBag.id)) {
-			if (bags.length < bagsPrevious.length) {
-				// removed selected bag: select first bag
-				setSelectedBag(bags[0]);
-			} else if (bags.length === bagsPrevious.length) {
-				// updated selected bag: re-select currently selected bag
-				const index = bags.map(bag => bag.id).indexOf(selectedBag.id);
-				setSelectedBag(bags[index]);
-			}
+			// removed selected bag: select first bag
+			if (bags.length < bagsPrevious.length) setSelectedBag(bags[0]);
+		} else if (bags.length === bagsPrevious.length) {
+			// updated selected bag: re-select currently selected bag
+			const index = bags.map(bag => bag.id).indexOf(selectedBag.id);
+			setSelectedBag(bags[index]);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [bags]);

@@ -22,7 +22,13 @@ export const BagList = ({ onClose }: BagListProps) => {
 					<ListItem
 						secondaryAction={
 							<Stack direction="row" spacing="1rem">
-								<IconButton aria-label="edit" onClick={() => showEditBagModal(bag)}>
+								<IconButton
+									aria-label="edit"
+									onClick={e => {
+										e.stopPropagation();
+										showEditBagModal(bag);
+									}}
+								>
 									<EditIcon sx={{ fontSize: "1.5rem" }} />
 								</IconButton>
 								<IconButton
