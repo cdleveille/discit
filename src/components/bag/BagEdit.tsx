@@ -33,13 +33,15 @@ export const BagEdit = ({ bag, onClose }: BagEditProps) => {
 		setName(name);
 	};
 
+	const disabled = name.length === 0 || name === bag.name || isLoading;
+
 	const onSubmit = async () => {
-		const currentName = bag.name;
+		if (disabled) return;
 		if (!userId) return setError("Please sign in to manage bags");
 		const res = await editBagName({ bagId: bag.id, bagName: name });
 		if (res.error) return;
 		onClose();
-		if (currentName !== res.name) toast.success(`Renamed to ${res.name}`);
+		toast.success(`Renamed to ${res.name}`);
 	};
 
 	useKeyPress("Enter", onSubmit);
@@ -90,7 +92,7 @@ export const BagEdit = ({ bag, onClose }: BagEditProps) => {
 				variant="contained"
 				endIcon={isLoading ? <CircularProgress size="22px" /> : <SaveIcon />}
 				sx={{ fontSize: "1.25rem", padding: "0.5rem 2rem" }}
-				disabled={name.length === 0 || isLoading}
+				disabled={disabled}
 				type="submit"
 				onClick={onSubmit}
 			>

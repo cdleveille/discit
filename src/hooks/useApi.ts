@@ -16,11 +16,6 @@ import type {
 	RemoveDiscFromBagParams
 } from "@types";
 
-/**
- * Do NOT use the 'error' state variable to check for errors.
- * Instead, use the 'error' property on the response object.
- * The state variable should be used ONLY to display the error message.
- */
 export const useApi = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);

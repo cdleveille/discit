@@ -34,7 +34,10 @@ export const BagAdd = ({ onClose }: BagAddProps) => {
 		setName(name);
 	};
 
+	const disabled = name.length === 0 || isLoading;
+
 	const onSubmit = async () => {
+		if (disabled) return;
 		if (!userId) return setError("Please sign in to manage bags");
 		const res = await createBag({ userId, bagName: name });
 		if (res.error) return;
@@ -90,7 +93,7 @@ export const BagAdd = ({ onClose }: BagAddProps) => {
 				variant="contained"
 				endIcon={isLoading ? <CircularProgress size="22px" /> : <AddIcon />}
 				sx={{ fontSize: "1.25rem", padding: "0.5rem 2rem" }}
-				disabled={name.length === 0 || isLoading}
+				disabled={disabled}
 				onClick={onSubmit}
 			>
 				Add
