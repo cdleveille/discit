@@ -10,7 +10,7 @@ import { useAppContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { Popover, Stack, Zoom } from "@mui/material";
+import { Popover, Stack } from "@mui/material";
 
 export const DiscGrid = () => {
 	const [numDiscsToRender, setNumDiscsToRender] = useState(SCROLL_INCREMENT);
@@ -69,26 +69,20 @@ export const DiscGrid = () => {
 				<div>No bags added yet</div>
 			</Stack>
 		);
-		return (
-			<Zoom in={true} appear={true}>
-				<div className="disc-grid-bag">{innerHtml}</div>
-			</Zoom>
-		);
+		return <div className="disc-grid-bag">{innerHtml}</div>;
 	}
 
 	return (
 		<>
 			<Stack spacing="2rem" alignItems="center" width="100%">
 				{isBagView && (
-					<Zoom in={true} appear={true}>
-						<Stack spacing="2rem" alignItems="center" width="100%">
-							<Stack direction="row" className="bag-list-dropdown" onClick={handleBagListClick}>
-								{isBagListOpen ? <ArrowDownIcon /> : <ArrowRightIcon />}
-								<div>{selectedBag?.name}</div>
-							</Stack>
-							{filteredDiscs.length === 0 && <div className="disc-grid-bag">No discs added yet</div>}
+					<Stack spacing="2rem" alignItems="center" width="100%">
+						<Stack direction="row" className="bag-list-dropdown" onClick={handleBagListClick}>
+							{isBagListOpen ? <ArrowDownIcon /> : <ArrowRightIcon />}
+							<div>{selectedBag?.name}</div>
 						</Stack>
-					</Zoom>
+						{filteredDiscs.length === 0 && <div className="disc-grid-bag">No discs added yet</div>}
+					</Stack>
 				)}
 				<>
 					<div id="disc-grid">

@@ -22,7 +22,9 @@ export const AppContextProvider = ({
 	const initialDisc = initialDiscSlug ? _discs.find(disc => disc.name_slug === initialDiscSlug) ?? null : null;
 
 	const [discs, setDiscs] = useState(_discs);
-	const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>(initialView === View.BAG ? [] : _discs);
+	const [filteredDiscs, setFilteredDiscs] = useState<Disc[]>(
+		initialView === View.BAG ? _discs.filter(({ id }) => bags[0]?.discs.includes(id)) : _discs
+	);
 	const [selectedBag, setSelectedBag] = useState<Bag | null>(bags[0] ?? null);
 	const [filterValues, setFilterValues] = useState(INITIAL_FILTER_VALUES);
 	const [filtersEnabled, setFiltersEnabled] = useState(INITIAL_FILTERS_ENABLED);
