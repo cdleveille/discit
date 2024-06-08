@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 import { useAuth } from "@clerk/nextjs";
-import { useApi } from "@hooks";
+import { useApi, useKeyPress } from "@hooks";
 import ClearIcon from "@mui/icons-material/Clear";
 import SaveIcon from "@mui/icons-material/Save";
-import { Button, IconButton, Stack, TextField } from "@mui/material";
+import { Button, CircularProgress, IconButton, Stack, TextField } from "@mui/material";
 
 import type { BagEditProps } from "@types";
 
@@ -32,6 +32,17 @@ export const BagEdit = ({ bag, onClose }: BagEditProps) => {
 		if (name.length > 32) return;
 		setName(name);
 	};
+
+	const onSubmit = async () => {
+		const currentName = bag.name;
+		if (!userId) return setError("Please sign in to manage bags");
+		const res = await editBagName({ bagId: bag.id, bagName: name });
+		if (res.error) return;
+		onClose();
+		if (currentName !== res.name) toast.success(`Renamed to ${res.name}`);
+	};
+
+	useKeyPress("Enter", onSubmit);
 
 	return (
 		<Stack className="form" justifyContent="center" alignItems="center" spacing="3rem">
@@ -77,18 +88,11 @@ export const BagEdit = ({ bag, onClose }: BagEditProps) => {
 			<Button
 				size="large"
 				variant="contained"
-				endIcon={<SaveIcon />}
+				endIcon={isLoading ? <CircularProgress size="22px" /> : <SaveIcon />}
 				sx={{ fontSize: "1.25rem", padding: "0.5rem 2rem" }}
 				disabled={name.length === 0 || isLoading}
 				type="submit"
-				onClick={async () => {
-					const currentName = bag.name;
-					if (!userId) return setError("Please sign in to manage bags");
-					const res = await editBagName({ bagId: bag.id, bagName: name });
-					if (res.error) return;
-					onClose();
-					if (currentName !== res.name) toast.success(`Renamed to ${res.name}`);
-				}}
+				onClick={onSubmit}
 			>
 				Save
 			</Button>

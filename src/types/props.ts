@@ -38,7 +38,7 @@ export type BagEditProps = {
 
 export type BagDeleteProps = {
 	bag: Bag;
-	onSubmit: () => void;
+	onClose: () => void;
 };
 
 export type BagListProps = {

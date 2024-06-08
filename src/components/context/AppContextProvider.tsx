@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
 import { BagAdd, BagDelete, BagEdit, DiscDetail, Modal, Settings, SignIn } from "@components";
 import { INITIAL_FILTER_VALUES, INITIAL_FILTERS_ENABLED, View } from "@constants";
@@ -9,7 +8,6 @@ import { AppContext } from "@contexts";
 import { useApi, usePrevious, useQueryString } from "@hooks";
 
 import type { AppContextProviderProps, Bag, Disc, ModalProps, ViewOption } from "@types";
-
 export const AppContextProvider = ({
 	children,
 	discs: _discs,
@@ -81,17 +79,7 @@ export const AppContextProvider = ({
 
 	const showBagDeleteModal = (bag: Bag) => {
 		setModalProps({ showCloseBtn: true });
-		setModalContent(
-			<BagDelete
-				bag={bag}
-				onSubmit={async () => {
-					onModalClose();
-					const res = await deleteBag({ bagId: bag.id });
-					if (res.error) return toast.error("Error deleting bag");
-					toast.success(`Deleted ${bag.name}`);
-				}}
-			/>
-		);
+		setModalContent(<BagDelete bag={bag} onClose={onModalClose} />);
 	};
 
 	const showSettingsModal = () => {

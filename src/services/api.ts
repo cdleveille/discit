@@ -45,7 +45,7 @@ export const editBagName = async ({ bagId, bagName }: EditBagNameParams) => {
 	revalidateTag("bag");
 	return requestJson<Bag>({
 		path: "/bag/update-name",
-		method: RequestMethod.PUT,
+		method: RequestMethod.PATCH,
 		body: { id: bagId, name: bagName },
 		cache: "no-cache"
 	});
@@ -55,7 +55,7 @@ export const addDiscToBag = async ({ bagId, discId }: AddDiscToBagParams) => {
 	revalidateTag("bag");
 	return requestJson<Bag>({
 		path: "/bag/add-disc",
-		method: RequestMethod.PUT,
+		method: RequestMethod.PATCH,
 		body: { id: bagId, disc_id: discId },
 		cache: "no-cache"
 	});
@@ -65,7 +65,7 @@ export const removeDiscFromBag = async ({ bagId, discId }: RemoveDiscFromBagPara
 	revalidateTag("bag");
 	return requestJson<Bag>({
 		path: "/bag/remove-disc",
-		method: RequestMethod.PUT,
+		method: RequestMethod.PATCH,
 		body: { id: bagId, disc_id: discId },
 		cache: "no-cache"
 	});

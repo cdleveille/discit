@@ -4,10 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 import { useAuth } from "@clerk/nextjs";
-import { useApi } from "@hooks";
+import { useApi, useKeyPress } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Button, IconButton, Stack, TextField } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import type { BagAddProps } from "@types";
 
@@ -32,6 +33,16 @@ export const BagAdd = ({ onClose }: BagAddProps) => {
 		if (name.length > 32) return;
 		setName(name);
 	};
+
+	const onSubmit = async () => {
+		if (!userId) return setError("Please sign in to manage bags");
+		const res = await createBag({ userId, bagName: name });
+		if (res.error) return;
+		onClose();
+		toast.success(`Added ${res.name}`);
+	};
+
+	useKeyPress("Enter", onSubmit);
 
 	return (
 		<Stack className="form" justifyContent="center" alignItems="center" spacing="3rem">
@@ -77,20 +88,13 @@ export const BagAdd = ({ onClose }: BagAddProps) => {
 			<Button
 				size="large"
 				variant="contained"
-				endIcon={<AddIcon />}
+				endIcon={isLoading ? <CircularProgress size="22px" /> : <AddIcon />}
 				sx={{ fontSize: "1.25rem", padding: "0.5rem 2rem" }}
 				disabled={name.length === 0 || isLoading}
-				onClick={async () => {
-					if (!userId) return setError("Please sign in to manage bags");
-					const res = await createBag({ userId, bagName: name });
-					if (res.error) return;
-					onClose();
-					toast.success(`Added ${res.name}`);
-				}}
+				onClick={onSubmit}
 			>
 				Add
 			</Button>
 		</Stack>
-		// </form>
 	);
 };
