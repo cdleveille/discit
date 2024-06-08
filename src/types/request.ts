@@ -1,5 +1,7 @@
 import { RequestMethod } from "@constants";
 
+import type * as shared from "discit-types";
+
 export type RequestParams = {
 	path: string;
 	method: RequestMethodOption;
@@ -43,6 +45,4 @@ export type ApiErrorUnknown = {
 	error?: unknown;
 };
 
-export type ApiError = {
-	error?: string;
-};
+export type ApiError = shared.ApiError;

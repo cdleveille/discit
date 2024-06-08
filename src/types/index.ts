@@ -1,6 +1,10 @@
 import type { Dispatch, SetStateAction } from "react";
+import type * as shared from "discit-types";
 
 import { View } from "@constants";
+
+export type Disc = shared.Disc;
+export type Bag = shared.Bag;
 
 export * from "./request";
 export * from "./props";
@@ -11,33 +15,6 @@ export type Config = {
 };
 
 export type ViewOption = `${View}`;
-
-export type Disc = {
-	id: string;
-	name: string;
-	brand: string;
-	category: string;
-	speed: string;
-	glide: string;
-	turn: string;
-	fade: string;
-	stability: string;
-	link: string;
-	pic: string;
-	name_slug: string;
-	brand_slug: string;
-	category_slug: string;
-	stability_slug: string;
-	color: string;
-	background_color: string;
-};
-
-export type Bag = {
-	id: string;
-	name: string;
-	user_id: string;
-	discs: string[];
-};
 
 export type AppContext = {
 	discs: Disc[];

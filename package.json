@@ -26,6 +26,7 @@
     "@types/node": "^20",
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
+    "discit-types": "^1.0.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.0-rc.0",
     "prettier": "^3.3.1",
