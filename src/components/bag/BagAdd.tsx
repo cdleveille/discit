@@ -18,7 +18,7 @@ export const BagAdd = ({ onClose }: BagAddProps) => {
 	const { isLoading, error, setError, createBag } = useApi();
 	const { userId } = useAuth();
 
-	const inputRef = useRef<HTMLInputElement>();
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {

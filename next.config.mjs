@@ -1,20 +1,11 @@
-/** @type {import('next').NextConfig} */
 // @ts-check
 
 import withPWAInit from "@ducanh2912/next-pwa";
 
-const withPWA = withPWAInit({
-	dest: "public",
-	cacheOnFrontEndNav: true,
-	aggressiveFrontEndNavCaching: true,
-	reloadOnOnline: true,
-	disable: process.env.NODE_ENV === "development",
-	workboxOptions: {
-		disableDevLogs: true
-	}
-});
+const isDev = process.env.NODE_ENV === "development";
 
-export default withPWA({
+/** @type {import('next').NextConfig} */
+const nextConfig = {
 	images: {
 		remotePatterns: [
 			{
@@ -26,5 +17,23 @@ export default withPWA({
 				hostname: "img.clerk.com"
 			}
 		]
+	},
+	experimental: {
+		reactCompiler: true
+	}
+};
+
+const withPWA = withPWAInit({
+	dest: "public",
+	cacheOnFrontEndNav: true,
+	aggressiveFrontEndNavCaching: true,
+	reloadOnOnline: true,
+	disable: isDev,
+	workboxOptions: {
+		disableDevLogs: true
 	}
 });
+
+const config = isDev ? nextConfig : withPWA(nextConfig);
+
+export default config;

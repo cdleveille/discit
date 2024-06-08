@@ -13,6 +13,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { copyToClipboard, hexToRgba } from "@util";
 
 import type { DiscDetailProps } from "@types";
+
 export const DiscDetail = ({ disc }: DiscDetailProps) => {
 	const { isSignedIn } = useAuth();
 	const { filteredDiscs, selectedBag, showDiscDetailModal } = useAppContext();

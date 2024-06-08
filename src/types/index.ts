@@ -8,7 +8,6 @@ export * from "./props";
 export type Config = {
 	API_URL: string;
 	API_KEY: string;
-	NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: string;
 };
 
 export type ViewOption = `${View}`;

@@ -17,7 +17,7 @@ export const BagEdit = ({ bag, onClose }: BagEditProps) => {
 	const { isLoading, error, setError, editBagName } = useApi();
 	const { userId } = useAuth();
 
-	const inputRef = useRef<HTMLInputElement>();
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {

@@ -23,16 +23,10 @@ export const Modal = ({ children, open, onClose, showCloseBtn }: ModalProps) => 
 	const onRequestClose = () => setIsZoomed(false);
 
 	return (
-		<MuiModal
-			open={open}
-			onClose={onRequestClose}
-			sx={{ outline: "none" }}
-			style={{ outline: "none" }}
-			disableScrollLock
-		>
+		<MuiModal open={open} onClose={onRequestClose} disableScrollLock>
 			<div className="absolute-centered" style={{ borderRadius: "50%", outline: "none" }}>
 				<Zoom in={isZoomed}>
-					<div style={{ position: "relative", borderRadius: "50%", outline: "none" }}>
+					<div style={{ position: "relative", borderRadius: "50%" }}>
 						{showCloseBtn && (
 							<IconButton
 								aria-label="close"

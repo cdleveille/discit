@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { BagAdd, BagDelete, BagEdit, DiscDetail, Modal, Settings, SignIn } from "@components";
 import { INITIAL_FILTER_VALUES, INITIAL_FILTERS_ENABLED, View } from "@constants";
 import { AppContext } from "@contexts";
-import { useApi, usePrevious, useQueryString } from "@hooks";
+import { usePrevious, useQueryString } from "@hooks";
 
 import type { AppContextProviderProps, Bag, Disc, ModalProps, ViewOption } from "@types";
 export const AppContextProvider = ({
@@ -26,7 +26,6 @@ export const AppContextProvider = ({
 	const [filtersEnabled, setFiltersEnabled] = useState(INITIAL_FILTERS_ENABLED);
 	const [view, setView] = useState<ViewOption>(initialView ?? View.SEARCH);
 
-	const { createBag, editBagName, deleteBag } = useApi();
 	const { updateQueryString } = useQueryString();
 
 	const { bags: bagsPrevious } = usePrevious({ bags }) ?? {};
