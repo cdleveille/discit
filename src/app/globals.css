@@ -106,14 +106,13 @@ h1 {
 .disc-detail {
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
+	justify-content: center;
 	align-items: center;
 	text-align: center;
 	border-radius: 50%;
 	width: 100vmin;
 	height: 100vmin;
 	row-gap: 2vmin;
-	padding-top: 11vmin;
 }
 
 .disc-detail:hover {
@@ -245,10 +244,16 @@ h1 {
 	color: red;
 }
 
-.auth-loading-spinner {
+.user-btn {
 	position: absolute;
-	top: 1rem;
-	left: 1rem;
+	top: 0.75rem;
+	left: 0.75rem;
+}
+
+.user-btn-loading-spinner {
+	position: absolute;
+	top: 0.25rem;
+	left: 0.25rem;
 }
 
 .bag-list-dropdown {
@@ -305,13 +310,4 @@ h1 {
 	background-color: #bebebe;
 	outline: 2px solid #757575;
 	pointer-events: none;
-}
-
-@keyframes fadeIn {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
 }

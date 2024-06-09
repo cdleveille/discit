@@ -9,14 +9,14 @@ export const UserButton = () => {
 	const { showSignInModal } = useAppContext();
 
 	return (
-		<>
+		<div className="user-btn">
 			<SignedOut>
 				<IconButton aria-label="sign-in" sx={{ width: "3rem", height: "3rem" }} onClick={showSignInModal}>
 					<Icon color="disabled" sx={{ fontSize: "57px" }} />
 				</IconButton>
 			</SignedOut>
 			<SignedIn>
-				<div className="auth-loading-spinner">
+				<div className="user-btn-loading-spinner">
 					<CircularProgress />
 				</div>
 				<ClerkUserButton
@@ -37,6 +37,6 @@ export const UserButton = () => {
 					}}
 				/>
 			</SignedIn>
-		</>
+		</div>
 	);
 };

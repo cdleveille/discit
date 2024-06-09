@@ -49,7 +49,8 @@ export const DiscGrid = () => {
 		hasNextPage: hasMoreDiscsToRender,
 		disabled: !hasMoreDiscsToRender,
 		onLoadMore: renderMoreDiscs,
-		rootMargin: "0px 0px 16px 0px"
+		rootMargin: "0px 0px 16px 0px",
+		delayInMs: 50
 	});
 
 	if (isBagView && !selectedBag) {
