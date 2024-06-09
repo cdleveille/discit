@@ -1,21 +1,48 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
 import { useAuth } from "@clerk/nextjs";
-import { useApi, useKeyPress } from "@hooks";
+import { useApi } from "@hooks";
 import ClearIcon from "@mui/icons-material/Clear";
 import SaveIcon from "@mui/icons-material/Save";
-import { Button, CircularProgress, IconButton, Stack, TextField } from "@mui/material";
+import { Button, IconButton, Stack, TextField } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
-import type { BagEditProps } from "@types";
+import type { BagEditFormProps, BagEditProps } from "@types";
 
 export const BagEdit = ({ bag, onClose }: BagEditProps) => {
 	const [name, setName] = useState(bag.name);
 
-	const { isLoading, error, setError, editBagName } = useApi();
 	const { userId } = useAuth();
+	const { error, setError, editBagName } = useApi();
+
+	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setError("");
+		const name = event.target.value;
+		if (name.length > 32) return;
+		setName(name);
+	};
+
+	const onSubmit = async () => {
+		if (!userId) return setError("Please sign in to manage bags");
+		const res = await editBagName({ bagId: bag.id, bagName: name });
+		if (res.error) return;
+		onClose();
+		toast.success(`Renamed to ${res.name}`);
+	};
+
+	return (
+		<form action={onSubmit}>
+			<BagEditForm name={name} setName={setName} onChange={onChange} error={error} initialBagName={bag.name} />
+		</form>
+	);
+};
+
+export const BagEditForm = ({ name, setName, onChange, error, initialBagName }: BagEditFormProps) => {
+	const { pending } = useFormStatus();
 
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -26,25 +53,7 @@ export const BagEdit = ({ bag, onClose }: BagEditProps) => {
 		return () => clearTimeout(timeout);
 	}, []);
 
-	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setError("");
-		const name = event.target.value;
-		if (name.length > 32) return;
-		setName(name);
-	};
-
-	const disabled = name.length === 0 || name === bag.name || isLoading;
-
-	const onSubmit = async () => {
-		if (disabled) return;
-		if (!userId) return setError("Please sign in to manage bags");
-		const res = await editBagName({ bagId: bag.id, bagName: name });
-		if (res.error) return;
-		onClose();
-		toast.success(`Renamed to ${res.name}`);
-	};
-
-	useKeyPress("Enter", onSubmit);
+	const disabled = name.length === 0 || name === initialBagName || pending;
 
 	return (
 		<Stack className="form" justifyContent="center" alignItems="center" spacing="3rem">
@@ -90,11 +99,10 @@ export const BagEdit = ({ bag, onClose }: BagEditProps) => {
 			<Button
 				size="large"
 				variant="contained"
-				endIcon={isLoading ? <CircularProgress size="22px" /> : <SaveIcon />}
+				endIcon={pending ? <CircularProgress size="22px" /> : <SaveIcon />}
 				sx={{ fontSize: "1.25rem", padding: "0.5rem 2rem" }}
 				disabled={disabled}
 				type="submit"
-				onClick={onSubmit}
 			>
 				Save
 			</Button>

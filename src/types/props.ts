@@ -1,4 +1,5 @@
 import type { Bag, Disc, ViewOption } from "@types";
+import type { Dispatch, SetStateAction } from "react";
 
 export type AppContextProviderProps = {
 	children: React.ReactNode;
@@ -34,6 +35,20 @@ export type BagAddProps = {
 export type BagEditProps = {
 	bag: Bag;
 	onClose: () => void;
+};
+
+export type BagAddFormProps = {
+	name: string;
+	setName: Dispatch<SetStateAction<string>>;
+	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	error: string | null;
+};
+
+export type BagEditFormProps = BagAddFormProps & { initialBagName: string };
+
+export type BagDeleteFormProps = {
+	name: string;
+	error: string | null;
 };
 
 export type BagDeleteProps = {

@@ -1,22 +1,48 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
 import { useAuth } from "@clerk/nextjs";
-import { useApi, useKeyPress } from "@hooks";
+import { useApi } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Button, IconButton, Stack, TextField } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import type { BagAddProps } from "@types";
+import type { BagAddFormProps, BagAddProps } from "@types";
 
 export const BagAdd = ({ onClose }: BagAddProps) => {
 	const [name, setName] = useState("");
 
-	const { isLoading, error, setError, createBag } = useApi();
 	const { userId } = useAuth();
+	const { error, setError, createBag } = useApi();
+
+	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setError("");
+		const name = event.target.value;
+		if (name.length > 32) return;
+		setName(name);
+	};
+
+	const onSubmit = async () => {
+		if (!userId) return setError("Please sign in to manage bags");
+		const res = await createBag({ userId, bagName: name });
+		if (res.error) return;
+		onClose();
+		toast.success(`Added ${res.name}`);
+	};
+
+	return (
+		<form action={onSubmit}>
+			<BagAddForm name={name} setName={setName} onChange={onChange} error={error} />
+		</form>
+	);
+};
+
+export const BagAddForm = ({ name, setName, onChange, error }: BagAddFormProps) => {
+	const { pending } = useFormStatus();
 
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -27,25 +53,7 @@ export const BagAdd = ({ onClose }: BagAddProps) => {
 		return () => clearTimeout(timeout);
 	}, []);
 
-	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setError("");
-		const name = event.target.value;
-		if (name.length > 32) return;
-		setName(name);
-	};
-
-	const disabled = name.length === 0 || isLoading;
-
-	const onSubmit = async () => {
-		if (disabled) return;
-		if (!userId) return setError("Please sign in to manage bags");
-		const res = await createBag({ userId, bagName: name });
-		if (res.error) return;
-		onClose();
-		toast.success(`Added ${res.name}`);
-	};
-
-	useKeyPress("Enter", onSubmit);
+	const disabled = name.length === 0 || pending;
 
 	return (
 		<Stack className="form" justifyContent="center" alignItems="center" spacing="3rem">
@@ -91,10 +99,10 @@ export const BagAdd = ({ onClose }: BagAddProps) => {
 			<Button
 				size="large"
 				variant="contained"
-				endIcon={isLoading ? <CircularProgress size="22px" /> : <AddIcon />}
+				endIcon={pending ? <CircularProgress size="22px" /> : <AddIcon />}
 				sx={{ fontSize: "1.25rem", padding: "0.5rem 2rem" }}
 				disabled={disabled}
-				onClick={onSubmit}
+				type="submit"
 			>
 				Add
 			</Button>
