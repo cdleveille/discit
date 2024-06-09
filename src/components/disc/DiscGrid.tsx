@@ -50,7 +50,7 @@ export const DiscGrid = () => {
 		disabled: !hasMoreDiscsToRender,
 		onLoadMore: renderMoreDiscs,
 		rootMargin: "0px 0px 16px 0px",
-		delayInMs: 50
+		delayInMs: 10
 	});
 
 	if (isBagView && !selectedBag) {
@@ -104,6 +104,7 @@ export const DiscGrid = () => {
 					horizontal: "left"
 				}}
 				sx={{ marginTop: "0.5rem" }}
+				disableScrollLock
 			>
 				<BagList onClose={handleBagListClose} />
 			</Popover>
