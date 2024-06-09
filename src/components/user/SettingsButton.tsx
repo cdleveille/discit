@@ -7,7 +7,7 @@ import TuneIcon from "@mui/icons-material/Tune";
 export const SettingsButton = () => {
 	const { showSettingsModal } = useAppContext();
 	return (
-		<IconButton aria-label="settings" onClick={showSettingsModal}>
+		<IconButton className="settings-btn" aria-label="settings" onClick={showSettingsModal}>
 			<TuneIcon sx={{ fontSize: "2rem" }} />
 		</IconButton>
 	);

@@ -1,12 +1,17 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { SignedIn, SignedOut, UserButton as ClerkUserButton } from "@clerk/nextjs";
 import { useAppContext } from "@hooks";
 import Icon from "@mui/icons-material/AccountCircle";
 import { CircularProgress, IconButton } from "@mui/material";
 
 export const UserButton = () => {
+	const [isLoading, setIsLoading] = useState(true);
 	const { showSignInModal } = useAppContext();
+
+	useEffect(() => setIsLoading(false), []);
 
 	return (
 		<div className="user-btn">
@@ -16,9 +21,11 @@ export const UserButton = () => {
 				</IconButton>
 			</SignedOut>
 			<SignedIn>
-				<div className="user-btn-loading-spinner">
-					<CircularProgress />
-				</div>
+				{isLoading && (
+					<div className="user-btn-loading-spinner">
+						<CircularProgress />
+					</div>
+				)}
 				<ClerkUserButton
 					appearance={{
 						elements: {

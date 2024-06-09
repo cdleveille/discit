@@ -246,14 +246,23 @@ h1 {
 
 .user-btn {
 	position: absolute;
-	top: 0.75rem;
-	left: 0.75rem;
+	top: 1.25rem;
+	left: 1.25rem;
+	width: 3rem;
+	height: 3rem;
 }
 
 .user-btn-loading-spinner {
 	position: absolute;
 	top: 0.25rem;
 	left: 0.25rem;
+	z-index: 1000;
+}
+
+.settings-btn {
+	position: absolute;
+	top: 1.25rem;
+	right: 1.25rem;
 }
 
 .bag-list-dropdown {
