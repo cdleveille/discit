@@ -43,3 +43,9 @@ export const copyToClipboard = (text: string) => {
 	if (!isClient) return;
 	navigator.clipboard.writeText(text);
 };
+
+export const getDiscGradientBackground = (backgroundColor: string) => {
+	const innerGradient = backgroundColor === "#000000" ? "#333333" : backgroundColor;
+	const outerGradient = backgroundColor === "#000000" ? "#000000" : "#222222";
+	return `radial-gradient(circle, ${innerGradient} 50%, ${outerGradient} 100%)`;
+};

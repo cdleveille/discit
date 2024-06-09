@@ -3,19 +3,17 @@
 import Image from "next/image";
 import toast from "react-hot-toast";
 
-import { useAuth } from "@clerk/nextjs";
 import { IconButton } from "@components";
 import { useApi, useAppContext } from "@hooks";
 import AddIcon from "@mui/icons-material/Add";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { copyToClipboard } from "@util";
+import { copyToClipboard, getDiscGradientBackground } from "@util";
 
 import type { DiscDetailProps } from "@types";
 
 export const DiscDetail = ({ disc }: DiscDetailProps) => {
-	const { isSignedIn } = useAuth();
 	const { filteredDiscs, selectedBag, showDiscDetailModal } = useAppContext();
 	const { isLoading, addDiscToBag, removeDiscFromBag } = useApi();
 
@@ -25,41 +23,22 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 	const showPreviousDisc = () => previousDisc && showDiscDetailModal(previousDisc);
 	const showNextDisc = () => nextDisc && showDiscDetailModal(nextDisc);
 
-	const {
-		id,
-		name,
-		brand,
-		category,
-		stability,
-		speed,
-		glide,
-		turn,
-		fade,
-		pic,
-		color,
-		background_color: backgroundColor
-	} = disc;
-
-	const innerGradient = backgroundColor === "#000000" ? "#333333" : backgroundColor;
-	const outerGradient = "#000000";
-
-	const gradient: React.CSSProperties = {
-		background: `radial-gradient(circle, ${innerGradient} 50%, ${outerGradient} 95%)`
-	};
+	const { id, name, brand, category, stability, speed, glide, turn, fade, pic, color, background_color } = disc;
 
 	const isDiscInBag = selectedBag?.discs.includes(id) ?? false;
+
+	const iconFontSize = "max(1rem, min(2rem, 4vmin))";
 
 	return (
 		<div
 			className="disc-detail"
-			style={{ ...gradient, color, border: `0.5vmin solid rgba(0, 0, 0, 0.05)` }}
+			style={{ color, background: getDiscGradientBackground(background_color) }}
 			onClick={() => {
 				copyToClipboard(window.location.href);
 				toast.success("Link copied");
 			}}
 		>
-			{isSignedIn &&
-				selectedBag &&
+			{selectedBag &&
 				(isDiscInBag ? (
 					<IconButton
 						className="add-or-remove-btn disc-detail-btn absolute-centered-horizontally"
@@ -71,7 +50,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 						}}
 						disabled={isLoading}
 					>
-						<RemoveIcon sx={{ fontSize: "2rem" }} />
+						<RemoveIcon sx={{ fontSize: iconFontSize }} />
 					</IconButton>
 				) : (
 					<IconButton
@@ -84,7 +63,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 						}}
 						disabled={isLoading}
 					>
-						<AddIcon sx={{ fontSize: "2rem" }} />
+						<AddIcon sx={{ fontSize: iconFontSize }} />
 					</IconButton>
 				))}
 			<div className="disc-detail-name">{name}</div>
@@ -110,7 +89,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 				className="disc-detail-btn absolute-centered-vertically"
 				style={{ left: "3vmin", cursor: !previousDisc ? "auto" : "pointer" }}
 			>
-				<NavigateBeforeIcon sx={{ fontSize: "2rem" }} />
+				<NavigateBeforeIcon sx={{ fontSize: iconFontSize }} />
 			</IconButton>
 			<IconButton
 				aria-label="next"
@@ -120,7 +99,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 				className="disc-detail-btn absolute-centered-vertically"
 				style={{ right: "3vmin", cursor: !nextDisc ? "auto" : "pointer" }}
 			>
-				<NavigateNextIcon sx={{ fontSize: "2rem" }} />
+				<NavigateNextIcon sx={{ fontSize: iconFontSize }} />
 			</IconButton>
 		</div>
 	);

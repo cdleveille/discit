@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { useAppContext } from "@hooks";
 import { Stack, Zoom } from "@mui/material";
+import { getDiscGradientBackground } from "@util";
 
 import type { DiscProps } from "@types";
 
@@ -12,31 +13,13 @@ export const Disc = ({ disc }: DiscProps) => {
 
 	const { showDiscDetailModal } = useAppContext();
 
-	const {
-		name,
-		brand,
-		category,
-		stability,
-		speed,
-		glide,
-		turn,
-		fade,
-		color,
-		background_color: backgroundColor
-	} = disc;
-
-	const innerGradient = backgroundColor === "#000000" ? "#333333" : backgroundColor;
-	const outerGradient = backgroundColor === "#000000" ? "#000000" : "#222222";
-
-	const gradient: React.CSSProperties = {
-		background: `radial-gradient(circle, ${innerGradient} 50%, ${outerGradient} 100%)`
-	};
+	const { name, brand, category, stability, speed, glide, turn, fade, color, background_color } = disc;
 
 	return (
 		<div className="disc-container">
 			<div
 				className="disc"
-				style={{ ...gradient, color }}
+				style={{ color, background: getDiscGradientBackground(background_color) }}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 				onClick={() => showDiscDetailModal(disc)}

@@ -149,10 +149,12 @@ h1 {
 }
 
 .disc-detail-btn {
-	width: 6.5vmin !important;
-	height: 6.5vmin !important;
-	min-width: 2.2rem !important;
-	min-height: 2.2rem !important;
+	width: 6vmin !important;
+	height: 6vmin !important;
+	max-width: 3rem !important;
+	max-height: 3rem !important;
+	min-width: 2rem !important;
+	min-height: 2rem !important;
 }
 
 .add-or-remove-btn {
