@@ -26,7 +26,7 @@ export const Disc = ({ disc }: DiscProps) => {
 	} = disc;
 
 	const innerGradient = backgroundColor === "#000000" ? "#333333" : backgroundColor;
-	const outerGradient = "#000000";
+	const outerGradient = backgroundColor === "#000000" ? "#000000" : "#222222";
 
 	const gradient: React.CSSProperties = {
 		background: `radial-gradient(circle, ${innerGradient} 50%, ${outerGradient} 100%)`

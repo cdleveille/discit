@@ -40,7 +40,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 		background_color: backgroundColor
 	} = disc;
 
-	const innerGradient = backgroundColor === "#000000" ? "#222222" : backgroundColor;
+	const innerGradient = backgroundColor === "#000000" ? "#333333" : backgroundColor;
 	const outerGradient = "#000000";
 
 	const gradient: React.CSSProperties = {
