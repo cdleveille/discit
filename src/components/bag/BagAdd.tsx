@@ -77,7 +77,6 @@ export const BagAddForm = ({ name, setName, onChange, error }: BagAddFormProps) 
 						onChange={onChange}
 						required
 						sx={{ width: "100%", maxWidth: "24rem" }}
-						autoFocus
 						spellCheck={false}
 						inputRef={inputRef}
 						InputProps={{
