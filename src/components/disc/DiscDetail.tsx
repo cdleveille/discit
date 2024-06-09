@@ -10,10 +10,9 @@ import AddIcon from "@mui/icons-material/Add";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { copyToClipboard, hexToRgba } from "@util";
+import { copyToClipboard } from "@util";
 
 import type { DiscDetailProps } from "@types";
-
 export const DiscDetail = ({ disc }: DiscDetailProps) => {
 	const { isSignedIn } = useAuth();
 	const { filteredDiscs, selectedBag, showDiscDetailModal } = useAppContext();
@@ -40,14 +39,18 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 		background_color: backgroundColor
 	} = disc;
 
-	const borderColor = hexToRgba(color, 0.25);
+	const outerGradient = backgroundColor === "#000000" ? "#666666" : "#000000";
+
+	const gradient: React.CSSProperties = {
+		background: `radial-gradient(circle, ${backgroundColor} 45%, ${outerGradient} 90%)`
+	};
 
 	const isDiscInBag = selectedBag?.discs.includes(id) ?? false;
 
 	return (
 		<div
 			className="disc-detail"
-			style={{ color, backgroundColor, border: `1.5vmin solid ${borderColor}` }}
+			style={{ ...gradient, color, border: `0.5vmin solid rgba(0, 0, 0, 0.05)` }}
 			onClick={() => {
 				copyToClipboard(window.location.href);
 				toast.success("Link copied");
@@ -57,6 +60,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 				selectedBag &&
 				(isDiscInBag ? (
 					<IconButton
+						className="add-or-remove-btn disc-detail-btn absolute-centered-horizontally"
 						aria-label="remove"
 						onClick={async () => {
 							const res = await removeDiscFromBag({ bagId: selectedBag.id, discId: disc.id });
@@ -69,6 +73,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 					</IconButton>
 				) : (
 					<IconButton
+						className="add-or-remove-btn disc-detail-btn absolute-centered-horizontally"
 						aria-label="add"
 						onClick={async () => {
 							const res = await addDiscToBag({ bagId: selectedBag.id, discId: disc.id });
@@ -80,7 +85,6 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 						<AddIcon sx={{ fontSize: "2rem" }} />
 					</IconButton>
 				))}
-			{!isSignedIn || (!selectedBag && <div style={{ height: "3rem" }}></div>)}
 			<div className="disc-detail-name">{name}</div>
 			<div className="disc-detail-info">
 				<div>{brand}</div>
@@ -101,7 +105,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 				onClick={showPreviousDisc}
 				onKey={{ keyCode: "ArrowLeft", action: showPreviousDisc }}
 				disabled={!previousDisc}
-				className="absolute-centered-vertically"
+				className="disc-detail-btn absolute-centered-vertically"
 				style={{ left: "3vmin", cursor: !previousDisc ? "auto" : "pointer" }}
 			>
 				<NavigateBeforeIcon sx={{ fontSize: "2rem" }} />
@@ -111,7 +115,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 				onClick={showNextDisc}
 				onKey={{ keyCode: "ArrowRight", action: showNextDisc }}
 				disabled={!nextDisc}
-				className="absolute-centered-vertically"
+				className="disc-detail-btn absolute-centered-vertically"
 				style={{ right: "3vmin", cursor: !nextDisc ? "auto" : "pointer" }}
 			>
 				<NavigateNextIcon sx={{ fontSize: "2rem" }} />

@@ -4,7 +4,6 @@ import { useState } from "react";
 
 import { useAppContext } from "@hooks";
 import { Stack, Zoom } from "@mui/material";
-import { hexToRgba } from "@util";
 
 import type { DiscProps } from "@types";
 
@@ -26,13 +25,17 @@ export const Disc = ({ disc }: DiscProps) => {
 		background_color: backgroundColor
 	} = disc;
 
-	const borderColor = hexToRgba(color, 0.25);
+	const outerGradient = backgroundColor === "#000000" ? "#666666" : "#000000";
+
+	const gradient: React.CSSProperties = {
+		background: `radial-gradient(circle, ${backgroundColor} 45%, ${outerGradient} 90%)`
+	};
 
 	return (
 		<div className="disc-container">
 			<div
 				className="disc"
-				style={{ color, backgroundColor, border: `5px solid ${borderColor}` }}
+				style={{ ...gradient, color }}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 				onClick={() => showDiscDetailModal(disc)}
