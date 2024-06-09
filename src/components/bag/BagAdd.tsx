@@ -48,9 +48,8 @@ export const BagAddForm = ({ name, setName, onChange, error }: BagAddFormProps) 
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
-			// inputRef?.current?.focus?.();
-			inputRef?.current?.click?.();
-		}, 500);
+			inputRef?.current?.focus?.();
+		}, 100);
 		return () => clearTimeout(timeout);
 	}, []);
 
@@ -81,6 +80,7 @@ export const BagAddForm = ({ name, setName, onChange, error }: BagAddFormProps) 
 						spellCheck={false}
 						inputRef={inputRef}
 						InputProps={{
+							autoFocus: true,
 							endAdornment: (
 								<IconButton
 									sx={{ visibility: name ? "visible" : "hidden" }}
