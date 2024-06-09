@@ -11,7 +11,10 @@ export const UserButton = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const { showSignInModal } = useAppContext();
 
-	useEffect(() => setIsLoading(false), []);
+	useEffect(() => {
+		const timeout = setTimeout(() => setIsLoading(false), 1000);
+		return () => clearTimeout(timeout);
+	}, []);
 
 	return (
 		<div className="user-btn">
