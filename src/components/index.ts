@@ -13,6 +13,7 @@ export * from "./misc/Header";
 export * from "./misc/IconButton";
 export * from "./misc/Modal";
 export * from "./misc/ScrollToTop";
-export * from "./user/Auth";
 export * from "./user/Settings";
 export * from "./user/SettingsButton";
+export * from "./user/SignIn";
+export * from "./user/UserButton";

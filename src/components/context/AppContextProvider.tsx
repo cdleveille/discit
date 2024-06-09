@@ -8,6 +8,7 @@ import { AppContext } from "@contexts";
 import { usePrevious, useQueryString } from "@hooks";
 
 import type { AppContextProviderProps, Bag, Disc, ModalProps, ViewOption } from "@types";
+
 export const AppContextProvider = ({
 	children,
 	discs: _discs,

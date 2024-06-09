@@ -1,6 +1,6 @@
 "use client";
 
-import { SignedIn, SignedOut, SignIn as ClerkSignIn, UserButton as ClerkUserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton as ClerkUserButton } from "@clerk/nextjs";
 import { useAppContext } from "@hooks";
 import Icon from "@mui/icons-material/AccountCircle";
 import { CircularProgress, IconButton } from "@mui/material";
@@ -40,22 +40,3 @@ export const UserButton = () => {
 		</>
 	);
 };
-
-export const SignIn = () => (
-	<ClerkSignIn
-		appearance={{
-			elements: {
-				headerTitle: {
-					fontSize: "2rem"
-				},
-				headerSubtitle: {
-					fontSize: "1rem",
-					marginTop: "1rem"
-				}
-			}
-		}}
-		routing="hash"
-		forceRedirectUrl={"/?view=bag"}
-		afterSignOutUrl={"/"}
-	/>
-);

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 
+import { ClerkProvider } from "@clerk/nextjs";
 import { APP_INFO } from "@constants";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -14,12 +15,14 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={inter.className}>
-				<Toaster position="bottom-center" toastOptions={{ duration: 3000 }} />
-				{children}
-			</body>
-		</html>
+		<ClerkProvider>
+			<html lang="en">
+				<body className={inter.className}>
+					{children}
+					<Toaster position="bottom-center" toastOptions={{ duration: 3000 }} />
+				</body>
+			</html>
+		</ClerkProvider>
 	);
 }
 
