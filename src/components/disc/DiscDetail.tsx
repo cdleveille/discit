@@ -27,7 +27,7 @@ export const DiscDetail = ({ disc }: DiscDetailProps) => {
 
 	const isDiscInBag = selectedBag?.discs.includes(id) ?? false;
 
-	const iconFontSize = "max(1rem, min(2rem, 4vmin))";
+	const iconFontSize = "max(1.5rem, min(2rem, 4vmin))";
 
 	return (
 		<div

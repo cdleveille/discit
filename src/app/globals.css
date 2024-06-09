@@ -153,8 +153,8 @@ h1 {
 	height: 6vmin !important;
 	max-width: 3rem !important;
 	max-height: 3rem !important;
-	min-width: 2rem !important;
-	min-height: 2rem !important;
+	min-width: 2.5rem !important;
+	min-height: 2.5rem !important;
 }
 
 .add-or-remove-btn {
