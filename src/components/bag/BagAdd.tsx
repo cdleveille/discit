@@ -49,7 +49,7 @@ export const BagAddForm = ({ name, setName, onChange, error }: BagAddFormProps) 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			inputRef?.current?.focus?.();
-		}, 100);
+		}, 500);
 		return () => clearTimeout(timeout);
 	}, []);
 
