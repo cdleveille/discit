@@ -18,7 +18,7 @@ export default async function HomePage({
 		<AppContextProvider
 			discs={discs}
 			bags={bags}
-			initialView={view as ViewOption}
+			initialView={(Array.isArray(view) ? view[0] : view) as ViewOption}
 			initialDiscSlug={Array.isArray(disc) ? disc[0] : disc}
 		>
 			<main>

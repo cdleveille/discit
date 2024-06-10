@@ -248,7 +248,6 @@ export const Filters = () => {
 								setFilterValues(INITIAL_FILTER_VALUES);
 								setFiltersEnabled(INITIAL_FILTERS_ENABLED);
 							}}
-							// isTransparent
 						>
 							<ClearIcon sx={{ fontSize: "1rem" }} />
 						</IconButton>
