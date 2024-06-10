@@ -26,7 +26,7 @@ export const Settings = () => {
 						checked={filtersEnabled.brand}
 						onChange={e => {
 							setFiltersEnabled(current => ({ ...current, brand: e.target.checked }));
-							setFilterValues(current => ({ ...current, brands: INITIAL_FILTER_VALUES.brands }));
+							setFilterValues(current => ({ ...current, brands: INITIAL_FILTER_VALUES.brand }));
 						}}
 					/>
 				</Stack>
@@ -36,7 +36,7 @@ export const Settings = () => {
 						checked={filtersEnabled.category}
 						onChange={e => {
 							setFiltersEnabled(current => ({ ...current, category: e.target.checked }));
-							setFilterValues(current => ({ ...current, categories: INITIAL_FILTER_VALUES.categories }));
+							setFilterValues(current => ({ ...current, categories: INITIAL_FILTER_VALUES.category }));
 						}}
 					/>
 				</Stack>
@@ -48,7 +48,7 @@ export const Settings = () => {
 							setFiltersEnabled(current => ({ ...current, stability: e.target.checked }));
 							setFilterValues(current => ({
 								...current,
-								stabilities: INITIAL_FILTER_VALUES.stabilities
+								stabilities: INITIAL_FILTER_VALUES.stability
 							}));
 						}}
 					/>
@@ -59,7 +59,7 @@ export const Settings = () => {
 						checked={filtersEnabled.speed}
 						onChange={e => {
 							setFiltersEnabled(current => ({ ...current, speed: e.target.checked }));
-							setFilterValues(current => ({ ...current, speeds: INITIAL_FILTER_VALUES.speeds }));
+							setFilterValues(current => ({ ...current, speeds: INITIAL_FILTER_VALUES.speed }));
 						}}
 					/>
 				</Stack>
@@ -69,7 +69,7 @@ export const Settings = () => {
 						checked={filtersEnabled.glide}
 						onChange={e => {
 							setFiltersEnabled(current => ({ ...current, glide: e.target.checked }));
-							setFilterValues(current => ({ ...current, glides: INITIAL_FILTER_VALUES.glides }));
+							setFilterValues(current => ({ ...current, glides: INITIAL_FILTER_VALUES.glide }));
 						}}
 					/>
 				</Stack>
@@ -79,7 +79,7 @@ export const Settings = () => {
 						checked={filtersEnabled.turn}
 						onChange={e => {
 							setFiltersEnabled(current => ({ ...current, turn: e.target.checked }));
-							setFilterValues(current => ({ ...current, turns: INITIAL_FILTER_VALUES.turns }));
+							setFilterValues(current => ({ ...current, turns: INITIAL_FILTER_VALUES.turn }));
 						}}
 					/>
 				</Stack>
@@ -89,7 +89,7 @@ export const Settings = () => {
 						checked={filtersEnabled.fade}
 						onChange={e => {
 							setFiltersEnabled(current => ({ ...current, fade: e.target.checked }));
-							setFilterValues(current => ({ ...current, fades: INITIAL_FILTER_VALUES.fades }));
+							setFilterValues(current => ({ ...current, fades: INITIAL_FILTER_VALUES.fade }));
 						}}
 					/>
 				</Stack>

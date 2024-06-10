@@ -8,6 +8,7 @@ export * from "./disc/DiscCount";
 export * from "./disc/DiscDetail";
 export * from "./disc/DiscGrid";
 export * from "./misc/Controls";
+export * from "./misc/FilterChip";
 export * from "./misc/Filters";
 export * from "./misc/Header";
 export * from "./misc/IconButton";

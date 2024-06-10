@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { AppContextProvider, Controls, DiscGrid, Filters, Header, ScrollToTop } from "@components";
+import { Stack } from "@mui/material";
 import { getBags, getDiscs } from "@services";
 
 import type { ViewOption } from "@types";
@@ -20,12 +21,14 @@ export default async function HomePage({
 			initialView={view as ViewOption}
 			initialDiscSlug={Array.isArray(disc) ? disc[0] : disc}
 		>
-			<main className="flex-column-center">
-				<Header />
-				<Filters />
-				<Controls />
-				<DiscGrid />
-				<ScrollToTop />
+			<main>
+				<Stack alignItems="center" spacing="0.75rem">
+					<Header />
+					<Filters />
+					<Controls />
+					<DiscGrid />
+					<ScrollToTop />
+				</Stack>
 			</main>
 		</AppContextProvider>
 	);

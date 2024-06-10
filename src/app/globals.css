@@ -13,6 +13,10 @@ html {
 	overflow-y: scroll;
 }
 
+body {
+	min-width: 380px;
+}
+
 a {
 	text-decoration: none;
 	color: #0000ee;
@@ -35,17 +39,10 @@ h1 {
 	text-decoration: underline;
 }
 
-.flex-column-center {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 0.75rem;
-}
-
 .title {
-	margin-top: -1rem;
-	margin-left: -1rem;
-	padding-right: 2rem;
+	margin-top: -1.5rem;
+	padding-right: 1.5rem;
+	margin-bottom: -1.25rem;
 }
 
 .hidden {
@@ -161,14 +158,28 @@ h1 {
 	top: 3vmin;
 }
 
+.filter-chips {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	row-gap: 0.75rem;
+	column-gap: 0.75rem;
+	padding: 0 0.5rem 0.25rem 0.5rem;
+}
+
+.filter-chip:hover {
+	cursor: pointer;
+}
+
 .filters {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
-	margin-bottom: 1.5rem;
 	row-gap: 1rem;
 	column-gap: 1rem;
+	padding-bottom: 0.5rem;
 }
 
 .filter {
@@ -224,7 +235,6 @@ h1 {
 }
 
 .controls {
-	margin-bottom: 1rem;
 }
 
 .form {
@@ -247,23 +257,13 @@ h1 {
 }
 
 .user-btn {
-	position: absolute;
-	top: 1.25rem;
-	left: 1.25rem;
-	width: 3rem;
-	height: 3rem;
+	position: relative;
 }
 
 .user-btn-loading-spinner {
 	position: absolute;
 	top: 0.25rem;
 	left: 0.25rem;
-}
-
-.settings-btn {
-	position: absolute;
-	top: 1.25rem;
-	right: 1.25rem;
 }
 
 .bag-list-dropdown {

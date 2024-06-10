@@ -18,20 +18,20 @@ export const SCROLL_INCREMENT = 100;
 
 export const INITIAL_FILTER_VALUES: FilterValues = {
 	name: "",
-	brands: [],
-	categories: [],
-	stabilities: [],
-	speeds: [],
-	glides: [],
-	turns: [],
-	fades: []
+	brand: [],
+	category: [],
+	stability: [],
+	speed: [],
+	glide: [],
+	turn: [],
+	fade: []
 };
 
 export const INITIAL_FILTERS_ENABLED: FiltersEnabled = {
-	name: true,
-	brand: true,
-	category: true,
-	stability: true,
+	name: false,
+	brand: false,
+	category: false,
+	stability: false,
 	speed: false,
 	glide: false,
 	turn: false,

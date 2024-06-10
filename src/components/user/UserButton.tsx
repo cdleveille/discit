@@ -18,17 +18,17 @@ export const UserButton = () => {
 
 	return (
 		<div className="user-btn">
+			{isLoading && (
+				<div className="user-btn-loading-spinner">
+					<CircularProgress />
+				</div>
+			)}
 			<SignedOut>
 				<IconButton aria-label="sign-in" sx={{ width: "3rem", height: "3rem" }} onClick={showSignInModal}>
 					<Icon color="disabled" sx={{ fontSize: "57px" }} />
 				</IconButton>
 			</SignedOut>
 			<SignedIn>
-				{isLoading && (
-					<div className="user-btn-loading-spinner">
-						<CircularProgress />
-					</div>
-				)}
 				<ClerkUserButton
 					appearance={{
 						elements: {

@@ -40,24 +40,24 @@ export type AppContext = {
 
 export type FilterOptions = {
 	names: string[];
-	brands: string[];
-	categories: string[];
-	stabilities: string[];
-	speeds: string[];
-	glides: string[];
-	turns: string[];
-	fades: string[];
+	brand: string[];
+	category: string[];
+	stability: string[];
+	speed: string[];
+	glide: string[];
+	turn: string[];
+	fade: string[];
 };
 
 export type FilterValues = {
 	name: string;
-	brands: string[];
-	categories: string[];
-	stabilities: string[];
-	speeds: string[];
-	glides: string[];
-	turns: string[];
-	fades: string[];
+	brand: string[];
+	category: string[];
+	stability: string[];
+	speed: string[];
+	glide: string[];
+	turn: string[];
+	fade: string[];
 };
 
 export type FiltersEnabled = {

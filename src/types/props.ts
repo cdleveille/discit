@@ -70,3 +70,9 @@ export type IconButtonProps = {
 		action: () => void;
 	};
 };
+
+export type FilterChipProps = {
+	label: string;
+	isSelected: boolean;
+	onClick: () => void;
+};

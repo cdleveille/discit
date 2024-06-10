@@ -2,11 +2,13 @@
 
 import { SyntheticEvent, useEffect, useState } from "react";
 
-import { View } from "@constants";
+import { FilterChip, IconButton } from "@components";
+import { INITIAL_FILTER_VALUES, INITIAL_FILTERS_ENABLED, View } from "@constants";
 import { useAppContext } from "@hooks";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import { Autocomplete, Checkbox, TextField } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
+import { Autocomplete, Checkbox, Stack, TextField } from "@mui/material";
 import { getArrayIntersection } from "@util";
 
 import type { FilterOptions } from "@types";
@@ -14,37 +16,46 @@ import type { FilterOptions } from "@types";
 export const Filters = () => {
 	const [filterOptions, setFilterOptions] = useState<FilterOptions>({
 		names: [],
-		brands: [],
-		categories: [],
-		stabilities: [],
-		speeds: [],
-		glides: [],
-		turns: [],
-		fades: []
+		brand: [],
+		category: [],
+		stability: [],
+		speed: [],
+		glide: [],
+		turn: [],
+		fade: []
 	});
 
-	const { discs, setFilteredDiscs, filterValues, setFilterValues, filtersEnabled, selectedBag, view } =
-		useAppContext();
+	const {
+		discs,
+		setFilteredDiscs,
+		filterValues,
+		setFilterValues,
+		filtersEnabled,
+		setFiltersEnabled,
+		selectedBag,
+		view
+	} = useAppContext();
+
 	const isBagView = view === View.BAG;
 
 	useEffect(() => {
 		const bagDiscs = selectedBag ? discs.filter(disc => selectedBag.discs.includes(disc.id)) : [];
 		const baseDiscs = isBagView ? bagDiscs : discs;
-		const { name, brands, categories, stabilities, speeds, glides, turns, fades } = filterValues;
+		const { name, brand, category, stability, speed, glide, turn, fade } = filterValues;
 		const discsFilteredByName = baseDiscs.filter(
 			disc => !name || disc.name.toLowerCase().includes(name.toLowerCase())
 		);
-		const discsFilteredByBrand = baseDiscs.filter(disc => brands.length === 0 || brands.includes(disc.brand));
+		const discsFilteredByBrand = baseDiscs.filter(disc => brand.length === 0 || brand.includes(disc.brand));
 		const discsFilteredByCategory = baseDiscs.filter(
-			disc => categories.length === 0 || categories.includes(disc.category)
+			disc => category.length === 0 || category.includes(disc.category)
 		);
 		const discsFilteredByStability = baseDiscs.filter(
-			disc => stabilities.length === 0 || stabilities.includes(disc.stability)
+			disc => stability.length === 0 || stability.includes(disc.stability)
 		);
-		const discsFilteredBySpeed = baseDiscs.filter(disc => speeds.length === 0 || speeds.includes(disc.speed));
-		const discsFilteredByGlide = baseDiscs.filter(disc => glides.length === 0 || glides.includes(disc.glide));
-		const discsFilteredByTurn = baseDiscs.filter(disc => turns.length === 0 || turns.includes(disc.turn));
-		const discsFilteredByFade = baseDiscs.filter(disc => fades.length === 0 || fades.includes(disc.fade));
+		const discsFilteredBySpeed = baseDiscs.filter(disc => speed.length === 0 || speed.includes(disc.speed));
+		const discsFilteredByGlide = baseDiscs.filter(disc => glide.length === 0 || glide.includes(disc.glide));
+		const discsFilteredByTurn = baseDiscs.filter(disc => turn.length === 0 || turn.includes(disc.turn));
+		const discsFilteredByFade = baseDiscs.filter(disc => fade.length === 0 || fade.includes(disc.fade));
 		const discsFiltered = getArrayIntersection(
 			discsFilteredByName,
 			discsFilteredByBrand,
@@ -57,7 +68,7 @@ export const Filters = () => {
 		);
 		setFilterOptions({
 			names: [...new Set(discsFiltered.map(disc => disc.name))],
-			brands: [
+			brand: [
 				...new Set(
 					getArrayIntersection(
 						discsFilteredByName,
@@ -72,7 +83,7 @@ export const Filters = () => {
 						.sort()
 				)
 			],
-			categories: [
+			category: [
 				...new Set(
 					getArrayIntersection(
 						discsFilteredByName,
@@ -87,7 +98,7 @@ export const Filters = () => {
 						.sort()
 				)
 			],
-			stabilities: [
+			stability: [
 				...new Set(
 					getArrayIntersection(
 						discsFilteredByName,
@@ -102,7 +113,7 @@ export const Filters = () => {
 						.sort()
 				)
 			],
-			speeds: [
+			speed: [
 				...new Set(
 					getArrayIntersection(
 						discsFilteredByName,
@@ -117,7 +128,7 @@ export const Filters = () => {
 						.sort((a, b) => parseFloat(a) - parseFloat(b))
 				)
 			],
-			glides: [
+			glide: [
 				...new Set(
 					getArrayIntersection(
 						discsFilteredByName,
@@ -132,7 +143,7 @@ export const Filters = () => {
 						.sort((a, b) => parseFloat(a) - parseFloat(b))
 				)
 			],
-			turns: [
+			turn: [
 				...new Set(
 					getArrayIntersection(
 						discsFilteredByName,
@@ -147,7 +158,7 @@ export const Filters = () => {
 						.sort((a, b) => parseFloat(a) - parseFloat(b))
 				)
 			],
-			fades: [
+			fade: [
 				...new Set(
 					getArrayIntersection(
 						discsFilteredByName,
@@ -166,260 +177,340 @@ export const Filters = () => {
 		setFilteredDiscs(discsFiltered);
 	}, [discs, setFilteredDiscs, filterValues, selectedBag, isBagView]);
 
+	const showFilters =
+		filtersEnabled.name ||
+		filtersEnabled.brand ||
+		filtersEnabled.category ||
+		filtersEnabled.stability ||
+		filtersEnabled.speed ||
+		filtersEnabled.glide ||
+		filtersEnabled.turn ||
+		filtersEnabled.fade;
+
+	type FilterOption = "name" | "brand" | "category" | "stability" | "speed" | "glide" | "turn" | "fade";
+
+	const onClickFilter = (filter: FilterOption) => {
+		const enabled = !filtersEnabled[filter];
+		if (enabled) {
+			const filtersToDisable = {} as Record<FilterOption, boolean>;
+			for (const f of Object.keys(filtersEnabled) as FilterOption[]) {
+				if (f === filter) continue;
+				if (filterValues[f] == "" || filterValues?.[f].length === 0) {
+					filtersToDisable[f] = false;
+				}
+			}
+			setFiltersEnabled(current => ({ ...current, ...filtersToDisable, [filter]: enabled }));
+		} else {
+			setFilterValues(current => ({ ...current, [filter]: INITIAL_FILTER_VALUES[filter] }));
+			setFiltersEnabled(current => ({ ...current, [filter]: false }));
+		}
+	};
+
 	return (
-		<div className="filters">
-			{filtersEnabled.name && (
-				<Autocomplete
-					className="filter"
-					options={filterOptions.names}
-					freeSolo
-					renderInput={params => (
-						<TextField
-							{...params}
-							label="Name"
-							placeholder="Name"
-							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+		<Stack spacing="1rem">
+			<div className="filter-chips">
+				<Stack direction="row" spacing="0.75rem">
+					<FilterChip label="Name" isSelected={filtersEnabled.name} onClick={() => onClickFilter("name")} />
+					<FilterChip
+						label="Brand"
+						isSelected={filtersEnabled.brand}
+						onClick={() => onClickFilter("brand")}
+					/>
+					<FilterChip
+						label="Category"
+						isSelected={filtersEnabled.category}
+						onClick={() => onClickFilter("category")}
+					/>
+					<FilterChip
+						label="Stability"
+						isSelected={filtersEnabled.stability}
+						onClick={() => onClickFilter("stability")}
+					/>
+				</Stack>
+				<Stack direction="row" spacing="0.75rem">
+					<FilterChip
+						label="Speed"
+						isSelected={filtersEnabled.speed}
+						onClick={() => onClickFilter("speed")}
+					/>
+					<FilterChip
+						label="Glide"
+						isSelected={filtersEnabled.glide}
+						onClick={() => onClickFilter("glide")}
+					/>
+					<FilterChip label="Turn" isSelected={filtersEnabled.turn} onClick={() => onClickFilter("turn")} />
+					<FilterChip label="Fade" isSelected={filtersEnabled.fade} onClick={() => onClickFilter("fade")} />
+					{showFilters && (
+						<IconButton
+							className="clear-filters"
+							style={{ width: "2rem", height: "2rem" }}
+							onClick={() => {
+								setFilterValues(INITIAL_FILTER_VALUES);
+								setFiltersEnabled(INITIAL_FILTERS_ENABLED);
+							}}
+							// isTransparent
+						>
+							<ClearIcon sx={{ fontSize: "1rem" }} />
+						</IconButton>
+					)}
+				</Stack>
+			</div>
+			{showFilters && (
+				<div className="filters">
+					{filtersEnabled.name && (
+						<Autocomplete
+							className="filter"
+							options={filterOptions.names}
+							freeSolo
+							renderInput={params => (
+								<TextField
+									{...params}
+									label="Name"
+									placeholder="Name"
+									InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+								/>
+							)}
+							value={filterValues.name}
+							onInputChange={(_e: SyntheticEvent, value: string) =>
+								setFilterValues(current => ({ ...current, name: value }))
+							}
 						/>
 					)}
-					value={filterValues.name}
-					onInputChange={(_e: SyntheticEvent, value: string) =>
-						setFilterValues(current => ({ ...current, name: value }))
-					}
-				/>
-			)}
-			{filtersEnabled.brand && (
-				<Autocomplete
-					className="filter"
-					multiple
-					options={filterOptions.brands}
-					disableCloseOnSelect
-					getOptionLabel={option => option}
-					renderOption={(props, option, { selected }) => (
-						<li {...props} key={option}>
-							<Checkbox
-								icon={icon}
-								checkedIcon={checkedIcon}
-								style={{ marginRight: 8 }}
-								checked={selected}
-								key={option}
-							/>
-							{option}
-						</li>
-					)}
-					getOptionKey={option => option}
-					renderInput={params => (
-						<TextField
-							{...params}
-							label="Brand"
-							placeholder="Brand"
-							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+					{filtersEnabled.brand && (
+						<Autocomplete
+							className="filter"
+							multiple
+							options={filterOptions.brand}
+							disableCloseOnSelect
+							getOptionLabel={option => option}
+							renderOption={(props, option, { selected }) => (
+								<li {...props} key={option}>
+									<Checkbox
+										icon={icon}
+										checkedIcon={checkedIcon}
+										style={{ marginRight: 8 }}
+										checked={selected}
+										key={option}
+									/>
+									{option}
+								</li>
+							)}
+							getOptionKey={option => option}
+							renderInput={params => (
+								<TextField
+									{...params}
+									label="Brand"
+									placeholder="Brand"
+									InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+								/>
+							)}
+							value={filterValues.brand}
+							onChange={(_e: SyntheticEvent, value: string[]) =>
+								setFilterValues(current => ({ ...current, brand: value }))
+							}
 						/>
 					)}
-					value={filterValues.brands}
-					onChange={(_e: SyntheticEvent, value: string[]) =>
-						setFilterValues(current => ({ ...current, brands: value }))
-					}
-				/>
-			)}
-			{filtersEnabled.category && (
-				<Autocomplete
-					className="filter"
-					multiple
-					options={filterOptions.categories}
-					disableCloseOnSelect
-					getOptionLabel={option => option}
-					renderOption={(props, option, { selected }) => (
-						<li {...props} key={option}>
-							<Checkbox
-								icon={icon}
-								checkedIcon={checkedIcon}
-								style={{ marginRight: 8 }}
-								checked={selected}
-								key={option}
-							/>
-							{option}
-						</li>
-					)}
-					renderInput={params => (
-						<TextField
-							{...params}
-							label="Category"
-							placeholder="Category"
-							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+					{filtersEnabled.category && (
+						<Autocomplete
+							className="filter"
+							multiple
+							options={filterOptions.category}
+							disableCloseOnSelect
+							getOptionLabel={option => option}
+							renderOption={(props, option, { selected }) => (
+								<li {...props} key={option}>
+									<Checkbox
+										icon={icon}
+										checkedIcon={checkedIcon}
+										style={{ marginRight: 8 }}
+										checked={selected}
+										key={option}
+									/>
+									{option}
+								</li>
+							)}
+							renderInput={params => (
+								<TextField
+									{...params}
+									label="Category"
+									placeholder="Category"
+									InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+								/>
+							)}
+							value={filterValues.category}
+							onChange={(_e: SyntheticEvent, value: string[]) =>
+								setFilterValues(current => ({ ...current, category: value }))
+							}
 						/>
 					)}
-					value={filterValues.categories}
-					onChange={(_e: SyntheticEvent, value: string[]) =>
-						setFilterValues(current => ({ ...current, categories: value }))
-					}
-				/>
-			)}
-			{filtersEnabled.stability && (
-				<Autocomplete
-					className="filter"
-					multiple
-					options={filterOptions.stabilities}
-					disableCloseOnSelect
-					getOptionLabel={option => option}
-					renderOption={(props, option, { selected }) => (
-						<li {...props} key={option}>
-							<Checkbox
-								icon={icon}
-								checkedIcon={checkedIcon}
-								style={{ marginRight: 8 }}
-								checked={selected}
-								key={option}
-							/>
-							{option}
-						</li>
-					)}
-					renderInput={params => (
-						<TextField
-							{...params}
-							label="Stability"
-							placeholder="Stability"
-							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+					{filtersEnabled.stability && (
+						<Autocomplete
+							className="filter"
+							multiple
+							options={filterOptions.stability}
+							disableCloseOnSelect
+							getOptionLabel={option => option}
+							renderOption={(props, option, { selected }) => (
+								<li {...props} key={option}>
+									<Checkbox
+										icon={icon}
+										checkedIcon={checkedIcon}
+										style={{ marginRight: 8 }}
+										checked={selected}
+										key={option}
+									/>
+									{option}
+								</li>
+							)}
+							renderInput={params => (
+								<TextField
+									{...params}
+									label="Stability"
+									placeholder="Stability"
+									InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+								/>
+							)}
+							value={filterValues.stability}
+							onChange={(_e: SyntheticEvent, value: string[]) =>
+								setFilterValues(current => ({ ...current, stability: value }))
+							}
 						/>
 					)}
-					value={filterValues.stabilities}
-					onChange={(_e: SyntheticEvent, value: string[]) =>
-						setFilterValues(current => ({ ...current, stabilities: value }))
-					}
-				/>
-			)}
-			{filtersEnabled.speed && (
-				<Autocomplete
-					className="filter"
-					multiple
-					options={filterOptions.speeds}
-					disableCloseOnSelect
-					getOptionLabel={option => option}
-					renderOption={(props, option, { selected }) => (
-						<li {...props} key={option}>
-							<Checkbox
-								icon={icon}
-								checkedIcon={checkedIcon}
-								style={{ marginRight: 8 }}
-								checked={selected}
-								key={option}
-							/>
-							{option}
-						</li>
-					)}
-					renderInput={params => (
-						<TextField
-							{...params}
-							label="Speed"
-							placeholder="Speed"
-							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+					{filtersEnabled.speed && (
+						<Autocomplete
+							className="filter"
+							multiple
+							options={filterOptions.speed}
+							disableCloseOnSelect
+							getOptionLabel={option => option}
+							renderOption={(props, option, { selected }) => (
+								<li {...props} key={option}>
+									<Checkbox
+										icon={icon}
+										checkedIcon={checkedIcon}
+										style={{ marginRight: 8 }}
+										checked={selected}
+										key={option}
+									/>
+									{option}
+								</li>
+							)}
+							renderInput={params => (
+								<TextField
+									{...params}
+									label="Speed"
+									placeholder="Speed"
+									InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+								/>
+							)}
+							value={filterValues.speed}
+							onChange={(_e: SyntheticEvent, value: string[]) =>
+								setFilterValues(current => ({ ...current, speed: value }))
+							}
 						/>
 					)}
-					value={filterValues.speeds}
-					onChange={(_e: SyntheticEvent, value: string[]) =>
-						setFilterValues(current => ({ ...current, speeds: value }))
-					}
-				/>
-			)}
-			{filtersEnabled.glide && (
-				<Autocomplete
-					className="filter"
-					multiple
-					options={filterOptions.glides}
-					disableCloseOnSelect
-					getOptionLabel={option => option}
-					renderOption={(props, option, { selected }) => (
-						<li {...props} key={option}>
-							<Checkbox
-								icon={icon}
-								checkedIcon={checkedIcon}
-								style={{ marginRight: 8 }}
-								checked={selected}
-								key={option}
-							/>
-							{option}
-						</li>
-					)}
-					renderInput={params => (
-						<TextField
-							{...params}
-							label="Glide"
-							placeholder="Glide"
-							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+					{filtersEnabled.glide && (
+						<Autocomplete
+							className="filter"
+							multiple
+							options={filterOptions.glide}
+							disableCloseOnSelect
+							getOptionLabel={option => option}
+							renderOption={(props, option, { selected }) => (
+								<li {...props} key={option}>
+									<Checkbox
+										icon={icon}
+										checkedIcon={checkedIcon}
+										style={{ marginRight: 8 }}
+										checked={selected}
+										key={option}
+									/>
+									{option}
+								</li>
+							)}
+							renderInput={params => (
+								<TextField
+									{...params}
+									label="Glide"
+									placeholder="Glide"
+									InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+								/>
+							)}
+							value={filterValues.glide}
+							onChange={(_e: SyntheticEvent, value: string[]) =>
+								setFilterValues(current => ({ ...current, glide: value }))
+							}
 						/>
 					)}
-					value={filterValues.glides}
-					onChange={(_e: SyntheticEvent, value: string[]) =>
-						setFilterValues(current => ({ ...current, glides: value }))
-					}
-				/>
-			)}
-			{filtersEnabled.turn && (
-				<Autocomplete
-					className="filter"
-					multiple
-					options={filterOptions.turns}
-					disableCloseOnSelect
-					getOptionLabel={option => option}
-					renderOption={(props, option, { selected }) => (
-						<li {...props} key={option}>
-							<Checkbox
-								icon={icon}
-								checkedIcon={checkedIcon}
-								style={{ marginRight: 8 }}
-								checked={selected}
-								key={option}
-							/>
-							{option}
-						</li>
-					)}
-					renderInput={params => (
-						<TextField
-							{...params}
-							label="Turn"
-							placeholder="Turn"
-							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+					{filtersEnabled.turn && (
+						<Autocomplete
+							className="filter"
+							multiple
+							options={filterOptions.turn}
+							disableCloseOnSelect
+							getOptionLabel={option => option}
+							renderOption={(props, option, { selected }) => (
+								<li {...props} key={option}>
+									<Checkbox
+										icon={icon}
+										checkedIcon={checkedIcon}
+										style={{ marginRight: 8 }}
+										checked={selected}
+										key={option}
+									/>
+									{option}
+								</li>
+							)}
+							renderInput={params => (
+								<TextField
+									{...params}
+									label="Turn"
+									placeholder="Turn"
+									InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+								/>
+							)}
+							value={filterValues.turn}
+							onChange={(_e: SyntheticEvent, value: string[]) =>
+								setFilterValues(current => ({ ...current, turn: value }))
+							}
 						/>
 					)}
-					value={filterValues.turns}
-					onChange={(_e: SyntheticEvent, value: string[]) =>
-						setFilterValues(current => ({ ...current, turns: value }))
-					}
-				/>
-			)}
-			{filtersEnabled.fade && (
-				<Autocomplete
-					className="filter"
-					multiple
-					options={filterOptions.fades}
-					disableCloseOnSelect
-					getOptionLabel={option => option}
-					renderOption={(props, option, { selected }) => (
-						<li {...props} key={option}>
-							<Checkbox
-								icon={icon}
-								checkedIcon={checkedIcon}
-								style={{ marginRight: 8 }}
-								checked={selected}
-								key={option}
-							/>
-							{option}
-						</li>
-					)}
-					renderInput={params => (
-						<TextField
-							{...params}
-							label="Fade"
-							placeholder="Fade"
-							InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+					{filtersEnabled.fade && (
+						<Autocomplete
+							className="filter"
+							multiple
+							options={filterOptions.fade}
+							disableCloseOnSelect
+							getOptionLabel={option => option}
+							renderOption={(props, option, { selected }) => (
+								<li {...props} key={option}>
+									<Checkbox
+										icon={icon}
+										checkedIcon={checkedIcon}
+										style={{ marginRight: 8 }}
+										checked={selected}
+										key={option}
+									/>
+									{option}
+								</li>
+							)}
+							renderInput={params => (
+								<TextField
+									{...params}
+									label="Fade"
+									placeholder="Fade"
+									InputProps={{ ...params.InputProps, sx: { borderRadius: "1rem" } }}
+								/>
+							)}
+							value={filterValues.fade}
+							onChange={(_e: SyntheticEvent, value: string[]) =>
+								setFilterValues(current => ({ ...current, fade: value }))
+							}
 						/>
 					)}
-					value={filterValues.fades}
-					onChange={(_e: SyntheticEvent, value: string[]) =>
-						setFilterValues(current => ({ ...current, fades: value }))
-					}
-				/>
+				</div>
 			)}
-		</div>
+		</Stack>
 	);
 };
 
