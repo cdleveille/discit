@@ -33,7 +33,7 @@ export type AppContext = {
 	showNewBagModal: () => void;
 	showEditBagModal: (bag: Bag) => void;
 	showBagDeleteModal: (bag: Bag) => void;
-	showSettingsModal: () => void;
+	showAboutModal: () => void;
 	view: ViewOption;
 	setView: Dispatch<SetStateAction<ViewOption>>;
 };

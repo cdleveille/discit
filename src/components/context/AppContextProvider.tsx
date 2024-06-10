@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { BagAdd, BagDelete, BagEdit, DiscDetail, Modal, Settings, SignIn } from "@components";
+import { About, BagAdd, BagDelete, BagEdit, DiscDetail, Modal, SignIn } from "@components";
 import { INITIAL_FILTER_VALUES, INITIAL_FILTERS_ENABLED, View } from "@constants";
 import { AppContext } from "@contexts";
 import { usePrevious, useQueryString } from "@hooks";
@@ -82,9 +82,9 @@ export const AppContextProvider = ({
 		setModalContent(<BagDelete bag={bag} onClose={onModalClose} />);
 	};
 
-	const showSettingsModal = () => {
+	const showAboutModal = () => {
 		setModalProps({ showCloseBtn: true });
-		setModalContent(<Settings />);
+		setModalContent(<About />);
 	};
 
 	const [modalContent, setModalContent] = useState<React.ReactNode>(
@@ -111,7 +111,7 @@ export const AppContextProvider = ({
 				showNewBagModal,
 				showEditBagModal,
 				showBagDeleteModal,
-				showSettingsModal,
+				showAboutModal,
 				view,
 				setView
 			}}

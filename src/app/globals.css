@@ -22,6 +22,10 @@ a {
 	color: #0000ee;
 }
 
+a:hover {
+	text-decoration: underline;
+}
+
 a:visited {
 	color: #0000ee;
 }
@@ -317,4 +321,15 @@ h1 {
 	background-color: #bebebe;
 	outline: 2px solid #757575;
 	pointer-events: none;
+}
+
+.about {
+	background-color: white;
+	width: calc(100vw - 2rem);
+	max-width: 32rem;
+	padding: 3.5rem 1.5rem 3.5rem 1.5rem;
+	border-radius: 1rem;
+	min-width: 240px;
+	font-size: 1.25rem;
+	text-align: center;
 }

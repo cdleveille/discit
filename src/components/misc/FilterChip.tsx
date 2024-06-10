@@ -9,7 +9,10 @@ export const FilterChip = ({ label, isSelected, onClick }: FilterChipProps) => {
 			variant="filled"
 			label={label}
 			onClick={onClick}
-			sx={{ backgroundColor: isSelected ? "#bebebe !important" : "#ebebeb" }}
+			sx={{
+				backgroundColor: isSelected ? "#bebebe !important" : "#ebebeb",
+				outline: isSelected ? "2px solid #757575" : "none"
+			}}
 		/>
 	);
 };
