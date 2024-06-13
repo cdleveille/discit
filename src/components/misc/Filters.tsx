@@ -273,6 +273,8 @@ export const Filters = () => {
 							onInputChange={(_e: SyntheticEvent, value: string) =>
 								setFilterValues(current => ({ ...current, name: value }))
 							}
+							autoFocus
+							openOnFocus
 						/>
 					)}
 					{filtersEnabled.brand && (
@@ -307,6 +309,8 @@ export const Filters = () => {
 							onChange={(_e: SyntheticEvent, value: string[]) =>
 								setFilterValues(current => ({ ...current, brand: value }))
 							}
+							autoFocus
+							openOnFocus
 						/>
 					)}
 					{filtersEnabled.category && (
@@ -340,6 +344,8 @@ export const Filters = () => {
 							onChange={(_e: SyntheticEvent, value: string[]) =>
 								setFilterValues(current => ({ ...current, category: value }))
 							}
+							autoFocus
+							openOnFocus
 						/>
 					)}
 					{filtersEnabled.stability && (
@@ -373,6 +379,8 @@ export const Filters = () => {
 							onChange={(_e: SyntheticEvent, value: string[]) =>
 								setFilterValues(current => ({ ...current, stability: value }))
 							}
+							autoFocus
+							openOnFocus
 						/>
 					)}
 					{filtersEnabled.speed && (
@@ -406,6 +414,8 @@ export const Filters = () => {
 							onChange={(_e: SyntheticEvent, value: string[]) =>
 								setFilterValues(current => ({ ...current, speed: value }))
 							}
+							autoFocus
+							openOnFocus
 						/>
 					)}
 					{filtersEnabled.glide && (
@@ -439,6 +449,8 @@ export const Filters = () => {
 							onChange={(_e: SyntheticEvent, value: string[]) =>
 								setFilterValues(current => ({ ...current, glide: value }))
 							}
+							autoFocus
+							openOnFocus
 						/>
 					)}
 					{filtersEnabled.turn && (
@@ -472,6 +484,8 @@ export const Filters = () => {
 							onChange={(_e: SyntheticEvent, value: string[]) =>
 								setFilterValues(current => ({ ...current, turn: value }))
 							}
+							autoFocus
+							openOnFocus
 						/>
 					)}
 					{filtersEnabled.fade && (
@@ -505,6 +519,8 @@ export const Filters = () => {
 							onChange={(_e: SyntheticEvent, value: string[]) =>
 								setFilterValues(current => ({ ...current, fade: value }))
 							}
+							autoFocus
+							openOnFocus
 						/>
 					)}
 				</div>
