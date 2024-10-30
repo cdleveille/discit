@@ -4,7 +4,6 @@ import { revalidateTag } from "next/cache";
 
 import { RequestMethod } from "@constants";
 import { config } from "@services";
-
 import type {
 	AddDiscToBagParams,
 	Bag,
@@ -80,7 +79,7 @@ export const deleteBag = async ({ bagId }: DeleteBagParams) => {
 const request = ({ path, method, body, tags, cache }: RequestParams) =>
 	fetch(`${config.API_URL}${path}`, {
 		method,
-		headers: { Authorization: `Bearer ${config.API_KEY}` },
+		headers: { Authorization: `Bearer ${config.API_KEY}`, "Content-Type": "application/json" },
 		body: JSON.stringify(body),
 		next: { tags },
 		...(cache && { cache })
