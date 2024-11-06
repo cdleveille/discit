@@ -35,7 +35,7 @@ export const getBags = async ({ userId }: GetBagParams) =>
 export const createBag = async ({ userId, bagName }: CreateBagParams) => {
 	revalidateTag("bag");
 	return requestJson<Bag>({
-		path: "/bag/create",
+		path: "/bag",
 		method: RequestMethod.POST,
 		body: { user_id: userId, name: bagName }
 	});
@@ -44,7 +44,7 @@ export const createBag = async ({ userId, bagName }: CreateBagParams) => {
 export const editBagName = async ({ bagId, bagName }: EditBagNameParams) => {
 	revalidateTag("bag");
 	return requestJson<Bag>({
-		path: "/bag/update-name",
+		path: "/bag",
 		method: RequestMethod.PATCH,
 		body: { id: bagId, name: bagName }
 	});
@@ -71,7 +71,7 @@ export const removeDiscFromBag = async ({ bagId, discId }: RemoveDiscFromBagPara
 export const deleteBag = async ({ bagId }: DeleteBagParams) => {
 	revalidateTag("bag");
 	return requestJson<Bag>({
-		path: `/bag/delete/${bagId}`,
+		path: `/bag/${bagId}`,
 		method: RequestMethod.DELETE
 	});
 };
