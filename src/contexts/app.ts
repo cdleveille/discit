@@ -2,6 +2,6 @@
 
 import { createContext } from "react";
 
-import type { AppContext as TAppContext } from "@types";
+import type { TAppContext } from "@/types";
 
 export const AppContext = createContext<TAppContext | null>(null);
