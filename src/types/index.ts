@@ -7,6 +7,7 @@ export type TDisc = shared.TDisc;
 export type TAppContext = {
 	view: View;
 	setView: TReactStateSetter<View>;
+	showDiscDetail: (disc: TDisc) => void;
 };
 
 export type TDataContext = {

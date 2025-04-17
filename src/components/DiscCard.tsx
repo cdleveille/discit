@@ -1,10 +1,13 @@
 "use client";
 
+import { useApp } from "@/hooks";
 import type { TDisc } from "@/types";
 
 import Link from "next/link";
 
 export const DiscCard = ({ disc }: { disc: TDisc }) => {
+	const { showDiscDetail } = useApp();
+
 	return (
 		<div className="disc-card-container">
 			<Link
@@ -15,6 +18,9 @@ export const DiscCard = ({ disc }: { disc: TDisc }) => {
 					background: getDiscGradientBackground(disc.background_color)
 				}}
 				scroll={false}
+				onClick={e => {
+					showDiscDetail(disc);
+				}}
 			>
 				<div className="disc-card-name">{disc.name}</div>
 			</Link>
