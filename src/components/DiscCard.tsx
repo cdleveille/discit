@@ -16,9 +16,7 @@ export const DiscCard = ({ disc }: { disc: TDisc }) => {
 				}}
 				scroll={false}
 			>
-				<div>
-					<div className="disc-card-name">{disc.name}</div>
-				</div>
+				<div className="disc-card-name">{disc.name}</div>
 			</Link>
 		</div>
 	);

@@ -1,9 +1,9 @@
 import { CircularProgress } from "@mui/material";
 
-export const Loader = () => {
+export const Loader = ({ size, className }: { size?: string | number; className?: string }) => {
 	return (
-		<div className="loader">
-			<CircularProgress size={150} />
+		<div className={className}>
+			<CircularProgress size={size} />
 		</div>
 	);
 };

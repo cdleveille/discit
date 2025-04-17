@@ -39,7 +39,7 @@ export default function RootLayout({
 				<ClerkProvider>
 					<AppProvider>
 						<Header />
-						<Suspense fallback={<Loader />}>
+						<Suspense fallback={<Loader size={150} className="centered" />}>
 							<Body />
 						</Suspense>
 						{children}
