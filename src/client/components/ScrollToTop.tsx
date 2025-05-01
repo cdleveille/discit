@@ -2,6 +2,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 
+import { Tooltip } from "@components";
 import { useAppContext } from "@hooks";
 
 export const ScrollToTop = () => {
@@ -21,9 +22,11 @@ export const ScrollToTop = () => {
 
 	return (
 		<div className="scroll-to-top">
-			<IconButton className="icon-btn" aria-label="Scroll to top" onClick={scrollToTop}>
-				<ArrowUpwardIcon sx={{ fontSize: "2rem" }} />
-			</IconButton>
+			<Tooltip title="Scroll to top">
+				<IconButton className="icon-btn" aria-label="Scroll to top" onClick={scrollToTop}>
+					<ArrowUpwardIcon sx={{ fontSize: "2rem" }} />
+				</IconButton>
+			</Tooltip>
 		</div>
 	);
 };
