@@ -39,14 +39,17 @@ export const DiscDetail = ({ disc }: { disc: TDisc }) => {
 		setIsInBag(isDiscInBag(id, selectedBag));
 	}, [id, selectedBag]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: needed to avoid infinite state update loop
 	useEffect(() => {
 		if (!isError) return;
 		console.error(error);
 		if (!selectedBag?.name) return;
+		toast.dismiss();
 		toast.error(
-			`Error ${isInBag ? `removing ${name} from` : `adding ${name} to`} ${selectedBag.name}`
+			`Error ${isInBag ? `adding ${name} to` : `removing ${name} from`} ${selectedBag.name}`
 		);
-	}, [isError, error, isInBag, selectedBag?.name, name]);
+		setIsInBag(current => !current);
+	}, [isError, error, selectedBag?.name, name]);
 
 	return (
 		<div
