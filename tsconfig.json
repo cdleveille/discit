@@ -1,27 +1,35 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
+    "lib": ["esnext"],
     "module": "esnext",
+    "target": "esnext",
+    "types": ["@types/bun"],
     "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "noEmit": true,
+    "composite": true,
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "allowJs": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "baseUrl": ".",
     "paths": {
-      "@*": ["./src/*"]
+      "@assets": ["src/client/assets"],
+      "@components": ["src/client/components"],
+      "@constants": ["src/types/constants"],
+      "@contexts": ["src/client/contexts"],
+      "@helpers": ["src/server/helpers"],
+      "@hooks": ["src/client/hooks"],
+      "@processes": ["processes"],
+      "@types": ["src/types/abstract"],
+      "@utils": ["src/client/utils"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.json"]
 }

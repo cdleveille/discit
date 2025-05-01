@@ -1,0 +1,7 @@
+{
+  "globDirectory": "public",
+  "globPatterns": ["**/*.*"],
+  "swSrc": "public/sw.js",
+  "swDest": "public/sw.js",
+  "maximumFileSizeToCacheInBytes": 5000000
+}

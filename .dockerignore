@@ -1,0 +1,12 @@
+**/*.DS_Store
+**/*.env*
+**/*.git*
+**/.vscode
+**/node_modules
+**/public
+.dockerignore
+Dockerfile
+fly.toml
+lefthook.yml
+LICENSE
+README.md

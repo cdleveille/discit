@@ -2,11 +2,7 @@
 
 A responsive disc golf disc search engine.
 
-[discit.vercel.app](https://discit.vercel.app)
-
-## Architecture
-
-![image](https://github.com/cdleveille/discit/assets/1410481/9149c718-1810-43b3-9bf7-8e09e674aeb0)
+[discit.app](https://discit.app)
 
 ## See Also
 
