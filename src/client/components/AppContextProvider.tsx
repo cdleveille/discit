@@ -1,12 +1,11 @@
 import { useAuth } from "@clerk/clerk-react";
-import { createContext, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { About, BagAdd, BagDelete, BagEdit, DiscDetail, SignIn } from "@components";
 import { INITIAL_FILTERS_ENABLED, INITIAL_FILTER_VALUES, View } from "@constants";
+import { AppContext } from "@contexts";
 import { useApi, usePersistedState } from "@hooks";
-import type { TAppContext, TBag, TDisc, TModalProps } from "@types";
-
-export const AppContext = createContext<TAppContext | null>(null);
+import type { TBag, TDisc, TModalProps } from "@types";
 
 export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
 	const [view, setView] = usePersistedState(View.Search, "view");
