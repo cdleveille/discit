@@ -1,28 +1,22 @@
-import path from "node:path";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig({
-	plugins: [react()],
-	root: "src/client",
-	publicDir: "public",
-	server: {
-		open: true,
-		port: 3000,
-		strictPort: false,
-		hmr: true
-	},
-	resolve: {
-		extensions: [".ts", ".tsx", ".js", ".jsx"],
-		alias: {
-			"@components": path.resolve(__dirname, "./src/client/components"),
-			"@utils": path.resolve(__dirname, "./src/client/utils"),
-			"@hooks": path.resolve(__dirname, "./src/client/hooks"),
-			"@constants": path.resolve(__dirname, "./src/types/constants"),
-			"@types": path.resolve(__dirname, "./src/types/abstract"),
-			"@assets": path.resolve(__dirname, "./src/client/assets"),
-			"@helpers": path.resolve(__dirname, "./src/server/helpers"),
-			"@processes": path.resolve(__dirname, "./processes")
+export default defineConfig(({ mode }) => {
+	const env = loadEnv(mode, process.cwd());
+
+	return {
+		plugins: [react(), tsconfigPaths()],
+		root: "src/client",
+		define: {
+			"import.meta.env.VITE_ENV": JSON.stringify(env.VITE_ENV),
+			"import.meta.env.VITE_API_KEY": JSON.stringify(env.VITE_API_KEY)
+		},
+		server: {
+			open: true,
+			port: env.VITE_PORT ? Number.parseInt(env.VITE_PORT) : 3000,
+			strictPort: false,
+			hmr: true
 		}
-	}
+	};
 });

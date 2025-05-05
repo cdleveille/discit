@@ -16,8 +16,8 @@ COPY --link . .
 # install dependencies, lint project, build frontend, and compile backend
 RUN bun install --ignore-scripts --frozen-lockfile
 RUN bun run biome ci .
-RUN --mount=type=secret,id=API_KEY \
-    API_KEY="$(cat /run/secrets/API_KEY)" bun run build:prod
+RUN --mount=type=secret,id=VITE_API_KEY \
+    VITE_API_KEY="$(cat /run/secrets/VITE_API_KEY)" bun run build:prod
 RUN bun run compile
 
 # minimalist final stage for app image

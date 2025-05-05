@@ -10,11 +10,6 @@ export enum Path {
 	ClientSrc = "src/client"
 }
 
-export enum SocketEvent {
-	Connect = "connect",
-	Reload = "reload"
-}
-
 export enum View {
 	Search = "search",
 	Bag = "bag"

@@ -1,19 +1,17 @@
 import { Env } from "@constants";
 
-const IS_PROD = Bun.env.BUN_ENV === Env.Production || Bun.env.NODE_ENV === Env.Production;
+const IS_PROD = Bun.env.VITE_ENV === Env.Production;
 
-const PORT = Number.parseInt(Bun.env.PORT ?? "3000");
+const PORT = Bun.env.VITE_PORT ? Number.parseInt(Bun.env.VITE_PORT) : 3000;
 
-const WS_PORT = Number.parseInt(Bun.env.WS_PORT ?? "3001");
+const API_KEY = Bun.env.VITE_API_KEY;
 
-const HOST = Bun.env.HOST ?? "http://localhost";
-
-const API_KEY = Bun.env.API_KEY;
+if (!API_KEY) {
+	throw new Error("Required env var VITE_API_KEY is not set");
+}
 
 export const Config = {
 	IS_PROD,
 	PORT,
-	WS_PORT,
-	HOST,
 	API_KEY
 };

@@ -1,15 +1,11 @@
 import path from "node:path";
 
-import { Config, initSocket, log } from "@helpers";
+import { Env } from "@constants";
+import { Config, getContentType, log } from "@helpers";
 
 const { IS_PROD, PORT } = Config;
 
 const publicFolder = path.join(process.cwd(), "public");
-
-if (!IS_PROD) {
-	const { buildClient } = await import("@processes");
-	await Promise.all([buildClient(), initSocket()]);
-}
 
 const server = Bun.serve({
 	port: PORT,
@@ -38,15 +34,6 @@ const server = Bun.serve({
 	development: !IS_PROD
 });
 
-log.info(`HTTP server started on ${server.url.origin}`);
-
-const getContentType = (pathname: string) => {
-	if (pathname.endsWith(".html")) return "text/html";
-	if (pathname.endsWith(".css")) return "text/css";
-	if (pathname.endsWith(".js")) return "text/javascript";
-	if (pathname.endsWith(".json")) return "application/json";
-	if (pathname.endsWith(".png")) return "image/png";
-	if (pathname.endsWith(".jpg") || pathname.endsWith(".jpeg")) return "image/jpeg";
-	if (pathname.endsWith(".svg")) return "image/svg+xml";
-	return "text/plain";
-};
+log.info(
+	`HTTP server started in ${IS_PROD ? Env.Production : Env.Development} mode on ${server.url.origin}`
+);
