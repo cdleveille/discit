@@ -6,7 +6,7 @@ import { Config, log, now, parseArg } from "@helpers";
 
 const start = now();
 
-const isProd = Config.IS_PROD || (parseArg("BUN_ENV") ?? parseArg("NODE_ENV")) === Env.Production;
+const isProd = Config.IS_PROD || parseArg("ENV") === Env.Production;
 
 const src = Path.ClientSrc;
 const outdir = Path.Public;
