@@ -11,31 +11,33 @@ if (!IS_PROD) {
 	await Promise.all([buildClient(), initSocket()]);
 }
 
-Bun.serve({
+const server = Bun.serve({
 	port: PORT,
 	fetch(request) {
-		const index = new Response(Bun.file(path.join(publicFolder, "index.html")), {
-			headers: { "Content-Type": "text/html" }
-		});
-
 		const { pathname } = new URL(request.url);
 
-		if (!/\.[a-zA-Z0-9]+$/.test(pathname)) return index;
-
-		const filePath = path.join(publicFolder, pathname);
+		if (!/\.[a-zA-Z0-9]+$/.test(pathname)) {
+			return new Response(Bun.file(path.join(publicFolder, "index.html")), {
+				headers: { "Content-Type": "text/html" }
+			});
+		}
 
 		try {
+			const filePath = path.join(publicFolder, pathname);
 			return new Response(Bun.file(filePath), {
 				headers: { "Content-Type": getContentType(filePath) }
 			});
 		} catch (error) {
-			return index;
+			return new Response("Not Found", {
+				status: 404,
+				headers: { "Content-Type": "text/plain" }
+			});
 		}
 	},
 	development: !IS_PROD
 });
 
-log.info(`HTTP server started on ${HOST}:${PORT}`);
+log.info(`HTTP server started on ${server.url.origin}`);
 
 const getContentType = (pathname: string) => {
 	if (pathname.endsWith(".html")) return "text/html";
