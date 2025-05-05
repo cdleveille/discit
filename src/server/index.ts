@@ -2,7 +2,7 @@ import path from "node:path";
 
 import { Config, initSocket, log } from "@helpers";
 
-const { IS_PROD, PORT, HOST } = Config;
+const { IS_PROD, PORT } = Config;
 
 const publicFolder = path.join(process.cwd(), "public");
 
@@ -16,6 +16,7 @@ const server = Bun.serve({
 	fetch(request) {
 		const { pathname } = new URL(request.url);
 
+		// serve index.html for root and non-file requests
 		if (!/\.[a-zA-Z0-9]+$/.test(pathname)) {
 			return new Response(Bun.file(path.join(publicFolder, "index.html")), {
 				headers: { "Content-Type": "text/html" }

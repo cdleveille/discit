@@ -29,6 +29,7 @@
     "@types/bun": "latest",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
     "bun-copy-plugin": "^0.2.1",
     "chokidar": "^4.0.3",
     "discit-types": "^2.1.0",
@@ -41,6 +42,7 @@
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "typescript": "^5.8.3",
+    "vite": "^6.3.4",
     "workbox-cli": "^7.3.0",
     "workbox-routing": "^7.3.0",
     "workbox-strategies": "^7.3.0"
