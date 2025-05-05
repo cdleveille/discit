@@ -13,7 +13,7 @@
     "check": "biome check .",
     "build": "bun run scripts/build.ts",
     "build:prod": "bun run scripts/build.ts BUN_ENV=production && workbox injectManifest workbox-config.json",
-    "compile": "bun build --compile --minify --sourcemap src/server/index.ts --outfile main",
+    "compile": "bun build --compile --minify --sourcemap --bytecode src/server/index.ts --outfile main",
     "dev": "vite",
     "start": "bun run src/server/index.ts"
   },
