@@ -16,7 +16,10 @@ export default defineConfig(({ mode }) => {
 			open: true,
 			port: env.VITE_PORT ? Number.parseInt(env.VITE_PORT) : 3000,
 			strictPort: false,
-			hmr: true
+			hmr: true,
+			fs: {
+				deny: ["sw.*"]
+			}
 		}
 	};
 });
