@@ -7,7 +7,7 @@
   "type": "module",
   "module": "src/server/index.ts",
   "scripts": {
-    "prepare": "lefthook install",
+    "prepare": "bun run lefthook.ts",
     "lint": "biome lint .",
     "format": "biome format --write .",
     "check": "biome check .",
