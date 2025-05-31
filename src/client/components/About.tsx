@@ -9,7 +9,7 @@ export const About = () => {
 			<p>A responsive disc golf disc search engine.</p>
 			<p>
 				Created by{" "}
-				<a href="https://www.cdleveille.net" target="_blank" rel="noreferrer">
+				<a href="https://cdleveille.net" target="_blank" rel="noreferrer">
 					Chris Leveille
 				</a>
 				.
